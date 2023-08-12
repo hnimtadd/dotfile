@@ -11,13 +11,12 @@ if status is-interactive
 
   # aliases
 
-  alias ll "ls -l"
-  alias lla "ll -A"
-  alias g git
+  alias gor "go run"
   alias xm "sh ~/xmodmap.sh"
   alias delvs 'delete_swap_neovim;commandline -f repaint'
   alias grep 'rg'
   alias capture 'escrotum'
+  alias tbase "tmuxinator start base"
   command -qv nvim && alias vim nvim
 # set -Ux TELEGRAM_KEY "6287575718:AAGjrInryAJQoXYx6qP5YLhQLaOr8ukWjvk"
   set -gx EDITOR nvim
@@ -26,6 +25,7 @@ if status is-interactive
 
   set -gx PATH bin $PATH
   set -gx PATH ~/bin $PATH
+  # set -gx PATH ~/go/bin $PATH
   set -gx PATH ~/.local/bin $PATH
   set --export ANDROID $HOME/Android
   set --export ANDROID_HOME $ANDROID/Sdk
@@ -49,6 +49,7 @@ if status is-interactive
     case Linux
       source (dirname (status --current-filename))/config-linux.fish
       source (dirname (status --current-filename))/tmux.fish
+      source (dirname (status --current-filename))/env.fish
   end
 
 

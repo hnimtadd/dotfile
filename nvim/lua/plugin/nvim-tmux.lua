@@ -6,12 +6,12 @@ require('nvim-tmux-navigation').setup {
     up = "<C-k>",
     right = "<C-l>",
     last_active = "<C-\\>",
-    next = "<C-Space>",
+    -- next = "<C-Space>",
   }
 }
 vim.keymap.set('n', '<C-U>', '<C-U>zz')
 vim.keymap.set('n', '<C-D>', '<C-D>zz')
 vim.keymap.set('n', '<C-h>', '<cmd>NvimTmuxNavigateLeft<CR>', { silent = false })
-vim.keymap.set('n', '<C-J>', '<cmd>NvimTmuxNavigateDown<CR>', { silent = false })
-vim.keymap.set('n', '<C-K>', '<cmd>NvimTmuxNavigateUp<CR>', { silent = false })
-vim.keymap.set('n', '<C-L>', '<cmd>NvimTmuxNavigateRight<CR>', { silent = false })
+vim.keymap.set('n', '<C-j>', '<cmd>NvimTmuxNavigateDown<CR>', { silent = false })
+vim.keymap.set('n', '<C-k>', '<cmd>NvimTmuxNavigateUp<CR>', { silent = false })
+vim.keymap.set('n', '<C-l>', '<cmd>NvimTmuxNavigateRight<CR>', { silent = false })

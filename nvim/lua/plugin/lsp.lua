@@ -4,7 +4,7 @@ local handlers = {
 }
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local lsp_on_attach = function(_, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
@@ -29,15 +29,17 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
-  local diagnostics_active = true
-  vim.keymap.set('n', '<leader>d', function()
-    diagnostics_active = not diagnostics_active
-    if diagnostics_active then
-      vim.diagnostic.show()
-    else
-      vim.diagnostic.hide()
-    end
-  end)
+  nmap('<leader>dt', function()
+      print(vim.diagnostic.is_disabled())
+      if (vim.diagnostic.is_disabled() == true) then
+        -- print("open diagnostic")
+        vim.diagnostic.enable()
+      else
+        -- print("hide diagnostic")
+        vim.diagnostic.disable()
+      end
+    end,
+    '[T]oogle diagnostics')
 
 
   -- See `:help K` for why this keymap
@@ -68,18 +70,16 @@ local servers = {
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
-  -- tsserver = {},
-
-  lua_ls = {
+  tsserver                        = {},
+  lua_ls                          = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
     },
   },
-  pylsp  = {
-  },
-  html   = {},
-  gopls  = {}
+  pylsp                           = {},
+  gopls                           = {},
+  docker_compose_language_service = {}
 }
 
 -- Setup neovim lua configuration
@@ -100,7 +100,7 @@ mason_lspconfig.setup_handlers {
   function(server_name)
     require('lspconfig')[server_name].setup {
       capabilities = capabilities,
-      on_attach = on_attach,
+      on_attach = lsp_on_attach,
       settings = servers[server_name],
       handlers = handlers
     }
@@ -110,10 +110,11 @@ mason_lspconfig.setup_handlers {
 -- nvim-cmp setup
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
+local lspkind = require('lspkind')
 
 luasnip.config.setup {}
 
-cmp.setup {
+cmp.setup({
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
@@ -125,6 +126,7 @@ cmp.setup {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete {},
+    ['<C-e>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
@@ -151,5 +153,14 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'buffer' },
   },
-}
+  formatting = {
+    format = lspkind.cmp_format({ with_text = false, maxwidth = 50 })
+  }
+})
+
+vim.cmd [[
+  set completeopt=menuone,noinsert,noselect
+  highlight! default link CmpItemKind CmpItemMenuDefault
+]]

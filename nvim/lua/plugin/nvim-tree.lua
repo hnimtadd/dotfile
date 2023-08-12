@@ -5,8 +5,8 @@ local function my_on_attach(bufnr)
     return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
   end
   vim.keymap.set('n', 'L', api.tree.change_root_to_node, opts('CD'))
-  vim.keymap.set('n', 'H', api.tree.change_root_to_parent, opts('Up'))
-  vim.keymap.set('n', '<C-k>', api.node.show_info_popup, opts('Info'))
+  vim.keymap.set('n', 'H', api.tree.change_root_to_parent, opts('CD'))
+  vim.keymap.set('n', '<C-s>', api.node.show_info_popup, opts('Info'))
   vim.keymap.set('n', '<C-t>', api.node.open.tab, opts('Open: New Tab'))
   vim.keymap.set('n', '<C-f>', api.node.open.horizontal, opts('Open: Vertical Split'))
   vim.keymap.set('n', '<C-v>', api.node.open.vertical, opts('Open: Horizontal Split'))
@@ -54,15 +54,26 @@ local function my_on_attach(bufnr)
   -- api.config.mappings.default_on_attach(bufnr)
 end
 NvimTree.setup({
-  on_attach = my_on_attach,
-  view = {
+  on_attach           = my_on_attach,
+  sync_root_with_cwd  = true, -- expreriment
+  update_focused_file = {
+    enable = false,
+    update_cwd = false,
+  },
+  view                = {
     width = 30,
   },
-  renderer = {
+  renderer            = {
     group_empty = true,
   },
-  git = {
+  git                 = {
     enable = false,
+  },
+  actions             = {
+    change_dir = {
+      enable = true,
+      global = true,
+    }
   }
 })
 -- NvimTree.remove_keymaps()

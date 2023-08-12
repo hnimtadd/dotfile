@@ -15,6 +15,9 @@ require('lazy').setup({
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
   {
+    'folke/zen-mode.nvim',
+  },
+  {
     'alexghergh/nvim-tmux-navigation',
     opts = {
       disable_when_zoom = true }
@@ -42,8 +45,10 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',       opts = {} },
-
+      {
+        'j-hui/fidget.nvim',
+        tag = 'legacy',
+      },
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
     },
@@ -52,7 +57,8 @@ require('lazy').setup({
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
-    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+    dependencies = { 'onsails/lspkind-nvim', 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip',
+      'hrsh7th/cmp-buffer' },
   },
 
   -- Useful plugin to show you pending keybinds.
@@ -83,7 +89,9 @@ require('lazy').setup({
     'shaunsingh/nord.nvim',
     priority = 10001,
     config = function()
+      vim.g.nord_contrast = true
       vim.cmd.colorscheme 'nord'
+      require('nord').set()
     end,
   },
 
@@ -149,7 +157,15 @@ require('lazy').setup({
   {
     'windwp/nvim-ts-autotag'
   },
-
+  {
+    'jose-elias-alvarez/null-ls.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim'
+    }
+  },
+  {
+    "MunifTanjim/prettier.nvim",
+  },
   require('kickstart.plugins.autoformat'),
   -- note: next step on your neovim journey: add/configure additional "plugins" for kickstart
   --       these are some example plugins that i've included in the kickstart repository.
@@ -172,6 +188,7 @@ require('lazy').setup({
     event = "VeryLazy",
     version = "*",
   },
+  'AckslD/swenv.nvim',
   { 'nvim-tree/nvim-web-devicons'
   },
   { 'kwkarlwang/bufresize.nvim' },
@@ -187,6 +204,9 @@ require('lazy').setup({
     version = "*",
     dependencies = 'nvim-tree/nvim-web-devicons',
   },
+  {
+    "famiu/bufdelete.nvim"
+  },
   { import = 'custom.plugins' },
 }, {})
 require('plugin.lsp')
@@ -198,3 +218,5 @@ require('plugin.bufferline')
 require('plugin.bufresize')
 require('plugin.markdown-preview')
 require('plugin.lualine')
+require('plugin.swenv')
+require('plugin.null-ls')

@@ -17,7 +17,8 @@ return {
     -- Create an augroup that is used for managing our formatting autocmds.
     --      We need one augroup per client to make sure that multiple clients
     --      can attach to the same buffer without interfering with each other.
-    local _augroups = {}
+    local _augroups = {
+    }
     local get_augroup = function(client)
       if not _augroups[client.id] then
         local group_name = 'kickstart-lsp-format-' .. client.name
@@ -39,6 +40,9 @@ return {
         local client = vim.lsp.get_client_by_id(client_id)
         local bufnr = args.buf
 
+        if not client.supports_method("textDocument/formatting") then
+          return
+        end
         -- Only attach to clients that support document formatting
         if not client.server_capabilities.documentFormattingProvider then
           return
@@ -47,6 +51,9 @@ return {
         -- Tsserver usually works poorly. Sorry you work with bad languages
         -- You can remove this line if you know what you're doing :)
         if client.name == 'tsserver' then
+          return
+        end
+        if client.name == 'html' then
           return
         end
 
