@@ -25,15 +25,28 @@ if status is-interactive
 
   set -gx PATH bin $PATH
   set -gx PATH ~/bin $PATH
-  # set -gx PATH ~/go/bin $PATH
+  set -gx PATH ~/go/bin $PATH
+  set -gx PATH ~/.yarn/bin $PATH
   set -gx PATH ~/.local/bin $PATH
-  set --export ANDROID $HOME/Android
-  set --export ANDROID_HOME $ANDROID/Sdk
+
+  set -gx JAVA_HOME /usr/lib/jvm/default
+  set -gx PATH $JAVA_HOME/bin $PATH
+  # Android studio
+  set -gx ANDROID $HOME/Android
+  set -gx ANDROID_HOME $ANDROID/Sdk
+  set -gx PATH $ANDROID_HOME/platform-tools $PATH
+  set -gx PATH $ANDROID_HOME/build-tools $PATH
+  set -gx PATH $ANDROID_HOME/tools $PATH
+  set -gx PATH $ANDROID_HOME/tools/bin $PATH
+  set -gx PATH $ANDROID_HOME/emulator $PATH
+
+
+
   # NodeJS
   set -gx PATH node_modules/.bin $PATH
 
   # Go
-  set -g GOPATH /usr/local/go
+  set -gx GOPATH /usr/local/go
   set -gx PATH $GOPATH/bin $PATH
   set -gx ANTLR_JAR $HOME/.jar/antlr-4.9.2-complete.jar
   # NVM
