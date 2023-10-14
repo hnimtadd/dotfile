@@ -46,7 +46,7 @@ if status is-interactive
   set -gx PATH node_modules/.bin $PATH
 
   # Go
-  set -gx GOPATH /usr/local/go
+  set -gx GOPATH $HOME/go
   set -gx PATH $GOPATH/bin $PATH
   set -gx ANTLR_JAR $HOME/.jar/antlr-4.9.2-complete.jar
   # NVM
