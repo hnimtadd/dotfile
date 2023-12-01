@@ -1,6 +1,5 @@
-/*
-!/config.fish
-!/config-linux.fish
-!tmux.fish
-functions/*
-!functions/delete_swap_neovim.fish
+functions
+conf.d
+completions
+themes
+env.fish
