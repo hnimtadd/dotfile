@@ -43,6 +43,7 @@ keymap.set("n", "<C-w><right>", "<C-w>>")
 keymap.set("n", "<C-w><up>", "<C-w>+")
 keymap.set("n", "<C-w><down>", "<C-w>-")
 keymap.set("n", "<C-w>d", "<C-w>q", { desc = "delete windows" })
+keymap.set("n", "q", "<nop>")
 
 -- Diagnostics
 -- keymap.set("n", "<C-j>", function()

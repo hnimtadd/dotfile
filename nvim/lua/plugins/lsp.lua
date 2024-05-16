@@ -13,6 +13,7 @@ return {
         "tailwindcss-language-server",
         "typescript-language-server",
         "css-lsp",
+        "gopls",
       })
     end,
   },
@@ -31,7 +32,8 @@ return {
       end
 
       local eslint_root_file = { ".eslintrc", ".eslintrc.js", ".eslintrc.json" }
-      local prettier_root_files = { ".prettierrc", ".prettierrc.js", ".prettierrc.json" }
+      local prettier_root_files = { ".prettierrc", ".prettierrc.js", ".prettierrc.json", "prettier.config.js" }
+      local golang_ci_lint_files = { ".golangci.yml" }
 
       local local_opts = {
         eslint_formatting = {
@@ -50,13 +52,40 @@ return {
       }
 
       opts.sources = vim.tbl_extend("force", opts.sources, {
-        nls.builtins.formatting.prettier.with(local_opts.prettier_formatting),
-        nls.builtins.code_actions.eslint.with(local_opts.eslint_diagnostics),
-        nls.builtins.formatting.eslint.with(local_opts.eslint_formatting),
+        nls.builtins.formatting.prettier.with({
+          condition = local_opts.prettier_formatting.condition,
+          prefer_local = "node_modules/.bin",
+        }),
+        nls.builtins.diagnostics.golangci_lint.with({ condition = root_has_file(golang_ci_lint_files) }),
         nls.builtins.formatting.fish_indent,
         nls.builtins.diagnostics.fish,
         nls.builtins.formatting.stylua,
-        nls.builtins.formatting.shfmt,
+        nls.builtins.formatting.gofumpt.with({
+          condition = function()
+            return false
+          end,
+        }),
+        nls.builtins.formatting.goimports.with({
+          condition = function()
+            return false
+          end,
+        }),
+        -- nls.builtins.formatting.gofumpt,
+      })
+    end,
+  },
+  {
+    "neovim/nvim-lspconfig",
+    event = "LazyFile",
+    dependencies = {
+      { "folke/neoconf.nvim", cmd = "Neoconf", config = false, dependencies = { "nvim-lspconfig" } },
+      { "folke/neodev.nvim", opts = {} },
+      "mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+    },
+    opts = function(_, opts)
+      vim.tbl_extend("force", opts.servers or {}, {
+        eslint = true,
       })
     end,
   },

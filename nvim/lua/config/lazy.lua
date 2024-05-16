@@ -23,7 +23,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.python" },
     { import = "lazyvim.plugins.extras.lang.terraform" },
     { import = "lazyvim.plugins.extras.lang.tailwind" },
-    { import = "lazyvim.plugins.extras.lang.java" },
+    -- { import = "lazyvim.plugins.extras.lang.java" },
 
     -- { import = "lazyvim.plugins.extras.lang.rust" },
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
@@ -40,7 +40,10 @@ require("lazy").setup({
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
   install = { colorscheme = { "tokyonight", "habamax" } },
-  checker = { enabled = true }, -- automatically check for plugin updates
+  checker = {
+    enabled = true,
+    notify = false, -- get a notification when new updates are found
+  }, -- automatically check for plugin updates
   performance = {
     rtp = {
       -- disable some rtp plugins

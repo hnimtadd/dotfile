@@ -16,3 +16,11 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.wo.conceallevel = 0
   end,
 })
+--
+-- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+--   pattern = "*.go",
+--   callback = function()
+--     print("format with lsp")
+--     vim.lsp.buf.format({ async = true })
+--   end,
+-- })

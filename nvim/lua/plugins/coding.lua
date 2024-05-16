@@ -10,4 +10,12 @@ return {
     event = "VeryLazy",
     config = true,
   },
+  {
+    "stevearc/conform.nvim",
+    opts = function(_, opts)
+      vim.tbl_deep_extend("force", opts.formatters_by_ft or {}, {
+        go = { "goimports_reviser", "gofumpt" },
+      })
+    end,
+  },
 }

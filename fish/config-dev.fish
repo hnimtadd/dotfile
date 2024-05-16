@@ -1,56 +1,24 @@
 if type -q node
-    set -gx PATH node_modules/.bin $PATH
+    set -gx PATH $PATH node_modules/.bin
 end
-#
-if type -q java
-    set -gx JAVA_HOME /usr/lib/jvm/default
-    set -gx PATH $JAVA_HOME/bin $PATH
-end
-#
-#
-if type -q yarn
-    set -gx PATH ~/.yarn/bin $PATH
-end
-#
-if type -q nvm
-    # NVM
-    function __check_rvm --on-variable PWD --description 'Do nvm stuff'
-        status --is-command-substitution; and return
-        if test -f .nvmrc; and test -r .nvmrc
-            nvm use
-        else
-        end
-    end
 
-    # set default node version with nvm
-    set -gx nvm_default_version 20.10.0
+if type -q java
+    # set -gx JAVA_HOME /usr/lib/jvm/default
+    set -gx PATH $PATH $JAVA_HOME/bin
 end
-#
-#
-# if type -q go
-#     set -gx GOPATH $HOME/go
-#     set -gx PATH $GOPATH/bin $PATH
-#     set -gx PATH $GOROOT/bin $PATH
-# end
-#
-if type -q goenv
-    # setup goenv
-    status --is-interactive; and goenv init - | source
+
+if type -q yarn
+    set -gx PATH $PATH ~/.yarn/bin
 end
-#
+
 if test -d $HOME/.android
     # Android studio
     set -gx ANDROID_HOME $HOME/Library/Android/sdk
+    set -gx PATH $PATH $ANDROID_HOME/emulator
+    set -gx PATH $PATH $ANDROID_HOME/platform-tools
+    set -gx PATH $PATH $ANDROID_HOME/cmdline-tools/latest/bin
+end
 
-    set -gx PATH $ANDROID_HOME/emulator $PATH
-    set -gx PATH $ANDROID_HOME/platform-tools $PATH
-    set -gx PATH $ANDROID_HOME/cmdline-tools/latest/bin $PATH
-end
-#
-if type -q conda
-    status is-interactive && eval conda "shell.fish" hook $argv | source
-end
-#
 if type -q nvim
     command -qv nvim && alias vim nvim
     set -gx EDITOR nvim
@@ -58,20 +26,33 @@ else if type -q vim
     set -gx EDITOR vim
 end
 
-if type -q jenv
+
+if type -q conda
+    status is-interactive && eval conda "shell.fish" hook $argv | source
+end
+
+if type -q goenv
+    set -gx GOENV_ROOT $HOME/.goenv
+    set -gx PATH $PATH $GOENV_ROOT/bin
+    # status is-interactive && goenv init - | source
+    goenv init - | source
+    set -gx PATH $PATH $GOPATH/bin
+    set -gx PATH $PATH $GOROOT/bin
+end
+
+if test -d $HOME/.jenv
+    set -gx PATH $PATH $HOME/.jenv/bin
     status --is-interactive; and jenv init - | source
 end
-#
-set -q KREW_ROOT; and set -gx PATH $PATH $KREW_ROOT/.krew/bin; or set -gx PATH $PATH $HOME/.krew/bin
 
-set -gx PATH $PATH $HOME/.krew/bin
-#
-set -gx PATH ~/.config/scripts $PATH
-#
-function gocover ()
-    # visual cover function for go test
-    set t "/tmp/go-cover.$fish_pid.tmp"
-    go test -coverprofile=$t $argv && go tool cover -html=$t && unlink $t
+set -q KREW_ROOT; and set -gx PATH $PATH $KREW_ROOT/.k,rew/bin; or set -gx PATH $PATH $HOME/.krew/bin
+
+if type -q go
+    function gocover ()
+        # visual cover function for go test
+        set t "/tmp/go-cover.$fish_pid.tmp"
+        go test -coverprofile=$t $argv && go tool cover -html=$t && unlink $t
+    end
 end
 
 if type -q minikube
@@ -86,5 +67,21 @@ end
 if type -q git
     # git cli alias
     alias gdh "git diff HEAD"
-    alias gp "git push"
+    alias gpush "git push"
+    alias gpull "git pull"
+    alias gcm "git commit -m "
+    alias gadd "git add"
+end
+
+if test -d $HOME/Project
+    alias dev "cd $HOME/Project/Development"
+end
+
+if test -e "$HOME/.dnenv/env"
+    bass source "$HOME/.dnenv/env"
+end
+
+
+if test -d $HOME/Project/Learn
+    alias learn "cd $HOME/Project/Learn"
 end

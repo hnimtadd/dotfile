@@ -12,7 +12,4 @@ end
 
 if type -q nvim
     alias delvs 'delete_swap_neovim;commandline -f repaint'
-    if type -q vim
-        alias vim nvim
-    end
 end
