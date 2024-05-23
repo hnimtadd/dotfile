@@ -85,3 +85,11 @@ end
 if test -d $HOME/Project/Learn
     alias learn "cd $HOME/Project/Learn"
 end
+
+if test -d $HOME/.slack
+    set -gx PATH $PATH $HOME/.slack/bin
+end
+
+if test -d $HOME/.deno
+    set -gx PATH $PATH $HOME/.deno/bin
+end
