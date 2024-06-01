@@ -1,0 +1,6 @@
+[submodule "vscode/vscodedotfile"]
+	path = vscode/vscodedotfile
+	url = git@github.com:hnimtadd/vscodedotfile.git
+[submodule "vscode"]
+	path = vscode
+	url = git@github.com:hnimtadd/vscodedotfile.git
