@@ -1,0 +1,11 @@
+*
+!alacritty/
+!nvim/
+!tmux/
+!fish/
+!i3/
+!polybar/
+!rofi/
+!.gitignore
+!karabiner/
+!starship.toml
