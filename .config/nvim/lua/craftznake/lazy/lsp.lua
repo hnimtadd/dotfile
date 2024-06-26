@@ -3,6 +3,7 @@ return {
   dependencies = {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
+
     "j-hui/fidget.nvim",
     "hrsh7th/nvim-cmp",
   },
@@ -19,9 +20,10 @@ return {
         "lua_ls",
         "rust_analyzer",
         "gopls",
+        "vimls",
       },
       handlers = {
-        function(server_name) -- default handler (optional)
+        function(server_name)
           require("lspconfig")[server_name].setup({
             capabilities = capabilities,
           })
@@ -50,7 +52,7 @@ return {
         focusable = false,
         style = "minimal",
         border = "rounded",
-        source = "always",
+        source = "if_many",
         header = "",
         prefix = "",
       },
