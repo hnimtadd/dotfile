@@ -1,0 +1,75 @@
+#!/usr/bin/env sh
+##############################################################
+###################### default layout ########################
+##############################################################
+# bsp, stack or float
+yabai -m config layout bsp
+yabai -m config window_placement second_child
+yabai -m config split_type horizontal
+
+##############################################################
+###################### windows padding #######################
+##############################################################
+#set all padding and gaps to 20pt (default: 0)
+yabai -m config top_padding 12
+yabai -m config bottom_padding 12
+yabai -m config right_padding 12
+yabai -m config left_padding 12
+yabai -m config window_gap 12
+
+##############################################################
+######################## modifier key ########################
+##############################################################
+
+# set mouse interaction modifier key (default: fn)
+yabai -m config mouse_modifier alt
+yabai -m config mouse_follows_focus off
+
+# set modifier + left-click drag to move window (default: move)
+yabai -m config mouse_action1 move
+
+# set modifier + right-click drag to resize window (default: resize)
+yabai -m config mouse_action2 resize
+
+# set focus follows mouse mode to off (default: off)
+yabai -m config focus_follows_mouse off
+
+##############################################################
+##############################################################
+####################### window shadow #######################
+# show shadows only for floating windows (default: on)
+yabai -m config window_shadow float
+
+##############################################################
+#################### window modifications ####################
+##############################################################
+
+# window opacity (default: off)
+yabai -m config window_opacity on
+
+# render all unfocused windows with 90% opacity
+yabai -m config active_window_opacity 1.0
+yabai -m config normal_window_opacity 0.9
+
+##############################################################
+#################### disable applications ####################
+##############################################################
+
+yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^Calculator$" manage=off
+yabai -m rule --add app="^Karabiner-Elements Settings$" manage=off
+yabai -m rule --add app="^Calendar$" manage=off
+yabai -m rule --add app="^Finder$" manage=off
+yabai -m rule --add app="^App Store$" manage=off
+yabai -m rule --add app="^Cisco Secure Client$" manage=off
+yabai -m rule --add app="^Slack$" manage=off
+yabai -m rule --add app="^ChatGPT$" manage=off
+
+# Disable animations when opening and closing windows.
+defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
+
+# Accelerated playback when adjusting the window size.
+defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
+
+yabai -m signal --add event=window_destroyed action="yabai -m window --focus mouse"
+yabai -m signal --add event=application_terminated action="yabai -m window --focus mouse"
