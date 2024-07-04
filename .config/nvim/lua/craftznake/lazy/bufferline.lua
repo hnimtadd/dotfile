@@ -14,12 +14,14 @@ return {
     { "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
   },
   config = function()
+    local highlights = require("rose-pine.plugins.bufferline")
     require("bufferline").setup({
       options = {
         mode = "tabs",
         show_buffer_icons = false,
         show_close_icon = false,
       },
+      highlights = highlights,
     })
   end,
 }

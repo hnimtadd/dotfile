@@ -14,6 +14,8 @@ return {
         "jsdoc",
         "go",
         "bash",
+        "ninja",
+        "rst",
       },
 
       -- Install parsers synchronously (only applied to `ensure_installed`)

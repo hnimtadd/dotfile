@@ -33,7 +33,7 @@ format = "[$symbol$branch(:$remote_branch)]($style)"
 symbol = " "
 style = "bright-yellow"
 truncation_length = 40
-ignore_branches=['main']
+ignore_branches=['main', 'master']
 
 [git_status]
 format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
@@ -47,7 +47,7 @@ deleted = "​"
 stashed = "≡"
 
 [git_state]
-format = '\([$state( $progress_current/$progress_total)]($style)\) '
+format = '\([$state( $progress_current/$progress_total)]($style)\)'
 style = "bright-black"
 
 [git_metrics]
@@ -57,18 +57,20 @@ deleted_style='bold red'
 disabled=false
 
 [cmd_duration]
-format = "[$duration]($style) "
+format = "[$duration]($style)"
 style = "yellow"
 
 [python]
-format = "[$virtualenv]($style) "
-style = "bright-black"
+format = "[$virtualenv]($style)"
+style = 'dimmed green'
 
 [conda]
-format = '[\[$environment\]](dimmed green) '
+format = '[\[$environment\]]($style)'
+style='dimmed green'
+
 
 [terraform]
-format = '[🏎💨 $workspace]($style) '
+format = '[🏎💨 $workspace]($style)'
 
 [golang]
 format='[$symbol($version)]($style)'
@@ -81,5 +83,5 @@ detect_files=['go.mod', 'go.sum', 'go.work', '.go-version']
 disabled = false
 format = '[\[$time\]]($style) '
 time_format = '%T'
-style="bright-black"
 utc_time_offset = '+7'
+style="dimmed purple"
