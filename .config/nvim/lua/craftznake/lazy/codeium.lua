@@ -1,3 +1,4 @@
+-- Desc: Codeium (code suggestion) setup
 return {
   "Exafunction/codeium.nvim",
   dependencies = {

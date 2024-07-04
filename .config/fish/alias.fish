@@ -16,6 +16,7 @@ end
 abbr cp 'cp -i'
 abbr rm 'rm -i'
 abbr mkdir 'mkdir -p'
+abbr which type
 
 if test -d $HOME/.cfg
     alias config 'git --git-dir=$HOME/.cfg/ --work-tree=$HOME'

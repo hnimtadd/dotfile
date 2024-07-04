@@ -2,6 +2,7 @@ return {
   "akinsho/toggleterm.nvim",
   version = "*",
   config = function()
+    local highlights = require("rose-pine.plugins.toggleterm")
     require("toggleterm").setup({
       size = function(term)
         if term.direction == "horizontal" then
@@ -21,7 +22,7 @@ return {
       insert_mappings = true,
       direction = "horizontal",
       persist_size = true,
-
+      highlights = highlights,
       close_on_exit = true,
       shell = vim.o.shell,
       auto_scroll = true,

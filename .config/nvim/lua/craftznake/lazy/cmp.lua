@@ -1,3 +1,4 @@
+-- Description: nvim-cmp configuration
 return {
   "hrsh7th/nvim-cmp",
   dependencies = {
@@ -11,7 +12,6 @@ return {
     "saadparwaiz1/cmp_luasnip",
 
     "onsails/lspkind.nvim",
-
     -- "zbirenbaum/copilot-cmp",
   },
   config = function()
@@ -108,6 +108,7 @@ return {
       }, {
         { name = "buffer" },
       }),
+      auto_brackets = { "python" },
       experimental = {
         ghost_text = true,
       },
