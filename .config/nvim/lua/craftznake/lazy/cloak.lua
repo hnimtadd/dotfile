@@ -22,5 +22,7 @@ return {
         },
       },
     })
+
+    vim.keymap.set("n", "<leader>ue", "<cmd>CloakToggle<CR>", { desc = "Toggle Cloak" })
   end,
 }

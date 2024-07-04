@@ -10,7 +10,5 @@ return {
     event = "VeryLazy",
     config = true,
   },
-  {
-    "stevearc/conform.nvim",
-  },
+  { "wakatime/vim-wakatime", lazy = false },
 }

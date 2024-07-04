@@ -21,6 +21,7 @@ return {
         "rust_analyzer",
         "gopls",
         "vimls",
+        "golangci_lint_ls",
       },
       handlers = {
         function(server_name)
