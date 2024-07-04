@@ -3,3 +3,5 @@ conf.d
 completions
 themes
 env.fish
+fish_plugins
+fish_variables

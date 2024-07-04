@@ -19,12 +19,6 @@ if test -d $HOME/.android
     set -gx PATH $PATH $ANDROID_HOME/cmdline-tools/latest/bin
 end
 
-if type -q nvim
-    command -qv nvim && alias vim nvim
-    set -gx EDITOR nvim
-else if type -q vim
-    set -gx EDITOR vim
-end
 
 
 if type -q conda
