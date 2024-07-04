@@ -1,3 +1,4 @@
+-- Description: Cloak sensitive information in your files
 return {
   "laytan/cloak.nvim",
   config = function()
@@ -22,7 +23,6 @@ return {
         },
       },
     })
-
-    vim.keymap.set("n", "<leader>ue", "<cmd>CloakToggle<CR>", { desc = "Toggle Cloak" })
+    vim.keymap.set("n", "<leader>ue", "<cmd>CloakToggle<cr>", { noremap = true, silent = true, desc = "Toggle cloak" })
   end,
 }

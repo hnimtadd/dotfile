@@ -1,5 +1,4 @@
 return {
-
   -- {
   -- "zbirenbaum/copilot-cmp",
   -- dependencies = {

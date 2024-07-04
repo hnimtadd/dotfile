@@ -26,8 +26,9 @@ if status is-interactive || status is-login
         case Darwin
             source $FISH_ROOT/config-mac.fish
     end
-    if test -d ~/.config/scripts
-        set -gx PATH $PATH ~/.config/scripts
+    if test -d ~/.scripts
+        set -gx PATH $PATH ~/.scripts
     end
+
     fish_vi_key_bindings
 end

@@ -1,11 +1,18 @@
 return {
   "neovim/nvim-lspconfig",
+  event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
 
     "j-hui/fidget.nvim",
     "hrsh7th/nvim-cmp",
+    {
+      "hrsh7th/cmp-nvim-lsp",
+      cond = function()
+        return require("lazyvim.util").has("nvim-cmp")
+      end,
+    },
   },
   after = { "cmp.lua" },
   config = function()
@@ -22,6 +29,8 @@ return {
         "gopls",
         "vimls",
         "golangci_lint_ls",
+        "ruff_lsp",
+        "pyright",
       },
       handlers = {
         function(server_name)

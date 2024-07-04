@@ -3,6 +3,7 @@ return {
   opts = {
     formatters_by_ft = {
       go = { "gofumpt", "goimports" },
+      python = { "isort", "black" },
     },
     formatters = {
       gofumpt = {
