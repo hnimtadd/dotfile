@@ -4,7 +4,7 @@ vim.opt.clipboard = ""
 
 vim.opt.expandtab = true
 vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 2
+vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.smarttab = true
 vim.opt.smartindent = true
@@ -53,6 +53,15 @@ vim.opt.updatetime = 50
 -- Undercurl
 vim.cmd([[let &t_Cs = "\e[4:3m]"]])
 vim.cmd([[let &t_Ce = "\e[4:0m]"]])
+
+vim.opt.listchars = {
+  -- eol = "↲",
+  tab = "  ",
+  trail = "_",
+  extends = ">",
+  precedes = "<",
+  nbsp = "~",
+}
 
 -- Add asterisks in block comments
 vim.opt.formatoptions:append({ "r" })
