@@ -82,11 +82,11 @@ autocmd("LspAttach", {
       vim.lsp.buf.signature_help()
     end, opts)
 
-    vim.keymap.set("n", "[d", function()
+    vim.keymap.set("n", "]d", function()
       vim.diagnostic.goto_next()
     end, vim.tbl_extend("force", opts, { desc = "Next [D]iagnostic" }))
 
-    vim.keymap.set("n", "]d", function()
+    vim.keymap.set("n", "[d", function()
       vim.diagnostic.goto_prev()
     end, vim.tbl_extend("force", opts, { desc = "Prev [D]iagnostic" }))
   end,

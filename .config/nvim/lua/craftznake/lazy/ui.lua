@@ -33,6 +33,7 @@ return {
             },
             opts = { skip = true },
           },
+          -- hide write messae
           {
             filter = {
               event = "msg_show",
@@ -135,6 +136,48 @@ return {
             ["?"] = "show_help",
             ["i"] = "show_file_details",
           },
+        },
+      })
+    end,
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    enabled = false,
+    -- opts = {
+    --   indent = {
+    --     char = "│",
+    --     tab_char = "│",
+    --   },
+    -- },
+  },
+  -- indent line
+  {
+    "shellRaining/hlchunk.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require("hlchunk").setup({
+        line_num = {
+          enable = true,
+          style = "#C39898",
+        },
+        chunk = {
+          enable = true,
+          priority = 15,
+          style = {
+            { fg = "#DBB5B5" }, -- Violet
+            { fg = "#c21f30" }, -- Maple red
+          },
+          use_treesitter = true,
+          chars = {
+            horizontal_line = "─",
+            vertical_line = "│",
+            left_top = "╭",
+            left_bottom = "╰",
+            right_arrow = ">",
+          },
+          textobject = "",
+          max_file_size = 1024 * 1024,
+          error_sign = true,
         },
       })
     end,

@@ -1,6 +1,10 @@
 return {
   "akinsho/toggleterm.nvim",
   version = "*",
+  dependencies = {
+    "folke/which-key.nvim",
+    "nvim-lua/plenary.nvim",
+  },
   config = function()
     local highlights = require("rose-pine.plugins.toggleterm")
     require("toggleterm").setup({
@@ -33,6 +37,14 @@ return {
         end,
       },
     })
-    vim.keymap.set("n", "<leader>ts", ":TermSelect<CR>", { desc = "[T]erminal [S]elect" })
+
+    local wk = require("which-key")
+    wk.add({
+      {
+        mode = { "n" },
+        { "<leader>vt", group = "[T]erminal" },
+        { "<leader>vts", ":TermSelect<CR>", desc = "[T]erminal [S]elect" },
+      },
+    })
   end,
 }
