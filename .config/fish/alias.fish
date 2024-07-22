@@ -33,3 +33,7 @@ abbr which type
 if test -d $HOME/.cfg
     alias config 'git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 end
+
+if type -q nvm
+    set -gx nvm_default_version 'v20.10.0'
+end
