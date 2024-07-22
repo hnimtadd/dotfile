@@ -25,13 +25,6 @@ if type -q conda
     status is-interactive && eval conda "shell.fish" hook $argv | source
 end
 
-if type -q goenv
-    set -gx GOENV_ROOT $HOME/.goenv
-    set -gx PATH $GOENV_ROOT/bin $PATH
-    goenv init - | source
-    set -gx PATH $GOROOT/bin $PATH
-    set -gx PATH $PATH $GOPATH/bin
-end
 
 if test -d $HOME/.jenv
     set -gx PATH $PATH $HOME/.jenv/bin
