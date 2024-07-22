@@ -1,6 +1,9 @@
 -- Description: Cloak sensitive information in your files
 return {
   "laytan/cloak.nvim",
+  dependencies = {
+    "folke/which-key.nvim",
+  },
   config = function()
     require("cloak").setup({
       enabled = true,
@@ -21,8 +24,27 @@ return {
           -- example: cloak_pattern = { ":.+", "-.+" } for yaml files.
           cloak_pattern = "=.+",
         },
+        {
+          -- Match any file starting with ".env".
+          -- This can be a table to match multiple file patterns.
+          file_pattern = {
+            ".env*.yml",
+            "*.env.yml",
+          },
+          -- Match an equals sign and any character after it.
+          -- This can also be a table of patterns to cloak,
+          -- example: cloak_pattern = { ":.+", "-.+" } for yaml files.
+          cloak_pattern = { ":.+", "-.+" },
+        },
       },
     })
-    vim.keymap.set("n", "<leader>ue", "<cmd>CloakToggle<cr>", { noremap = true, silent = true, desc = "Toggle cloak" })
+
+    local wk = require("which-key")
+    wk.add({
+      {
+        mode = { "n" },
+        { "<leader>tc", "<cmd>CloakToggle<cr>", desc = "[C]loak", noremap = true, silent = true },
+      },
+    })
   end,
 }
