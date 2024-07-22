@@ -86,3 +86,7 @@ end
 if test -d $HOME/.deno
     set -gx PATH $PATH $HOME/.deno/bin
 end
+
+if type -q nvm
+    set -gx nvm_default_version v20.10.0
+end

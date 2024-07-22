@@ -21,16 +21,15 @@ return {
       vim.tbl_deep_extend("force", {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
 
     require("fidget").setup({})
-    require("mason").setup()
+    require("mason").setup({})
     require("mason-lspconfig").setup({
       ensure_installed = {
         "lua_ls",
         "rust_analyzer",
-        "gopls",
+        -- "gopls",
         "vimls",
-        "golangci_lint_ls",
+        -- "golangci_lint_ls",
         "ruff_lsp",
-        "pyright",
       },
       handlers = {
         function(server_name)
@@ -48,6 +47,24 @@ return {
                 runtime = { version = "Lua 5.1" },
                 diagnostics = {
                   globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
+                },
+              },
+            },
+          })
+        end,
+        ["pylsp"] = function()
+          local lspconfig = require("lspconfig")
+
+          lspconfig.pylsp.setup({
+            capabilities = capabilities,
+            settings = {
+              pylsp = {
+                plugins = {
+                  ruff = { enabled = true },
+                  flake8 = { enabled = false },
+                  pyflakes = { enabled = false },
+                  pycodestyle = { enabled = false },
+                  mccabe = { enabled = false },
                 },
               },
             },

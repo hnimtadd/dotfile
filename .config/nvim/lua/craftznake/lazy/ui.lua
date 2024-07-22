@@ -33,6 +33,19 @@ return {
             },
             opts = { skip = true },
           },
+          {
+            filter = {
+              event = "msg_show",
+              any = {
+                { find = "%d+L, %d+B" },
+                { find = "; after #%d+" },
+                { find = "; before #%d+" },
+                { find = "%d fewer lines" },
+                { find = "%d more lines" },
+              },
+            },
+            view = "mini",
+          },
         },
         all = {
           -- options for the message history that you get with ":Noice"
@@ -68,11 +81,28 @@ return {
   {
     "echasnovski/mini.animate",
     event = "VeryLazy",
+    config = function()
+      require("mini.animate").setup({
+        scroll = {
+          enable = false,
+        },
+      })
+    end,
+  },
+
+  {
+    "s1n7ax/nvim-window-picker",
+    event = "VeryLazy",
+    version = "2.*",
+    config = function()
+      require("window-picker").setup()
+    end,
   },
   {
     "nvim-neo-tree/neo-tree.nvim",
     dependencies = {
       "nvim-tree/nvim-web-devicons",
+      "s1n7ax/nvim-window-picker",
     },
     keys = function()
       return {

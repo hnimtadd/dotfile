@@ -32,3 +32,6 @@ if status is-interactive || status is-login
 
     fish_vi_key_bindings
 end
+
+# Created by `pipx` on 2024-07-09 07:03:59
+set PATH $PATH /Users/itn.dat.nguyen/.local/bin

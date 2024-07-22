@@ -61,12 +61,10 @@ yabai -m rule --add app="^Karabiner-Elements Settings$" manage=off
 yabai -m rule --add app="^Calendar$" manage=off
 yabai -m rule --add app="^Finder$" manage=off
 yabai -m rule --add app="^App Store$" manage=off
-<<<<<<< HEAD
-=======
 yabai -m rule --add app="^Cisco Secure Client$" manage=off
 yabai -m rule --add app="^Slack$" manage=off
 yabai -m rule --add app="^ChatGPT$" manage=off
->>>>>>> origin/main
+yabai -m rule --add app="^Spotify$" manage=off
 
 # Disable animations when opening and closing windows.
 defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
