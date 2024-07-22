@@ -97,6 +97,7 @@ return {
           end
         end),
       }),
+
       sources = cmp.config.sources({
         { name = "copilot", group_index = 2, priority = 100 },
         { name = "codeium", group_index = 2, priority = 100 },

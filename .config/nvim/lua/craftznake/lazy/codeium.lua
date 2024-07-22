@@ -4,19 +4,26 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     "hrsh7th/nvim-cmp",
+    "folke/which-key.nvim",
   },
   config = function()
     require("codeium").setup({
       enable_chat = true,
     })
+    local wk = require("which-key")
 
-    vim.keymap.set(
-      "n",
-      "<leader>vcc",
-      "<cmd>Codeium Chat<CR>",
-      { desc = "[V]iew [C]hat with [C]odeium", silent = true }
-    )
-
-    vim.keymap.set("n", "<leader>ud", "<cmd>Codeium Disable<CR>", { desc = "[U]ndisable [A]I", silent = true })
+    wk.add({
+      {
+        mode = { "n" },
+        { "<leader>vc", group = "[C]hat" },
+        { "<leader>vcc", "<cmd>Codeium Chat<CR>", { desc = "[C]odeium", silent = true } },
+        {
+          "<leader>tc",
+          "<cmd>Codeium Disable<CR>",
+          desc = "[C]hat AI",
+          silent = true,
+        },
+      },
+    })
   end,
 }

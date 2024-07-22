@@ -29,7 +29,6 @@ return {
   },
   {
     "xiyaowong/transparent.nvim",
-    lazy = false,
     dependencies = {
       "akinsho/bufferline.nvim",
     },
