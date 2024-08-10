@@ -99,73 +99,11 @@ return {
       require("window-picker").setup()
     end,
   },
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "MunifTanjim/nui.nvim",
-    },
-    keys = function()
-      return {
-        { "<leader>e", "<Cmd>Neotree toggle<Cr>", desc = "Toggle file" },
-      }
-    end,
-    opts = function(_, opts)
-      return vim.tbl_extend("force", opts, {
-        -- filesystem = {
-        --   filtered_items = {
-        --     --visible = true,
-        --     hide_dotfiles = false,
-        --     hide_gitignored = true,
-        --     hide_by_name = {
-        --       ".github",
-        --       ".gitignore",
-        --       "package-lock.json",
-        --     },
-        --     never_show = { ".git" },
-        --   },
-        -- },
-        close_if_last_window = true,
-        window = {
-          mappings = {
-            ["<space>"] = "none",
-            ["<cr>"] = "open",
-            ["<esc>"] = "cancel",
-            ["|"] = "open_vsplit",
-            ["-"] = "open_split",
-            ["S"] = "none",
-            ["t"] = "open_tabnew",
-            ["c"] = { "add", config = { show_path = "none" } },
-            ["a"] = "none",
-            ["C"] = "add_directory",
-            ["A"] = "none",
-            ["d"] = "delete",
-            ["r"] = "rename",
-            ["y"] = "copy_to_clipboard",
-            ["x"] = "cut_to_clipboard",
-            ["p"] = "paste_from_clipboard",
-            ["q"] = "close_window",
-            ["R"] = "refresh",
-            ["?"] = "show_help",
-            ["i"] = "show_file_details",
-            ["P"] = { "toggle_preview", config = { use_float = false, use_image_nvim = true } },
-          },
-        },
-      })
-    end,
-  },
+  -- indent line
   {
     "lukas-reineke/indent-blankline.nvim",
     enabled = false,
-    -- opts = {
-    --   indent = {
-    --     char = "│",
-    --     tab_char = "│",
-    --   },
-    -- },
   },
-  -- indent line
   {
     "shellRaining/hlchunk.nvim",
     event = { "BufReadPre", "BufNewFile" },
