@@ -19,7 +19,7 @@ return {
       open_mapping = [[<c-\>]],
       hide_numbers = true, -- hide the number column in toggleterm buffers
       autochdir = false,
-      shade_terminals = true,
+      shade_terminals = false,
       shade_filetypes = {},
 
       start_in_insert = true,
@@ -44,6 +44,7 @@ return {
         mode = { "n" },
         { "<leader>vt", group = "[T]erminal" },
         { "<leader>vts", ":TermSelect<CR>", desc = "[T]erminal [S]elect" },
+        { "<leader>tt", ":TermSelect<CR>", desc = "[T]erminal [S]elect" },
       },
     })
   end,
