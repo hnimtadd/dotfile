@@ -12,7 +12,7 @@ return {
     "saadparwaiz1/cmp_luasnip",
 
     "onsails/lspkind.nvim",
-    -- "zbirenbaum/copilot-cmp",
+    "zbirenbaum/copilot-cmp",
   },
   config = function()
     local cmp = require("cmp")
@@ -62,7 +62,7 @@ return {
             Event = "🈺",
             Operator = "🈹",
             TypeParameter = "🈯",
-            -- Copilot = "",
+            Copilot = "🈺",
             Codeium = "🈚",
             TabNine = "🈺",
           },
@@ -99,8 +99,8 @@ return {
       }),
 
       sources = cmp.config.sources({
-        -- { name = "copilot", group_index = 2, priority = 100 },
-        { name = "codeium", group_index = 2, priority = 100 },
+        { name = "copilot", group_index = 2, priority = 100 },
+        -- { name = "codeium", group_index = 2, priority = 100 },
         { name = "cmp_tabnine", group_index = 2, priority = 100 },
         { name = "nvim_lsp", group_index = 2 },
         { name = "path", group_index = 2 },

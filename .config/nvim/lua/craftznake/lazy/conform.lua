@@ -7,6 +7,7 @@ return {
       typescript = { { "prettierd", "prettier" }, "eslint_d" },
       javascript = { { "prettierd", "prettier" }, "eslint_d" },
       rust = { "rustfmt" },
+      json = { "jq" },
     },
     formatters = {
       gofumpt = {

@@ -43,7 +43,7 @@ return {
     wk.add({
       {
         mode = { "n" },
-        { "<leader>tc", "<cmd>CloakToggle<cr>", desc = "[C]loak", noremap = true, silent = true },
+        { "<leader>tc", "<cmd>CloakToggle<cr>", desc = "[T]oggle [C]loak", noremap = true, silent = true },
       },
     })
   end,

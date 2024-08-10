@@ -8,26 +8,44 @@ return {
       require("trouble").setup({})
       local wk = require("which-key")
 
+      -- wk.add({
+      --   {
+      --     mode = { "n" },
+      --     {
+      --       "<leader>tt",
+      --       function()
+      --         require("trouble").toggle()
+      --       end,
+      --       desc = "[T]rouble",
+      --     },
+      --   },
+      -- })
+
       wk.add({
         {
           mode = { "n" },
           {
-            "<leader>tt",
+            "[t",
             function()
-              require("trouble").toggle()
+              require("trouble").prev({ skip_groups = true, jump = true }, {})
             end,
-            desc = "[T]rouble",
+            desc = "Prev [T]rouble",
           },
         },
       })
 
-      vim.keymap.set("n", "[t", function()
-        require("trouble").next({ skip_groups = true, jump = true }, {})
-      end)
-
-      vim.keymap.set("n", "]t", function()
-        require("trouble").prev({ skip_groups = true, jump = true }, {})
-      end)
+      wk.add({
+        {
+          mode = { "n" },
+          {
+            "]t",
+            function()
+              require("trouble").next({ skip_groups = true, jump = true }, {})
+            end,
+            desc = "Next [T]rouble",
+          },
+        },
+      })
     end,
   },
 }
