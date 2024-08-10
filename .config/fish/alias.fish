@@ -2,6 +2,10 @@ if type -q rg
     alias grep rg
 end
 
+if type -q neovide
+    abbr vide "neovide &"
+end
+
 if type -q escrotum
     alias capture escrotum
 end
