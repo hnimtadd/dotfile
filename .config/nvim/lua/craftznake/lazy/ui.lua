@@ -102,8 +102,9 @@ return {
   {
     "nvim-neo-tree/neo-tree.nvim",
     dependencies = {
+      "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
-      "s1n7ax/nvim-window-picker",
+      "MunifTanjim/nui.nvim",
     },
     keys = function()
       return {
@@ -112,14 +113,27 @@ return {
     end,
     opts = function(_, opts)
       return vim.tbl_extend("force", opts, {
+        -- filesystem = {
+        --   filtered_items = {
+        --     --visible = true,
+        --     hide_dotfiles = false,
+        --     hide_gitignored = true,
+        --     hide_by_name = {
+        --       ".github",
+        --       ".gitignore",
+        --       "package-lock.json",
+        --     },
+        --     never_show = { ".git" },
+        --   },
+        -- },
         close_if_last_window = true,
         window = {
           mappings = {
             ["<space>"] = "none",
             ["<cr>"] = "open",
             ["<esc>"] = "cancel",
-            ["|"] = "open_split",
-            ["-"] = "open_vsplit",
+            ["|"] = "open_vsplit",
+            ["-"] = "open_split",
             ["S"] = "none",
             ["t"] = "open_tabnew",
             ["c"] = { "add", config = { show_path = "none" } },
@@ -135,6 +149,7 @@ return {
             ["R"] = "refresh",
             ["?"] = "show_help",
             ["i"] = "show_file_details",
+            ["P"] = { "toggle_preview", config = { use_float = false, use_image_nvim = true } },
           },
         },
       })

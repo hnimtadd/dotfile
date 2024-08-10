@@ -43,7 +43,7 @@ return {
       {
         mode = { "n" },
         { "<leader>vt", group = "[T]erminal" },
-        { "<leader>vts", ":TermSelect<CR>", desc = "[T]erminal [S]elect" },
+        { "<leader>vts", ":TermSelect<CR>", desc = "Terminal [S]elect" },
       },
     })
   end,
