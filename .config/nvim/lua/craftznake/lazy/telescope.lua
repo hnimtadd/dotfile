@@ -63,7 +63,7 @@ return {
       desc = "Open tree[S]itter lists function names, variables",
     },
     {
-      "sf",
+      ";g",
       function()
         local telescope = require("telescope")
 
@@ -86,7 +86,19 @@ return {
     },
   },
   config = function()
-    require("telescope").setup({})
+    local actions = require("telescope.actions")
+    require("telescope").setup({
+      defaults = {
+        mappings = {
+          i = {
+            ["<C-h>"] = actions.select_horizontal,
+          },
+          n = {
+            ["<C-h>"] = actions.select_horizontal,
+          },
+        },
+      },
+    })
     require("telescope").load_extension("fzf")
     require("telescope").load_extension("file_browser")
   end,
