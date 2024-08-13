@@ -27,6 +27,10 @@ return {
     },
     -- on_attach = function(buffer)
     --   local gs = package.loaded.gitsigns
+    -- recommended mappings
+    -- resizing splits
+    -- these keymaps will also accept a range,
+    -- for example `10<A-h>` will `resize_left` by `(10 * config.default_amount)`
     --
     --   local function map(mode, l, r, desc)
     --     vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
