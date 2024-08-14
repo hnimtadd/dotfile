@@ -113,5 +113,5 @@ alt + shift - f : yabai -m window --toggle native-fullscreen
 ###################################################
 ############### Terminal ###############
 ###################################################
-alt - return : open -n /Applications/kitty.app
+alt - return : open -n /Applications/wezterm.app
 
