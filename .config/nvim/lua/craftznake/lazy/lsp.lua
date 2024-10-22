@@ -26,9 +26,9 @@ return {
       ensure_installed = {
         "lua_ls",
         "rust_analyzer",
-        -- "gopls",
+        "gopls",
         "vimls",
-        -- "golangci_lint_ls",
+        "golangci_lint_ls",
         "ruff_lsp",
       },
       handlers = {
@@ -38,35 +38,35 @@ return {
           })
         end,
 
-        ["golangci_lint_ls"] = function()
-          local lspconfig = require("lspconfig")
-          local configs = require("lspconfig/configs")
-
-          if not configs.golangcilsp then
-            configs.golangcilsp = {
-              default_config = {
-                cmd = { "golangci-lint-langserver" },
-                root_dir = lspconfig.util.root_pattern(".git", "go.mod"),
-                init_options = {
-                  command = {
-                    "golangci-lint",
-                    "run",
-                    "--enable-all",
-                    "--disable",
-                    "lll",
-                    "--out-format",
-                    "json",
-                    "--issues-exit-code=1",
-                  },
-                },
-              },
-            }
-          end
-          lspconfig.golangci_lint_ls.setup({
-            filetypes = { "go", "gomod" },
-            capabilities = capabilities,
-          })
-        end,
+        -- ["golangci_lint_ls"] = function()
+        --   local lspconfig = require("lspconfig")
+        --   local configs = require("lspconfig/configs")
+        --
+        --   if not configs.golangcilsp then
+        --     configs.golangcilsp = {
+        --       default_config = {
+        --         cmd = { "golangci-lint-langserver" },
+        --         root_dir = lspconfig.util.root_pattern(".git", "go.mod"),
+        --         init_options = {
+        --           command = {
+        --             "golangci-lint",
+        --             "run",
+        --             "--enable-all",
+        --             "--disable",
+        --             "lll",
+        --             "--out-format",
+        --             "json",
+        --             "--issues-exit-code=1",
+        --           },
+        --         },
+        --       },
+        --     }
+        --   end
+        --   lspconfig.golangci_lint_ls.setup({
+        --     filetypes = { "go", "gomod" },
+        --     capabilities = capabilities,
+        --   })
+        -- end,
 
         ["lua_ls"] = function()
           local lspconfig = require("lspconfig")

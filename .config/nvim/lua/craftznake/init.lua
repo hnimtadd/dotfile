@@ -1,6 +1,6 @@
-require("craftznake.set")
-require("craftznake.remap")
 require("craftznake.lazy_init")
+require("craftznake.remap")
+require("craftznake.set")
 
 local augroup = vim.api.nvim_create_augroup
 local CraftznakeGroup = augroup("Craftznake", {})
@@ -35,6 +35,14 @@ autocmd("VimEnter", {
     ColorMyPencils()
   end,
 })
+-- diagnostic
+local diagnostic_goto = function(next, severity)
+  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  severity = severity and vim.diagnostic.severity[severity] or nil
+  return function()
+    go({ severity = severity })
+  end
+end
 
 autocmd("LspAttach", {
   group = CraftznakeGroup,
@@ -57,6 +65,11 @@ autocmd("LspAttach", {
       vim.lsp.buf.hover()
     end, opts)
 
+    -- prevent focusing the signature popup
+    vim.keymap.set("i", "<C-h>", function()
+      vim.lsp.buf.signature_help()
+    end, opts)
+
     vim.keymap.set("n", "<leader>vws", function()
       vim.lsp.buf.workspace_symbol()
     end, vim.tbl_extend("force", opts, { desc = "[V]iew [W]orkspace [S]ymbol" }))
@@ -77,11 +90,6 @@ autocmd("LspAttach", {
       vim.lsp.buf.rename()
     end, vim.tbl_extend("force", opts, { desc = "[V]iew [R]e[N]ame" }))
 
-    -- prevent focusing the signature popup
-    vim.keymap.set("i", "<C-h>", function()
-      vim.lsp.buf.signature_help()
-    end, opts)
-
     vim.keymap.set("n", "]d", function()
       vim.diagnostic.goto_next()
     end, vim.tbl_extend("force", opts, { desc = "Next [D]iagnostic" }))
@@ -89,9 +97,9 @@ autocmd("LspAttach", {
     vim.keymap.set("n", "[d", function()
       vim.diagnostic.goto_prev()
     end, vim.tbl_extend("force", opts, { desc = "Prev [D]iagnostic" }))
+    vim.keymap.set("n", "]e", diagnostic_goto(true, "ERROR"), vim.tbl_extend("force", opts, { desc = "Next [E]rror" }))
+    vim.keymap.set("n", "[e", diagnostic_goto(false, "ERROR"), vim.tbl_extend("force", opts, { desc = "Prev [E]rror" }))
+    vim.keymap.set("n", "]w", diagnostic_goto(true, "WARN"), vim.tbl_extend("force", opts, { desc = "Next [W]arn" }))
+    vim.keymap.set("n", "[w", diagnostic_goto(false, "WARN"), vim.tbl_extend("force", opts, { desc = "Prev [W]arn" }))
   end,
 })
-
-vim.g.netrw_browse_split = 0
-vim.g.netrw_banner = 0
-vim.g.netrw_winsize = 25

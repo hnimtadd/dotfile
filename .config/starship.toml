@@ -13,12 +13,13 @@ $character"""
 
 right_format = """
 $terraform\
-$golang\
 $conda\
 $python\
 $time\
 """
 
+scan_timeout = 10
+command_timeout=50000
 
 [directory]
 style = "blue"

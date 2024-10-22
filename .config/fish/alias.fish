@@ -22,7 +22,7 @@ if type -q nvim
 end
 
 if type -q nvim
-    command -q nvim && alias vim nvim
+    alias vim nvim
     set -gx EDITOR nvim
 else if type -q vim
     set -gx EDITOR vim

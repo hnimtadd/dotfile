@@ -34,6 +34,7 @@ end
 set -q KREW_ROOT; and set -gx PATH $PATH $KREW_ROOT/.k,rew/bin; or set -gx PATH $PATH $HOME/.krew/bin
 
 if type -q go
+    set -gx PATH $PATH $(go env GOPATH)/bin
     function gocover ()
         # visual cover function for go test
         set t "/tmp/go-cover.$fish_pid.tmp"
@@ -80,6 +81,6 @@ if test -d $HOME/.deno
     set -gx PATH $PATH $HOME/.deno/bin
 end
 
-if type -q nvm
+if type -q $HOME/.local/share/nvm
     set -gx nvm_default_version v20.10.0
 end
