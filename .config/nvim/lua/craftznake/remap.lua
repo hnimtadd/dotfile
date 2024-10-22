@@ -29,8 +29,8 @@ keymap.set("n", "<leader>rst", "<cmd>LspRestart<cr>", opts)
 
 -- greatest remap ever
 keymap.set("x", "<leader>p", [["_dP]], opts)
--- next greatest remap ever : asbjornHaland
 
+-- next greatest remap ever : asbjornHaland
 keymap.set({ "n", "v" }, "<leader>y", [["+y]], opts)
 keymap.set("n", "<leader>Y", [["+Y]], opts)
 
@@ -41,8 +41,8 @@ keymap.set("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = tr
 keymap.set("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
 keymap.set("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
 
--- tab
 keymap.set("n", "<leader><tab>o", "<cmd>tabonly<cr>", { desc = "Close Other Tabs" })
+-- tab
 keymap.set("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
 
 -- Terminal Mappings
@@ -53,3 +53,17 @@ keymap.set("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to Upper Window" })
 keymap.set("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to Right Window" })
 keymap.set("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 keymap.set("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
+
+LazyVim.toggle.map("<leader>uf", LazyVim.toggle.format())
+LazyVim.toggle.map("<leader>uF", LazyVim.toggle.format(true))
+LazyVim.toggle.map("<leader>us", LazyVim.toggle("spell", { name = "Spelling" }))
+LazyVim.toggle.map("<leader>uw", LazyVim.toggle("wrap", { name = "Wrap" }))
+LazyVim.toggle.map("<leader>uL", LazyVim.toggle("relativenumber", { name = "Relative Number" }))
+LazyVim.toggle.map("<leader>ud", LazyVim.toggle.diagnostics)
+LazyVim.toggle.map("<leader>ul", LazyVim.toggle.number)
+LazyVim.toggle.map(
+  "<leader>uc",
+  LazyVim.toggle("conceallevel", { values = { 0, vim.o.conceallevel > 0 and vim.o.conceallevel or 2 } })
+)
+LazyVim.toggle.map("<leader>uT", LazyVim.toggle.treesitter)
+LazyVim.toggle.map("<leader>ub", LazyVim.toggle("background", { values = { "light", "dark" }, name = "Background" }))

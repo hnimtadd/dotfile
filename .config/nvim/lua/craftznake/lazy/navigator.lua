@@ -13,7 +13,7 @@ return {
         "quickfix",
         "prompt",
       },
-      -- the default number of lines/columns to resize by at a time
+      -- The default number of lines/columns to resize by at a time
       default_amount = 3,
       at_edge = "wrap",
       float_win_behavior = "previous",
@@ -32,20 +32,6 @@ return {
       vim.keymap.set("n", "<C-j>", smart_splits.move_cursor_down)
       vim.keymap.set("n", "<C-k>", smart_splits.move_cursor_up)
       vim.keymap.set("n", "<C-l>", smart_splits.move_cursor_right)
-      -- local wk = require("which-key")
-      -- wk.add({
-      --   {
-      --     mode = { "n" },
-      --     -- { "<A-h>", require("smart-splits").resize_left },
-      --     -- { "<A-j>", require("smart-splits").resize_down },
-      --     -- { "<A-k>", require("smart-splits").resize_up },
-      --     -- { "<A-l>", require("smart-splits").resize_right },
-      --     { "<C-h>", ":SmartCursorMoveLeft<CR>", desc = "Move Left" },
-      --     { "<C-j>", ":SmartCursorMoveDown<CR>", desc = "Move Down" },
-      --     { "<C-k>", ":SmartCursorMoveUp<CR>", desc = "Move Up" },
-      --     { "<C-l>", ":SmartCursorMoveRight<CR>", desc = "Move Right" },
-      --   },
-      -- })
     end,
   },
 }

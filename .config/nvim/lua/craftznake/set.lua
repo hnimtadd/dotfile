@@ -1,4 +1,5 @@
-vim.opt.guicursor = ""
+vim.opt.guicursor = { a = "blinkon0" }
+vim.opt.mouse = "a"
 vim.opt.nu = true
 vim.opt.clipboard = ""
 
@@ -46,7 +47,6 @@ vim.opt.wildignore:append({ "*/node_modules/*" })
 vim.opt.splitbelow = true -- Put new windows below current
 vim.opt.splitright = true -- Put new windows right of current
 vim.opt.splitkeep = "cursor"
-vim.opt.mouse = ""
 
 vim.opt.updatetime = 50
 
@@ -66,3 +66,7 @@ vim.opt.listchars = {
 -- Add asterisks in block comments
 vim.opt.formatoptions:append({ "r" })
 vim.opt.formatoptions:remove({ "a" })
+
+vim.g.netrw_browse_split = 0
+vim.g.netrw_banner = 0
+vim.g.netrw_winsize = 25

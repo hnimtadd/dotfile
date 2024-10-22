@@ -10,3 +10,7 @@ set -gx LIBRARY_PATH $LIBRARY_PATH $(brew --prefix)/lib
 
 # set homebrew not to auto update packages when install new package
 set -gx HOMEBREW_NO_AUTO_UPDATE true
+
+if test -d /opt/homebrew/opt/curl/bin
+    fish_add_path /opt/homebrew/opt/curl/bin
+end

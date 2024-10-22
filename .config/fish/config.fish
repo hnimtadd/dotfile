@@ -4,15 +4,16 @@ if status is-interactive || status is-login
     set -g theme_display_user yes
     set -g theme_hide_hostname no
     set -g theme_hostname always
-    #
-    #
+
     set -gx FISH_ROOT ~/.config/fish
     if test -e $FISH_ROOT/alias.fish
         source $FISH_ROOT/alias.fish
     end
+
     if test -e $FISH_ROOT/config-dev.fish
         source $FISH_ROOT/config-dev.fish
     end
+
     if test -e $FISH_ROOT/ui.fish
         source $FISH_ROOT/ui.fish
     end
@@ -30,8 +31,4 @@ if status is-interactive || status is-login
         set -gx PATH $PATH ~/.scripts
     end
 
-    fish_vi_key_bindings
 end
-
-# Created by `pipx` on 2024-07-09 07:03:59
-set PATH $PATH /Users/itn.dat.nguyen/.local/bin

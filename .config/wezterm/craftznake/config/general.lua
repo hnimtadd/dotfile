@@ -44,5 +44,5 @@ return {
 			format = "mailto:$0",
 		},
 	},
-	default_prog = { "/opt/homebrew/bin/fish", "-l" },
+	default_prog = { "/bin/zsh" },
 }

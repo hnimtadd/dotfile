@@ -1,141 +1,72 @@
 local base_path = "craftznake."
 local wezterm = require("wezterm")
 local act = wezterm.action
-local platform = require(base_path .. "utils.platform")()
-local split_nav = require(base_path .. "utils.vim")
+-- local split_nav = require(base_path .. "utils.vim")
+local vim_utils = require(base_path .. "utils.vim")
+local mods = require(base_path .. "utils.keys").mods
+local keyset = require(base_path .. "utils.keys").keyset
+local mytable = require(base_path .. "utils.stdlib").mytable
 
-local mod = {}
-
-if platform.is_mac then
-	mod.SUPER = "CTRL"
-elseif platform.is_win or platform.is_linux then
-	mod.SUPER = "ALT" -- to not conflict with Windows key shortcuts
+local function rename_tab_helper()
+	return act.PromptInputLine({
+		description = "Enter new name for tab",
+		action = wezterm.action_callback(function(window, _, line)
+			if line then
+				window:active_tab():set_title(line)
+			end
+		end),
+	})
 end
 
--- stylua: ignore
 local keys = {
-  -- panels
-  {
-    key = '\\',
-    mods = 'LEADER',
-    action = act.SplitPane {
-      direction = 'Right',
-      size = { Percent = 50 },
-    },
-  },
-  {
-    key = '|',
-    mods = 'LEADER',
-    action = act.SplitPane {
-      direction = 'Right',
-      size = { Percent = 50 },
-      top_level=true,
-    },
-  },
-  {
-    key = '-',
-    mods = 'LEADER',
-    action = act.SplitPane {
-      direction = 'Down',
-      size = { Percent = 50 },
-    },
-  },
-  {
-    key = '_',
-    mods = 'LEADER',
-    action = act.SplitPane {
-      direction = 'Down',
-      size = { Percent = 50 },
-      top_level=true,
-    },
-  },
-  -- Tmux copy mode
-  {
-    key = '[',
-    mods = 'LEADER',
-    action = wezterm.action.ActivateCopyMode,
-  },
-  -- Tmux zen mode
-  {
-    key = 'z',
-    mods = 'LEADER',
-    action = wezterm.action.TogglePaneZoomState,
-  },
-  -- tmux new tab
-  {
-    key = 'c',
-    mods = 'LEADER',
-    action = act.SpawnTab 'CurrentPaneDomain',
-  },
-  -- navigate between tabs
-  {
-    key = 'n',
-    mods = 'LEADER',
-    action = wezterm.action.ActivateTabRelative(1),
-  },
-  {
-    key = 'p',
-    mods = 'LEADER',
-    action = wezterm.action.ActivateTabRelative(-1),
-  },
-  -- rename tab
- {
-    key = ',',
-    mods = 'LEADER',
-    action = act.PromptInputLine {
-      description = 'Enter new name for tab',
-      action = wezterm.action_callback(
-        function(window, _, line)
-          if line then
-            window:active_tab():set_title(line)
-          end
-        end
-      ),
-    },
-  },
-  -- move tab
-  { key = '<', mods = 'LEADER', action = act.MoveTabRelative(-1) },
-  { key = '>', mods = 'LEADER', action = act.MoveTabRelative(1) },
-  { key = '8', mods = 'CTRL', action = act.PaneSelect },
-  { key = '0', mods = 'CTRL', action = act.PaneSelect { mode = 'SwapWithActive', },
-  },
-  -- show tab navigator
-  {
-    key = 'w',
-    mods = 'LEADER',
-    action = act.ShowTabNavigator,
-  },
-  {
-    key = 'x',
-    mods = 'LEADER',
-    action = act.CloseCurrentPane{confirm=false},
-  },
-  -- some default keymap,
-  {key="c", mods="SUPER", action = act.CopyTo 'Clipboard'},
-  {key = 'v', mods = 'SUPER', action = act.PasteFrom 'Clipboard'},
-  {
-    key='P',
-    mods= 'CTRL',
-    action=act.ActivateCommandPalette,
-  },
-  { key = '-', mods = 'CMD', action = wezterm.action.DecreaseFontSize },
-  { key = '+', mods = 'CMD', action = wezterm.action.IncreaseFontSize },
-  { key = 'q', mods = 'CMD', action = wezterm.action.QuitApplication },
-
-		-- move between split panes
-		split_nav("move", "h"),
-		split_nav("move", "j"),
-		split_nav("move", "k"),
-		split_nav("move", "l"),
-		-- resize panes
-		split_nav("resize", "h"),
-		split_nav("resize", "j"),
-		split_nav("resize", "k"),
-		split_nav("resize", "l"),
+	keyset(mods.CS, "f", act.Search({ CaseInSensitiveString = "" })),
+	keyset(mods.L, "\\", act.SplitPane({ direction = "Right", size = { Percent = 50 } })),
+	keyset(mods.L, "|", act.SplitPane({ direction = "Right", size = { Percent = 50 }, top_level = true })),
+	keyset(mods.L, "-", act.SplitPane({ direction = "Down", size = { Percent = 50 } })),
+	keyset(mods.L, "_", act.SplitPane({ direction = "Down", size = { Percent = 50 }, top_level = true })),
+	-- Tmux copy mode
+	keyset(mods.L, "[", act.ActivateCopyMode),
+	-- Tmux zen mode
+	keyset(mods.L, "z", act.TogglePaneZoomState),
+	-- tmux new tab
+	keyset(mods.L, "c", act.SpawnTab("CurrentPaneDomain")),
+	-- navigate between tabs
+	keyset(mods.L, "n", act.ActivateTabRelative(1)),
+	keyset(mods.L, "p", act.ActivateTabRelative(-1)),
+	-- tmux rename tab
+	keyset(mods.L, ",", rename_tab_helper()),
+	-- move tab
+	keyset(mods.L, "<", act.MoveTabRelative(-1)),
+	keyset(mods.L, ">", act.MoveTabRelative(1)),
+	keyset(mods.L, ";", act.PaneSelect),
+	keyset(mods.L, "m", act.PaneSelect({ mode = "SwapWithActiveKeepFocus" })),
+	-- show tab navigator
+	keyset(mods.L, "w", act.ShowTabNavigator),
+	-- close current pane or tab
+	keyset(mods.L, "x", act.CloseCurrentPane({ confirm = false })),
+	-- some default keymap
+	keyset(mods.D, "c", act.CopyTo("Clipboard")),
+	keyset(mods.D, "v", act.PasteFrom("Clipboard")),
+	keyset(mods.CS, "p", act.ActivateCommandPalette),
+	keyset(mods.D, "-", act.DecreaseFontSize),
+	keyset(mods.D, "+", act.IncreaseFontSize),
+	keyset(mods.D, "q", act.QuitApplication),
+	keyset(mods.D, "h", act.Hide),
+	keyset(mods.CS, "y", act.CharSelect({ copy_on_select = true, copy_to = "ClipboardAndPrimarySelection" })),
+	-- move between split panes
+	keyset(mods.C, "h", vim_utils.navigate(mods.C, "h")),
+	keyset(mods.C, "j", vim_utils.navigate(mods.C, "j")),
+	keyset(mods.C, "k", vim_utils.navigate(mods.C, "k")),
+	keyset(mods.C, "l", vim_utils.navigate(mods.C, "l")),
+	-- -- resize panes
+	-- keyset(mods.Cw, "h", vim_utils.resize(mods.C, "h")),
+	-- keyset(mods.Cw, "j", vim_utils.resize(mods.C, "j")),
+	-- keyset(mods.Cw, "k", vim_utils.resize(mods.C, "k")),
+	-- keyset(mods.Cw, "l", vim_utils.resize(mods.C, "l")),
 }
 
 return {
-	disable_default_key_bindings = true,
-	leader = { key = "Space", mods = mod.SUPER, timeout_milliseconds = 1000 },
-	keys = keys,
+	disable_default_key_bindings = false,
+	leader = { key = "Space", mods = mods.C, timeout_milliseconds = 1000 },
+	keys = mytable.flatten_list(keys),
 }
