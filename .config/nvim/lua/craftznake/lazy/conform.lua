@@ -16,7 +16,6 @@ return {
         tmpfile_format = ".conform.$RANDOM.$FILENAME",
       },
       -- prettier_d = {
-
       prettier_d = {
         condition = function()
           -- check if the project have .prettier or .prettier.json file, if there, return true, otherwise false

@@ -2,15 +2,30 @@ return {
   "nvim-neo-tree/neo-tree.nvim",
   dependencies = {
     "nvim-tree/nvim-web-devicons",
-    "s1n7ax/nvim-window-picker",
+    "MunifTanjim/nui.nvim",
+    {
+      "s1n7ax/nvim-window-picker",
+      version = "2.*",
+      config = function()
+        require("window-picker").setup({
+          filter_rules = {
+            include_current_win = false,
+            autoselect_one = true,
+            -- Filter using buffer options
+            bo = {
+              -- If the file type is one of following, the window will be ignored
+              filetype = { "neo-tree", "neo-tree-popup", "notify" },
+              -- If the buffer type is one of following, the window will be ignored
+              buftype = { "terminal", "quickfix" },
+            },
+          },
+        })
+      end,
+    },
   },
-  keys = function()
-    return {
-      { "<leader>e", "<Cmd>Neotree toggle<Cr>", desc = "Toggle file" },
-    }
-  end,
-  opts = function(_, opts)
-    return vim.tbl_extend("force", opts, {
+  config = function()
+    local neotree = require("neo-tree")
+    neotree.setup({
       close_if_last_window = true,
       window = {
         mappings = {
@@ -46,5 +61,13 @@ return {
         },
       },
     })
+    vim.keymap.set("n", "<leader>e", "<Cmd>Neotree toggle reveal=false<CR>", { desc = "Open neo-tree" })
+
+    vim.keymap.set(
+      "n",
+      "<leader>E",
+      "<Cmd>Neotree toggle reveal=true<CR>",
+      { desc = "Open neo-tree at current file or working directory" }
+    )
   end,
 }
