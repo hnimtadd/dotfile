@@ -10,5 +10,4 @@ return {
     event = "VeryLazy",
     config = true,
   },
-  { "wakatime/vim-wakatime", lazy = false },
 }
