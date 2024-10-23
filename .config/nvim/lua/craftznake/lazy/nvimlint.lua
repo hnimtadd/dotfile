@@ -1,15 +1,15 @@
 return {
   "mfussenegger/nvim-lint",
   config = function()
-    require("lint").linters_by_ft.go = { "golangcilint" }
-
-    local golangcilint = require("lint.linters.golangcilint")
-    golangcilint.append_fname = true
-    golangcilint.args = {
-      "run",
-      "--out-format",
-      "json",
-    }
+    -- require("lint").linters_by_ft.go = { "golangcilint" }
+    --
+    -- local golangcilint = require("lint.linters.golangcilint")
+    -- golangcilint.append_fname = true
+    -- golangcilint.args = {
+    --   "run",
+    --   "--out-format",
+    --   "json",
+    -- }
     --
     -- local dir_has_file = function(files)
     --   for _, file in ipairs(files) do
