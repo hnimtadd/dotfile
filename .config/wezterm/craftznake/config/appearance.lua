@@ -61,7 +61,7 @@ return {
 	-- color_scheme = "Rosé Pine Moon (base16)",
 	color_scheme = "Rosé Pine Moon (Gogh)",
 	-- background
-	window_background_opacity = 0.8,
+	window_background_opacity = 0.85,
 	macos_window_background_blur = 20,
 	window_decorations = "INTEGRATED_BUTTONS|RESIZE",
 	-- scrollbar
