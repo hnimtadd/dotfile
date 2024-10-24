@@ -14,19 +14,21 @@ if [[ -d "$HOME/.cfg" ]];then
         ;;
     sync)
       # Show the diff
-      changes=$(git --git-dir=$HOME/.cfg/ --work-tree=$HOME diff)
+      changes=$(git --git-dir=$HOME/.cfg/ --work-tree=$HOME diff --name-only)
       # Check if there are no changes
       if [[ -z $changes ]]; then
         echo "No changes to sync."
         return
       fi
-      echo $changes
+      git --git-dir=$HOME/.cfg/ --work-tree=$HOME status -v -v
 
       # Ask the user to proceed
-      echo -n "Do you want to proceed with the sync (y/n)? "
+      echo -n "Do you want to proceed with the sync (Y/n)? "
       read confirm
+      # Default is y
+      confirm=${confirm:-Y}
 
-      if [[ $confirm == "y" ]]; then
+      if [[ $confirm == "y" || $confirm == "Y" ]]; then
         # Add all changes
         git --git-dir=$HOME/.cfg/ --work-tree=$HOME add $(git --git-dir=$HOME/.cfg/ --work-tree=$HOME diff --name-only --relative)
 
@@ -41,7 +43,7 @@ if [[ -d "$HOME/.cfg" ]];then
           echo "Commit message is required. Aborting."
         fi
       else
-        echo "Sync canceled."
+      echo "Sync canceled."
       fi
       ;;
         *)
