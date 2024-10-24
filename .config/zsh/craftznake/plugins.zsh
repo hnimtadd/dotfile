@@ -1,12 +1,12 @@
 import plugins.before/zsh-eza.zsh
-import plugins.before/zsh-vim-mode.zsh
+import plugins.before/zsh-vi-mode.zsh
 
 plugins=(
     git
     zsh-syntax-highlighting
     zsh-autosuggestions
-    zsh-vim-mode
     zsh-abbr
+    zsh-vi-mode
     z
     zsh-eza
 )
@@ -14,3 +14,4 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 import plugins.after/pure.zsh
+import plugins.after/zshvimode-abbr.zsh
