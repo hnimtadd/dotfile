@@ -14,7 +14,13 @@ if [[ -d "$HOME/.cfg" ]];then
         ;;
     sync)
       # Show the diff
-      git --git-dir=$HOME/.cfg/ --work-tree=$HOME diff --name-only
+      changes=$(git --git-dir=$HOME/.cfg/ --work-tree=$HOME diff)
+      # Check if there are no changes
+      if [[ -z $changes ]]; then
+        echo "No changes to sync."
+        return
+      fi
+      echo $changes
 
       # Ask the user to proceed
       echo -n "Do you want to proceed with the sync (y/n)? "
