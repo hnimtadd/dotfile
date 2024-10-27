@@ -5,8 +5,8 @@ plugins=(
     git
     zsh-autosuggestions
     zsh-syntax-highlighting
-    zsh-vi-mode
     zsh-abbr
+    zsh-vi-mode
     z
     zsh-eza
 )
