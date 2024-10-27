@@ -2068,6 +2068,15 @@
                             "to": [{ "key_code": "left_shift" }]
                         }
                     ]
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "is_pointing_device": true,
+                        "product_id": 20811,
+                        "vendor_id": 20307
+                    },
+                    "ignore": false
                 }
             ],
             "name": "Default profile",
