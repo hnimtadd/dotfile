@@ -1,11 +1,11 @@
 import plugins.before/zsh-eza.zsh
-import plugins.before/zsh-vim-mode.zsh
+import plugins.before/zsh-vi-mode.zsh
 
 plugins=(
     git
-    zsh-syntax-highlighting
     zsh-autosuggestions
-    zsh-vim-mode
+    zsh-syntax-highlighting
+    zsh-vi-mode
     zsh-abbr
     z
     zsh-eza
@@ -14,3 +14,8 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 import plugins.after/pure.zsh
+import plugins.after/zsh-vi-mode-abbr.zsh
+
+if [[ -d "$ZSH_CUSTOM/plugins/nvm" ]]; then
+    source  "$ZSH_CUSTOM/plugins/nvm/nvm.sh"
+fi
