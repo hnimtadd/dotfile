@@ -1,8 +1,7 @@
 # Uncomment the following line to use case-sensitive completion.
 CASE_SENSITIVE="false"
 DISABLE_AUTO_TITLE="true"
-ENABLE_CORRECTION="true"
-
+ENABLE_CORRECTION="false"
 
 # You can also set it to another string to have that shown instead of the default red dots.
 COMPLETION_WAITING_DOTS="true"
@@ -22,6 +21,7 @@ ABBR_SET_EXPANSION_CURSOR=1
 # ZSH_AUTOSUGGEST config
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#907aa9,bg=#2a273f,bold,underline"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
