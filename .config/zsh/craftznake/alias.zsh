@@ -14,12 +14,13 @@ if [[ -d "$HOME/.cfg" ]];then
         ;;
     sync)
       # Show the diff
-      changes=$(git --git-dir=$HOME/.cfg/ --work-tree=$HOME diff --name-only)
+      changes=$(git --git-dir=$HOME/.cfg/ --work-tree=$HOME diff --staged --name-only)
       # Check if there are no changes
       if [[ -z $changes ]]; then
         echo "No changes to sync."
         return
       fi
+
       git --git-dir=$HOME/.cfg/ --work-tree=$HOME status -v -v
 
       # Ask the user to proceed
@@ -43,7 +44,7 @@ if [[ -d "$HOME/.cfg" ]];then
           echo "Commit message is required. Aborting."
         fi
       else
-      echo "Sync canceled."
+        echo "Sync canceled."
       fi
       ;;
         *)
