@@ -14,7 +14,7 @@ if [[ -d "$HOME/.cfg" ]];then
         ;;
     sync)
       # Show the diff
-      changes=$(git --git-dir=$HOME/.cfg/ --work-tree=$HOME diff --staged --name-only)
+      changes=$(git --git-dir=$HOME/.cfg/ --work-tree=$HOME diff HEAD --name-only)
       # Check if there are no changes
       if [[ -z $changes ]]; then
         echo "No changes to sync."
