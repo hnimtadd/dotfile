@@ -14,3 +14,4 @@ source $ZSH/oh-my-zsh.sh
 import plugins.after/pure.zsh
 import plugins.after/zshvimode-abbr.zsh
 import plugins.after/zsheza.zsh
+import plugins.after/zsh-fzf.zsh

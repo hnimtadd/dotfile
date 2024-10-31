@@ -18,6 +18,10 @@ if [[ -f "$ZSH_ROOT/alias.zsh" ]]; then
     source "$ZSH_ROOT/alias.zsh"
 fi
 
+if [[ -f "$ZSH_ROOT/bindings.zsh" ]]; then
+    source "$ZSH_ROOT/bindings.zsh"
+fi
+
 if [[ -f "$ZSH_ROOT/themes.zsh" ]]; then
     source "$ZSH_ROOT/themes.zsh"
 fi
