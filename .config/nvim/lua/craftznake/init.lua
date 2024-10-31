@@ -1,6 +1,6 @@
 require("craftznake.lazy_init")
-require("craftznake.remap")
 require("craftznake.set")
+require("craftznake.remap")
 
 local augroup = vim.api.nvim_create_augroup
 local CraftznakeGroup = augroup("Craftznake", {})
@@ -49,17 +49,9 @@ autocmd("LspAttach", {
   callback = function(e)
     local opts = { buffer = e.buf }
 
-    vim.keymap.set("n", "gd", function()
-      vim.lsp.buf.definition()
-    end, vim.tbl_extend("force", opts, { desc = "[G]oto [D]efinition" }))
-
     vim.keymap.set("n", "gD", function()
       vim.lsp.buf.declaration()
-    end, vim.tbl_extend("force", opts, { desc = "[G]oto [D]ecalration" }))
-
-    vim.keymap.set("n", "gi", function()
-      vim.lsp.buf.implementation()
-    end, vim.tbl_extend("force", opts, { desc = "[G]oto [I]mplementation" }))
+    end, vim.tbl_extend("force", opts, { desc = "[G]oto [D]eclaration" }))
 
     vim.keymap.set("n", "K", function()
       vim.lsp.buf.hover()
@@ -82,10 +74,6 @@ autocmd("LspAttach", {
       vim.lsp.buf.code_action()
     end, vim.tbl_extend("force", opts, { desc = "[V]iew [C]ode [A]ction" }))
 
-    vim.keymap.set("n", "<leader>vrr", function()
-      vim.lsp.buf.references()
-    end, vim.tbl_extend("force", opts, { desc = "[V]iew [R]efe[R]ences" }))
-
     vim.keymap.set("n", "<leader>vrn", function()
       vim.lsp.buf.rename()
     end, vim.tbl_extend("force", opts, { desc = "[V]iew [R]e[N]ame" }))
@@ -97,6 +85,7 @@ autocmd("LspAttach", {
     vim.keymap.set("n", "[d", function()
       vim.diagnostic.goto_prev()
     end, vim.tbl_extend("force", opts, { desc = "Prev [D]iagnostic" }))
+
     vim.keymap.set("n", "]e", diagnostic_goto(true, "ERROR"), vim.tbl_extend("force", opts, { desc = "Next [E]rror" }))
     vim.keymap.set("n", "[e", diagnostic_goto(false, "ERROR"), vim.tbl_extend("force", opts, { desc = "Prev [E]rror" }))
     vim.keymap.set("n", "]w", diagnostic_goto(true, "WARN"), vim.tbl_extend("force", opts, { desc = "Next [W]arn" }))

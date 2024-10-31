@@ -50,6 +50,14 @@ return {
       ";d",
       function()
         local builtin = require("telescope.builtin")
+        builtin.diagnostics({ bufnr = 0 })
+      end,
+      desc = "Open [D]iagnostics lists",
+    },
+    {
+      ";D",
+      function()
+        local builtin = require("telescope.builtin")
         builtin.diagnostics()
       end,
       desc = "Open [D]iagnostics lists",
@@ -61,6 +69,40 @@ return {
         builtin.treesitter()
       end,
       desc = "Open tree[S]itter lists function names, variables",
+    },
+    {
+
+      "gt",
+      function()
+        local builtin = require("telescope.builtin")
+        builtin.lsp_definitions()
+      end,
+      desc = "[G]oto [T]ype Definition",
+    },
+    {
+      "gr",
+      function()
+        local builtin = require("telescope.builtin")
+        builtin.lsp_references()
+      end,
+      desc = "[V]iew [R]efe[R]ences",
+    },
+    {
+
+      "gd",
+      function()
+        local builtin = require("telescope.builtin")
+        builtin.lsp_definitions()
+      end,
+      desc = "[G]oto [D]efinition",
+    },
+    {
+      "gi",
+      function()
+        local builtin = require("telescope.builtin")
+        builtin.lsp_implementations()
+      end,
+      desc = "[G]oto [I]mplementation",
     },
     {
       ";g",
@@ -87,15 +129,35 @@ return {
   },
   config = function()
     local actions = require("telescope.actions")
+    -- Reference from this: show file name first before path
+    -- https://github.com/nvim-telescope/telescope.nvim/issues/2014#issuecomment-1873229658
+    local function teleFilename(_, path)
+      local tail = require("telescope.utils").path_tail(path)
+
+      if string.len(tail) > 30 then
+        tail = string.sub(tail, 0, 28) .. ".."
+      end
+      -- Calculate width of the output line
+      return string.format("%-30s %s", tail, path)
+    end
+
     require("telescope").setup({
       defaults = {
         mappings = {
           i = {
-            ["<C-h>"] = actions.select_horizontal,
+            ["<C-|>"] = actions.select_horizontal,
+            ["<C-->"] = actions.select_vertical,
           },
           n = {
-            ["<C-h>"] = actions.select_horizontal,
+            ["<C-|>"] = actions.select_horizontal,
+            ["<C-->"] = actions.select_vertical,
           },
+        },
+        layout_strategy = "flex",
+      },
+      pickers = {
+        find_files = {
+          path_display = teleFilename,
         },
       },
     })

@@ -29,7 +29,7 @@ return {
             fmt = function(str)
               local mode_map = {
                 n = "⽳", -- Normal
-                i = "⼃", -- Insert
+                i = "⼊", -- Insert
                 v = "⼊", -- Visual
                 V = "⽘", -- Visual Line
                 c = "⼄", -- Command

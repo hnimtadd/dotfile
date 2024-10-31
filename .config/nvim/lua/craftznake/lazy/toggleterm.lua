@@ -21,6 +21,9 @@ return {
       autochdir = false,
       shade_terminals = false,
       shade_filetypes = {},
+      on_open = function(term)
+        vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+      end,
 
       start_in_insert = true,
       insert_mappings = true,
@@ -38,12 +41,34 @@ return {
       },
     })
 
+    local Terminal = require("toggleterm.terminal").Terminal
+    local lazygit = Terminal:new({
+      cmd = "lazygit",
+      dir = "git_dir",
+      direction = "float",
+      float_opts = {
+        border = "double",
+      },
+      -- function to run on opening the terminal
+      on_open = function(term)
+        vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+      end,
+    })
+
     local wk = require("which-key")
     wk.add({
       {
         mode = { "n" },
         { "<leader>vt", group = "[T]erminal" },
         { "<leader>vts", ":TermSelect<CR>", desc = "Terminal [S]elect" },
+        { "<leader>\\", ":ToggleTerm direction=float<CR>", desc = "Toggle Terminal Float" },
+        {
+          "<leader>g",
+          function()
+            lazygit:toggle()
+          end,
+          desc = "LazyGit",
+        },
       },
     })
   end,
