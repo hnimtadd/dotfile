@@ -1,4 +1,6 @@
-vim.opt.guicursor = { a = "blinkon0" }
+vim.g.mapleader = " "
+vim.opt.guicursor = "a:blinkon0-block"
+
 vim.opt.mouse = "a"
 vim.opt.nu = true
 vim.opt.clipboard = ""
@@ -11,7 +13,6 @@ vim.opt.smarttab = true
 vim.opt.smartindent = true
 
 vim.opt.wrap = false -- No Wrap lines
-
 vim.opt.swapfile = false
 vim.opt.backup = false
 
