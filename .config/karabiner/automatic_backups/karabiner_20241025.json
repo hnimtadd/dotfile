@@ -355,6 +355,20 @@
                                 "type": "basic"
                             },
                             {
+                                "description": "shift + h = ctrl + shift + tab (prev tab)",
+                                "from": {
+                                    "key_code": "h",
+                                    "modifiers": { "mandatory": ["left_shift", "right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "tab",
+                                        "modifiers": ["left_control", "left_shift"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
                                 "description": "control + h = ctrl + left (prev desktop)",
                                 "from": {
                                     "key_code": "h",
@@ -414,6 +428,20 @@
                                 "type": "basic"
                             },
                             {
+                                "description": "shift + j = command + tab (next application)",
+                                "from": {
+                                    "key_code": "j",
+                                    "modifiers": { "mandatory": ["left_shift", "right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "tab",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
                                 "description": "control + j = ctrl + down (focus application)",
                                 "from": {
                                     "key_code": "j",
@@ -468,6 +496,20 @@
                                 "type": "basic"
                             },
                             {
+                                "description": "shift + k = command + tab (prev application)",
+                                "from": {
+                                    "key_code": "k",
+                                    "modifiers": { "mandatory": ["left_shift", "right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "tab",
+                                        "modifiers": ["left_command", "left_shift"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
                                 "description": "control + k = ctrl + up (expose all)",
                                 "from": {
                                     "key_code": "k",
@@ -514,6 +556,20 @@
                                     {
                                         "key_code": "right_arrow",
                                         "modifiers": ["left_shift", "left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "shift + l = command + tab (next tab)",
+                                "from": {
+                                    "key_code": "l",
+                                    "modifiers": { "mandatory": ["left_shift", "right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "tab",
+                                        "modifiers": ["left_control"]
                                     }
                                 ],
                                 "type": "basic"
@@ -1293,6 +1349,311 @@
                         ]
                     },
                     {
+                        "description": "Hyper Clipboard",
+                        "manipulators": [
+                            {
+                                "description": "command + 1 = copy to clip1",
+                                "from": {
+                                    "key_code": "1",
+                                    "modifiers": { "mandatory": ["left_command", "right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "c",
+                                        "modifiers": ["left_command"]
+                                    },
+                                    { "shell_command": "pbpaste > ~/.clip1" }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "1 = paste from clip1",
+                                "from": {
+                                    "key_code": "1",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    { "shell_command": "cat ~/.clip1 | pbcopy " },
+                                    {
+                                        "key_code": "v",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "command + 2 = copy to clip2",
+                                "from": {
+                                    "key_code": "2",
+                                    "modifiers": { "mandatory": ["left_command", "right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "c",
+                                        "modifiers": ["left_command"]
+                                    },
+                                    { "shell_command": "pbpaste > ~/.clip2" }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "2 = paste from clip2",
+                                "from": {
+                                    "key_code": "2",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    { "shell_command": "cat ~/.clip2 | pbcopy " },
+                                    {
+                                        "key_code": "v",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "command + 3 = copy to clip3",
+                                "from": {
+                                    "key_code": "3",
+                                    "modifiers": { "mandatory": ["left_command", "right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "c",
+                                        "modifiers": ["left_command"]
+                                    },
+                                    { "shell_command": "pbpaste > ~/.clip3" }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "3 = paste from clip3",
+                                "from": {
+                                    "key_code": "3",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    { "shell_command": "cat ~/.clip3 | pbcopy " },
+                                    {
+                                        "key_code": "v",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "command + 4 = copy to clip4",
+                                "from": {
+                                    "key_code": "4",
+                                    "modifiers": { "mandatory": ["left_command", "right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "c",
+                                        "modifiers": ["left_command"]
+                                    },
+                                    { "shell_command": "pbpaste > ~/.clip4" }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "4 = paste from clip4",
+                                "from": {
+                                    "key_code": "4",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    { "shell_command": "cat ~/.clip4 | pbcopy " },
+                                    {
+                                        "key_code": "v",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "command + 5 = copy to clip5",
+                                "from": {
+                                    "key_code": "5",
+                                    "modifiers": { "mandatory": ["left_command", "right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "c",
+                                        "modifiers": ["left_command"]
+                                    },
+                                    { "shell_command": "pbpaste > ~/.clip5" }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "5 = paste from clip5",
+                                "from": {
+                                    "key_code": "5",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    { "shell_command": "cat ~/.clip5 | pbcopy " },
+                                    {
+                                        "key_code": "v",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "command + 6 = copy to clip6",
+                                "from": {
+                                    "key_code": "6",
+                                    "modifiers": { "mandatory": ["left_command", "right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "c",
+                                        "modifiers": ["left_command"]
+                                    },
+                                    { "shell_command": "pbpaste > ~/.clip6" }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "6 = paste from clip6",
+                                "from": {
+                                    "key_code": "6",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    { "shell_command": "cat ~/.clip6 | pbcopy " },
+                                    {
+                                        "key_code": "v",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "command + 7 = copy to clip7",
+                                "from": {
+                                    "key_code": "7",
+                                    "modifiers": { "mandatory": ["left_command", "right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "c",
+                                        "modifiers": ["left_command"]
+                                    },
+                                    { "shell_command": "pbpaste > ~/.clip7" }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "7 = paste from clip7",
+                                "from": {
+                                    "key_code": "7",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    { "shell_command": "cat ~/.clip7 | pbcopy " },
+                                    {
+                                        "key_code": "v",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "command + 8 = copy to clip8",
+                                "from": {
+                                    "key_code": "8",
+                                    "modifiers": { "mandatory": ["left_command", "right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "c",
+                                        "modifiers": ["left_command"]
+                                    },
+                                    { "shell_command": "pbpaste > ~/.clip8" }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "8 = paste from clip8",
+                                "from": {
+                                    "key_code": "8",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    { "shell_command": "cat ~/.clip8 | pbcopy " },
+                                    {
+                                        "key_code": "v",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "command + 9 = copy to clip9",
+                                "from": {
+                                    "key_code": "9",
+                                    "modifiers": { "mandatory": ["left_command", "right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "c",
+                                        "modifiers": ["left_command"]
+                                    },
+                                    { "shell_command": "pbpaste > ~/.clip9" }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "9 = paste from clip9",
+                                "from": {
+                                    "key_code": "9",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    { "shell_command": "cat ~/.clip9 | pbcopy " },
+                                    {
+                                        "key_code": "v",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "command + 0 = copy to clip0",
+                                "from": {
+                                    "key_code": "0",
+                                    "modifiers": { "mandatory": ["left_command", "right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "c",
+                                        "modifiers": ["left_command"]
+                                    },
+                                    { "shell_command": "pbpaste > ~/.clip0" }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "0 = paste from clip0",
+                                "from": {
+                                    "key_code": "0",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_shift", "right_option"] }
+                                },
+                                "to": [
+                                    { "shell_command": "cat ~/.clip0 | pbcopy " },
+                                    {
+                                        "key_code": "v",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Hyper Functional",
                         "manipulators": [
                             {
@@ -1707,15 +2068,6 @@
                             "to": [{ "key_code": "left_shift" }]
                         }
                     ]
-                },
-                {
-                    "identifiers": {
-                        "is_keyboard": true,
-                        "is_pointing_device": true,
-                        "product_id": 20811,
-                        "vendor_id": 20307
-                    },
-                    "ignore": false
                 }
             ],
             "name": "Default profile",
