@@ -25,8 +25,8 @@
     shortcat
     wezterm
   ];
-environment.shells = with pkgs; [ bash zsh ];
-environment.loginShell = pkgs.zsh ;
+    # environment.shells = with pkgs; [ bash zsh ];
+    # environment.loginShell = pkgs.zsh ;
 
   # TODO To make this work, homebrew need to be installed manually, see https://brew.sh
   #
