@@ -4,19 +4,19 @@
   imports = [
     # You can also split up your configuration and import pieces of it here:
     ./dotfiles.nix
+    ./programs.nix
   ];
 
-  home = {
-        packages = with pkgs; [ go ];
-        username = "${username}";
-        homeDirectory = "/Users/${username}";
-        stateVersion = "24.05";
-  };
+    home = {
+            packages = with pkgs; [ go ];
+            username = "${username}";
+            homeDirectory = "/Users/${username}";
+            stateVersion = "24.05";
+    };
 
-  # Enable home-manager and git
-  programs.home-manager.enable = true;
-  programs.git.enable = true;
+    # Enable home-manager and git
+    programs.home-manager.enable = true;
 
-  # Nicely reload system units when changing configs
-  systemd.user.startServices = "sd-switch";
+    # Nicely reload system units when changing configs
+    systemd.user.startServices = "sd-switch";
 }
