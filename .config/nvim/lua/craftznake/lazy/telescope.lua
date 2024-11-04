@@ -85,7 +85,7 @@ return {
         local builtin = require("telescope.builtin")
         builtin.lsp_references()
       end,
-      desc = "[V]iew [R]efe[R]ences",
+      desc = "[G]oto [R]efe[R]ences",
     },
     {
 
