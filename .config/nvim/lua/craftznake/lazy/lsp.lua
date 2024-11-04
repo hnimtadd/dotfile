@@ -7,12 +7,7 @@ return {
 
     "j-hui/fidget.nvim",
     "hrsh7th/nvim-cmp",
-    {
-      "hrsh7th/cmp-nvim-lsp",
-      cond = function()
-        return require("lazyvim.util").has("nvim-cmp")
-      end,
-    },
+    "hrsh7th/cmp-nvim-lsp",
   },
   after = { "cmp.lua" },
   config = function()
