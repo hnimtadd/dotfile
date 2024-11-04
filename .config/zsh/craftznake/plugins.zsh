@@ -4,8 +4,8 @@ import plugins.before/gvm.zsh
 
 plugins=(
     git
-    zsh-syntax-highlighting
     zsh-autosuggestions
+    zsh-syntax-highlighting
     zsh-abbr
     zsh-vi-mode
     zsh-z
@@ -16,3 +16,8 @@ import plugins.after/pure.zsh
 import plugins.after/zshvimode-abbr.zsh
 import plugins.after/zsheza.zsh
 import plugins.after/zsh-fzf.zsh
+import plugins.after/zsh-vi-mode-abbr.zsh
+
+if [[ -d "$ZSH_CUSTOM/plugins/nvm" ]]; then
+    source  "$ZSH_CUSTOM/plugins/nvm/nvm.sh"
+fi
