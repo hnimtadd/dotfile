@@ -1,5 +1,6 @@
 import plugins.before/zsh-eza.zsh
 import plugins.before/zsh-vi-mode.zsh
+import plugins.before/gvm.zsh
 
 plugins=(
     git
@@ -7,7 +8,7 @@ plugins=(
     zsh-autosuggestions
     zsh-abbr
     zsh-vi-mode
-    z
+    zsh-z
 )
 source $ZSH/oh-my-zsh.sh
 
