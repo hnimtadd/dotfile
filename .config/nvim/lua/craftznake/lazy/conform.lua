@@ -4,8 +4,8 @@ return {
     formatters_by_ft = {
       go = { "gofumpt", "goimports" },
       python = { "isort", "ruff_format" },
-      typescript = { "prettierd", "eslint_d" },
-      javascript = { "prettierd", "eslint_d" },
+      -- typescript = { "prettierd", "eslint_d" },
+      -- javascript = { "prettierd", "eslint_d" },
       rust = { "rustfmt" },
       json = { "jq" },
     },
