@@ -9,7 +9,9 @@ plugins=(
     zsh-abbr
     zsh-vi-mode
     zsh-z
+    fzf-zsh-plugin
 )
+
 source $ZSH/oh-my-zsh.sh
 
 import plugins.after/pure.zsh
@@ -18,6 +20,9 @@ import plugins.after/zsheza.zsh
 import plugins.after/zsh-fzf.zsh
 import plugins.after/zsh-vi-mode-abbr.zsh
 
-if [[ -d "$ZSH_CUSTOM/plugins/nvm" ]]; then
+
+if [[ -f "$ZSH_NVM_PATH" ]]; then
+    source "$ZSH_NVM_PATH"
+elif [[ -d "$ZSH_CUSTOM/plugins/nvm" ]]; then
     source  "$ZSH_CUSTOM/plugins/nvm/nvm.sh"
 fi

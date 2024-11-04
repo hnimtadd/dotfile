@@ -3,14 +3,14 @@ let
     dotconfigs = "/Users/${username}/dotfile";
 in
 {
-    home.activation.pullDotconfigs = pkgs.lib.mkAfter ''
-        if [ -d "${dotconfigs}" ]; then
-        echo "Pulling latest .dotconfigs from the repository..."
-        git -C "${dotconfigs}" pull origin main || echo "Failed to pull .dotconfigs"
-        else
-        echo ".dotconfigs folder does not exist at ${dotconfigs}. Please check the path."
-        fi
-    '';
+    # home.activation.pullDotconfigs = pkgs.lib.mkAfter ''
+    #     if [ -d "${dotconfigs}" ]; then
+    #     echo "Pulling latest .dotconfigs from the repository..."
+    #     git -C "${dotconfigs}" pull origin main || echo "Failed to pull .dotconfigs"
+    #     else
+    #     echo ".dotconfigs folder does not exist at ${dotconfigs}. Please check the path."
+    #     fi
+    # '';
     home.sessionVariables = {
         EDITOR= "nvim";
         CLICOLOR= 1;
@@ -41,11 +41,6 @@ in
             target = ".config/kitty";
             recursive = true;
         };
-        # "nix-darwin" = {
-        #     source = "${dotconfigs}/.config/nix-darwin";
-        #     target = ".config/nix-darwin";
-        #     recursive = true;
-        # };
         "nvim" = {
             source = "${dotconfigs}/.config/nvim";
             target = ".config/nvim";
