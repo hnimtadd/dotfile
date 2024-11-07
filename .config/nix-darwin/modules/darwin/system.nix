@@ -32,7 +32,7 @@ in
     ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
   done
       '';
-activationScripts.postUserActivation.text = ''
+    activationScripts.postUserActivation.text = ''
     # Install homebrew if it isn't there
     if [[ ! -d "/opt/homebrew/bin" ]]; then
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -52,4 +52,4 @@ activationScripts.postUserActivation.text = ''
 
     # show extensions for file
     home-manager.backupFileExtension = "backup";
-}
+    }

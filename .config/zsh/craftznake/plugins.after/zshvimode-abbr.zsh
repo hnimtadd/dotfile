@@ -6,7 +6,7 @@ function zvm_after_init() {
     bindkey " " abbr-expand-and-insert
 
     # control-spacebar is a normal space
-    bindkey "^ " magic-space
+    bindkey "^[[32;1u" magic-space
 
     # when running an incremental search,
     # spacebar behaves normally and control-space expands abbreviations
