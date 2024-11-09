@@ -43,8 +43,8 @@ let
         zsh-eza = pkgs.fetchFromGitHub {
             owner = "z-shell";
             repo = "zsh-eza";
-            rev = "v1.0.1";
-            sha256 = "1lb752fq1rchhpv8wz33jfqanwqa846fnigjcyqh3vdgvadf672g";
+            rev = "master";
+            sha256 = "0xn25dpzy8aw497fpsywlcvb1mym4g86823z11qj5zhj3790l9sk";
         };
     };
 in
@@ -54,6 +54,9 @@ in
             go
             git
             starship
+            eza
+            fd
+            ripgrep
         ];
             username = "${username}";
             homeDirectory = "/Users/${username}";
@@ -171,7 +174,7 @@ in
         };
         "zsh-eza" = {
             source = zshPlugins.zsh-eza;
-            target = "${pluginFolder}/zsh-exa";
+            target = "${pluginFolder}/zsh-eza";
             recursive = true;
         };
         "oh-my-zsh" = {
