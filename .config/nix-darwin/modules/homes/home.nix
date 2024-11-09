@@ -57,6 +57,7 @@ in
             eza
             fd
             ripgrep
+            neovim
         ];
             username = "${username}";
             homeDirectory = "/Users/${username}";
