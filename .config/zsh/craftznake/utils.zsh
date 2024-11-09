@@ -14,3 +14,10 @@ import() {
         return 1  # Return an error code if the module is not found
     fi
 }
+
+append_path_if_not_exists() {
+  local dir=$1
+  if [[ -d "$dir" && ! ":$PATH:" =~ ":$dir:" ]]; then
+      path+=$dir
+  fi
+}

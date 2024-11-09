@@ -1,9 +1,2 @@
-if [[ -d "$HOME/.scripts/" ]];then
-    path+="$HOME/.scripts"
-fi
-
-
-if [[ -d "$HOME/local_bin/" ]];then
-    path+="$HOME/local_bin"
-fi
-
+append_path_if_not_exists "$HOME/.scripts"
+append_path_if_not_exists "$HOME/local_bin"
