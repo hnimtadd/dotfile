@@ -46,8 +46,9 @@
                 home-manager.darwinModules.home-manager
                 {
                     home-manager = {
+                        backupFileExtension = "bak";
                         useGlobalPkgs = true;
-                        useUserPackages = true;
+                        # useUserPackages = true;
                         extraSpecialArgs =  specialArgs;
                         users = {
                             "${username}" = import ./modules/homes/home.nix;
