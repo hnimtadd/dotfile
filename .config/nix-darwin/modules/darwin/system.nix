@@ -57,7 +57,4 @@ in
 
     # Add ability to used TouchID for sudo authentication
     security.pam.enableSudoTouchIdAuth = true;
-
-    # show extensions for file
-    home-manager.backupFileExtension = "backup";
     }
