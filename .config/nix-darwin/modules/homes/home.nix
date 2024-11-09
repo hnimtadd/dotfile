@@ -68,7 +68,6 @@ in
     programs.home-manager.enable = true;
     programs.zsh = {
         enable = true;
-        dotDir = ".config/zsh";
         sessionVariables = {
             EDITOR= "nvim";
             CLICOLOR= 1;
@@ -76,9 +75,9 @@ in
             ZSH=ohMyZshFolder;
             ZSH_CUSTOM="${ohMyZshFolder}/custom";
         };
-        # initExtra = ''
-            # source ~/.config/zsh/index.zsh
-        # '';
+        initExtra = ''
+            source ~/.config/zsh/index.zsh
+        '';
     };
 
     # Nicely reload system units when changing configs
