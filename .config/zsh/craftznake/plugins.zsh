@@ -9,7 +9,7 @@ plugins=(
     zsh-abbr
     zsh-vi-mode
     zsh-z
-    zsh-exa
+    zsh-eza
 )
 
 
