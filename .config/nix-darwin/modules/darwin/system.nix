@@ -40,10 +40,18 @@ in
   '';
 
     defaults = {
-        menuExtraClock.Show24Hour = true;  # show 24 hour clock
-        dock.autohide = true;
+        menuExtraClock.IsAnalog = true;
         finder.AppleShowAllExtensions = true;
         finder._FXShowPosixPathInTitle = true;
+        finder.ShowPathbar = true;
+        NSGlobalDomain.KeyRepeat = 5;
+        NSGlobalDomain.InitialKeyRepeat = 2;
+
+        loginwindow.LoginwindowText="Any fool can write code that a computer can understand. Good programmers write code that humans can understand.";
+        dock.autohide = true;
+        dock.orientation = "left";
+        dock.static-only = true;
+        dock.tilesize = 32;
     };
   };
 

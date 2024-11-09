@@ -14,9 +14,6 @@
   environment.systemPackages = with pkgs; [
     git
     neovim
-    eza
-    fd
-    ripgrep
     kitty
     skhd
     obsidian
@@ -40,12 +37,15 @@
     ];
 
     # `brew install`
-    brews = [ ];
+    brews = [
+    ];
 
     # `brew install --cask`
     casks = [
         "google-chrome"
         "raycast"
+        "hiddenbar"
+        "stats"
     ];
   };
  services.yabai = {
