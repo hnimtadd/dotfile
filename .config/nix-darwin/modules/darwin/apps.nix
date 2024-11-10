@@ -40,10 +40,14 @@
 
     # `brew install --cask`
     casks = [
-        "google-chrome"
+        # "google-chrome"
+        "brave-browser"
+        "jordanbaird-ice"
         "raycast"
-        "hiddenbar"
+        # "hiddenbar"
         "stats"
+        "aldente"
+        "middleclick"
     ];
   };
  services.yabai = {
