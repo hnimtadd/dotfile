@@ -5,56 +5,153 @@ return {
     dependecies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim",
+      "folke/which-key.nvim",
     },
     config = function()
       local harpoon = require("harpoon")
       harpoon:setup({})
+      local wk = require("which-key")
 
-      vim.keymap.set("n", "<leader>ha", function()
-        harpoon:list():add()
-      end, { desc = "Harpoon [A]dd" })
+      wk.add({
+        mode = { "n" },
+        {
+          "<leader>ha",
+          function()
+            harpoon:list():add()
+          end,
+          desc = "Harpoon [A]dd",
+          noremap = true,
+          silent = true,
+        },
+        {
+          "<leader>h1",
+          function()
+            harpoon:list():select(1)
+          end,
+          desc = "Harpoon [1]",
+          noremap = true,
+          silent = true,
+        },
+        {
+          "<leader>h2",
+          function()
+            harpoon:list():select(2)
+          end,
+          desc = "Harpoon [2]",
+          noremap = true,
+          silent = true,
+        },
+        {
+          "<leader>h3",
+          function()
+            harpoon:list():select(3)
+          end,
+          desc = "Harpoon [3]",
+          noremap = true,
+          silent = true,
+        },
+        {
+          "<leader>h4",
+          function()
+            harpoon:list():select(4)
+          end,
+          desc = "Harpoon [4]",
+          noremap = true,
+          silent = true,
+        },
+        {
+          "<leader>hr1",
+          function()
+            harpoon:list():replace_at(1)
+          end,
+          desc = "Harpoon [R]eplace [1]",
+          noremap = true,
+          silent = true,
+        },
+        {
+          "<leader>hr2",
+          function()
+            harpoon:list():replace_at(2)
+          end,
+          desc = "Harpoon [R]eplace [2]",
+          noremap = true,
+          silent = true,
+        },
+        {
+          "<leader>hr3",
+          function()
+            harpoon:list():replace_at(3)
+          end,
+          desc = "Harpoon [R]eplace [3]",
+          noremap = true,
+          silent = true,
+        },
+        {
+          "<leader>hr4",
+          function()
+            harpoon:list():replace_at(4)
+          end,
+          desc = "Harpoon [R]eplace [4]",
+          noremap = true,
+          silent = true,
+        },
+        {
+          "<leader>hd1",
+          function()
+            harpoon:list():remove_at(1)
+          end,
+          desc = "Harpoon [D]elete [1]",
+          noremap = true,
+          silent = true,
+        },
+        {
+          "<leader>hd2",
+          function()
+            harpoon:list():remove_at(2)
+          end,
+          desc = "Harpoon [D]elete [2]",
+          noremap = true,
+          silent = true,
+        },
+        {
+          "<leader>hd3",
+          function()
+            harpoon:list():remove_at(3)
+          end,
+          desc = "Harpoon [D]elete [3]",
+          noremap = true,
+          silent = true,
+        },
+        {
+          "<leader>hd4",
+          function()
+            harpoon:list():remove_at(4)
+          end,
+          desc = "Harpoon [D]elete [4]",
+          noremap = true,
+          silent = true,
+        },
+        {
+          "<leader>hp",
+          function()
+            harpoon:list():prev()
+          end,
+          desc = "Harpoon [P]revious",
+          noremap = true,
+          silent = true,
+        },
+        {
+          "<leader>hd4",
+          function()
+            harpoon:list():next()
+          end,
+          desc = "Harpoon [N]ext",
+          noremap = true,
+          silent = true,
+        },
+      })
 
-      vim.keymap.set("n", "<leader>h1", function()
-        harpoon:list():select(1)
-      end, { desc = "Harpoon [1]" })
-
-      vim.keymap.set("n", "<leader>h2", function()
-        harpoon:list():select(2)
-      end, { desc = "Harpoon [2]" })
-
-      vim.keymap.set("n", "<leader>h3", function()
-        harpoon:list():select(3)
-      end, { desc = "Harpoon [3]" })
-
-      vim.keymap.set("n", "<leader>h4", function()
-        harpoon:list():select(4)
-      end, { desc = "Harpoon [4]" })
-
-      vim.keymap.set("n", "<leader>hr1", function()
-        harpoon:list():replace_at(1)
-      end, { desc = "Harpoon [R]eplace [1]" })
-
-      vim.keymap.set("n", "<leader>hr2", function()
-        harpoon:list():replace_at(2)
-      end, { desc = "Harpoon [R]eplace [2]" })
-
-      vim.keymap.set("n", "<leader>hr3", function()
-        harpoon:list():replace_at(3)
-      end, { desc = "Harpoon  [R]eplace [3]" })
-
-      vim.keymap.set("n", "<leader>hr4", function()
-        harpoon:list():replace_at(4)
-      end, { desc = "Harpoon  [R]eplace [4]" })
-      --
       -- Toggle previous & next buffers stored within Harpoon list
-      vim.keymap.set("n", "<leader>hp", function()
-        harpoon:list():prev()
-      end, { desc = "Harpoon [P]revious" })
-
-      vim.keymap.set("n", "<leader>hn", function()
-        harpoon:list():next()
-      end, { desc = "Harpoon [N]ext" })
-
       local conf = require("telescope.config").values
       local function toggle_telescope(harpoon_files)
         local file_paths = {}
@@ -74,9 +171,20 @@ return {
           :find()
       end
 
-      vim.keymap.set("n", ";h", function()
-        toggle_telescope(harpoon:list())
-      end, { desc = "Open [H]arpoon list" })
+      wk.add({
+        {
+          mode = "n",
+          {
+            ";h",
+            function()
+              toggle_telescope(harpoon:list())
+            end,
+            desc = "Open [H]arpoon list",
+            noremap = true,
+            silent = true,
+          },
+        },
+      })
     end,
   },
 }
