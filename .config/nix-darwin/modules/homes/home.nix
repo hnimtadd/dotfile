@@ -51,7 +51,7 @@ in
 {
   home = {
     packages = with pkgs; [
-      go
+      mise
       git
       starship
       eza
