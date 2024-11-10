@@ -41,7 +41,6 @@
       "stats"
       "aldente"
       "middleclick"
-      "neovide"
     ];
   };
   services.yabai = {
