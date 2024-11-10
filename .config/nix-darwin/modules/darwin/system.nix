@@ -44,8 +44,9 @@ in
         finder.AppleShowAllExtensions = true;
         finder._FXShowPosixPathInTitle = true;
         finder.ShowPathbar = true;
-        # NSGlobalDomain.KeyRepeat = 5;
-        # NSGlobalDomain.InitialKeyRepeat = 2;
+        NSGlobalDomain.KeyRepeat = 2;
+        NSGlobalDomain.InitialKeyRepeat = 25;
+        NSGlobalDomain.ApplePressAndHoldEnabled = false;
 
         loginwindow.LoginwindowText="Any fool can write code that a computer can understand. Good programmers write code that humans can understand.";
         dock.autohide = true;
