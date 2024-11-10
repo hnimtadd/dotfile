@@ -59,6 +59,7 @@ in
       ripgrep
       neovim
       lazygit
+      neovide
     ];
     username = "${username}";
     homeDirectory = "/Users/${username}";
