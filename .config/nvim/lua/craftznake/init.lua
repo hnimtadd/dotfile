@@ -30,11 +30,11 @@ autocmd({ "BufWritePre" }, {
   command = [[%s/\s\+$//e]],
 })
 
-autocmd("VimEnter", {
-  callback = function()
-    ColorMyPencils()
-  end,
-})
+-- autocmd("VimEnter", {
+--   callback = function()
+--     ColorMyPencils()
+--   end,
+-- })
 -- diagnostic
 local diagnostic_goto = function(next, severity)
   local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
