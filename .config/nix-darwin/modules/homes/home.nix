@@ -58,6 +58,7 @@ in
       fd
       ripgrep
       neovim
+      lazygit
     ];
     username = "${username}";
     homeDirectory = "/Users/${username}";
