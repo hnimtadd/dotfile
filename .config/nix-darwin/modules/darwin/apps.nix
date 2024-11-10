@@ -1,4 +1,4 @@
-{ pkgs, ...}:
+{ pkgs, ... }:
 # let
 #     yabai = pkgs.yabai.overrideAttrs (old: rec {
 #       src = pkgs.fetchFromGitHub {
@@ -12,16 +12,11 @@
 {
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
-    kitty
-    skhd
     obsidian
     mkalias
-    spotify
     shortcat
     wezterm
   ];
-    # environment.shells = with pkgs; [ bash zsh ];
-    # environment.loginShell = pkgs.zsh ;
   homebrew = {
     enable = true;
 
@@ -40,17 +35,15 @@
 
     # `brew install --cask`
     casks = [
-        # "google-chrome"
-        "brave-browser"
-        "jordanbaird-ice"
-        "raycast"
-        # "hiddenbar"
-        "stats"
-        "aldente"
-        "middleclick"
+      "brave-browser"
+      "jordanbaird-ice"
+      "raycast"
+      "stats"
+      "aldente"
+      "middleclick"
     ];
   };
- services.yabai = {
+  services.yabai = {
     enable = true;
     enableScriptingAddition = true;
     package = pkgs.yabai;
@@ -58,5 +51,6 @@
   services.skhd = {
     enable = true;
     package = pkgs.skhd;
-};
+  };
+  programs.zsh.enable = true;
 }

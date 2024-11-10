@@ -1,4 +1,3 @@
-
 { hostname, username, ... }:
 
 #############################################################
@@ -11,7 +10,7 @@
   networking.hostName = hostname;
   networking.computerName = hostname;
 
-  users.users."${username}"= {
+  users.users."${username}" = {
     home = "/Users/${username}";
     description = username;
   };
