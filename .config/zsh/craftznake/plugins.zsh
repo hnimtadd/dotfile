@@ -1,6 +1,7 @@
 import plugins.before/zsh-eza.zsh
 import plugins.before/zsh-vi-mode.zsh
 import plugins.before/gvm.zsh
+import plugins.before/zsh-mise.zsh
 
 plugins=(
     git
