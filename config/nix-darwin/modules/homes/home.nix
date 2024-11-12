@@ -60,6 +60,7 @@ in
       neovim
       lazygit
       neovide
+        kubectl
     ];
     username = "${username}";
     homeDirectory = "/Users/${username}";

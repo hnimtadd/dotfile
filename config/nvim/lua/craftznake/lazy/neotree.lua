@@ -3,6 +3,7 @@ return {
   dependencies = {
     "nvim-tree/nvim-web-devicons",
     "MunifTanjim/nui.nvim",
+    "folke/which-key.nvim",
     {
       "s1n7ax/nvim-window-picker",
       version = "2.*",
