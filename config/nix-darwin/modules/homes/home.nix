@@ -87,67 +87,67 @@ in
   systemd.user.startServices = "sd-switch";
   home.file = {
     "alacritty" = {
-      source = "${dotconfigs}/.config/alacritty";
+      source = "${dotconfigs}/config/alacritty";
       target = ".config/alacritty";
       recursive = true;
     };
     "eza" = {
-      source = "${dotconfigs}/.config/eza";
+      source = "${dotconfigs}/config/eza";
       target = ".config/eza";
       recursive = true;
     };
     "fish" = {
-      source = "${dotconfigs}/.config/fish";
+      source = "${dotconfigs}/config/fish";
       target = ".config/fish";
       recursive = true;
     };
     "karabiner" = {
-      source = "${dotconfigs}/.config/karabiner";
+      source = "${dotconfigs}/config/karabiner";
       target = ".config/karabiner";
       recursive = true;
     };
     "kitty" = {
-      source = "${dotconfigs}/.config/kitty";
+      source = "${dotconfigs}/config/kitty";
       target = ".config/kitty";
       recursive = true;
     };
     "nvim" = {
-      source = "${dotconfigs}/.config/nvim";
+      source = "${dotconfigs}/config/nvim";
       target = ".config/nvim";
       recursive = true;
     };
     "skhd" = {
-      source = "${dotconfigs}/.config/skhd";
+      source = "${dotconfigs}/config/skhd";
       target = ".config/skhd";
       recursive = true;
     };
     "tmux" = {
-      source = "${dotconfigs}/.config/tmux";
+      source = "${dotconfigs}/config/tmux";
       target = ".config/tmux";
       recursive = true;
     };
     "wezterm" = {
-      source = "${dotconfigs}/.config/wezterm";
+      source = "${dotconfigs}/config/wezterm";
       target = ".config/wezterm";
       recursive = true;
     };
     "yabai" = {
-      source = "${dotconfigs}/.config/yabai";
+      source = "${dotconfigs}/config/yabai";
       target = ".config/yabai";
       recursive = true;
     };
     "zsh" = {
-      source = "${dotconfigs}/.config/zsh";
+      source = "${dotconfigs}/config/zsh";
       target = ".config/zsh";
       recursive = true;
     };
     "starship" = {
-      source = "${dotconfigs}/.config/starship.toml";
+      source = "${dotconfigs}/config/starship.toml";
       target = ".config/starship.toml";
       recursive = true;
     };
     "scripts" = {
-      source = "${dotconfigs}/.scripts";
+      source = "${dotconfigs}/scripts";
       target = ".scripts";
       recursive = true;
     };
