@@ -13,26 +13,26 @@ alt - p: yabai -m window --focus stack.prev ||  yabai -m window --focus stack.la
 ################## Swap Windows ###################
 ###################################################
 ### inner monitor
-ctrl + alt - h: yabai -m window --swap west
-ctrl + alt - j: yabai -m window --swap south
-ctrl + alt - k: yabai -m window --swap north
-ctrl + alt - l: yabai -m window --swap east
+ctrl + alt - h: yabai -m window --swap west  || ( yabai -m window --display west  ; yabai -m display --focus west  );
+ctrl + alt - j: yabai -m window --swap south || ( yabai -m window --display south ; yabai -m display --focus south );
+ctrl + alt - k: yabai -m window --swap north || ( yabai -m window --display north ; yabai -m display --focus north );
+ctrl + alt - l: yabai -m window --swap east  || ( yabai -m window --display east  ; yabai -m display --focus east  );
 
 ###################################################
 ################## Move Windows ###################
 ###################################################
 ### inner monitor
-shift + alt + cmd - h : yabai -m window --warp west;
-shift + alt + cmd - j : yabai -m window --warp south;
-shift + alt + cmd - k : yabai -m window --warp north;
-shift + alt + cmd - l : yabai -m window --warp east;
+# shift + alt + cmd - h : yabai -m window --warp west;
+# shift + alt + cmd - j : yabai -m window --warp south;
+# shift + alt + cmd - k : yabai -m window --warp north;
+# shift + alt + cmd - l : yabai -m window --warp east;
 
 ## accross monitor
-ctrl + cmd - h : yabai -m window --display west; yabai -m display --focus west;
-ctrl + cmd - j : yabai -m window --display south; yabai -m display --focus south;
-ctrl + cmd - k : yabai -m window --display north; yabai -m display --focus north;
-ctrl + cmd - l : yabai -m window --display east; yabai -m display --focus east;
-
+# ctrl + cmd - h : yabai -m window --display west; yabai -m display --focus west;
+# ctrl + cmd - j : yabai -m window --display south; yabai -m display --focus south;
+# ctrl + cmd - k : yabai -m window --display north; yabai -m display --focus north;
+# ctrl + cmd - l : yabai -m window --display east; yabai -m display --focus east;
+#
 ### across spaces
 # move window to different spaces
 cmd + ctrl - n : yabai -m window --space next ;
