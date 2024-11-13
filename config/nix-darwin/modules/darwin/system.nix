@@ -41,19 +41,39 @@
     '';
 
     defaults = {
+      # disable digital clock since Stats will handle this, disable this if you want the default clock from MacOS
       menuExtraClock.IsAnalog = true;
+
+      # config finder app
       finder.AppleShowAllExtensions = true;
-      finder._FXShowPosixPathInTitle = true;
+      finder._FXShowPosixPathInTitle = false;
       finder.ShowPathbar = true;
-      NSGlobalDomain.KeyRepeat = 2;
-      NSGlobalDomain.InitialKeyRepeat = 25;
-      NSGlobalDomain.ApplePressAndHoldEnabled = false;
+      finder.ShowStatusBar = true;
 
       loginwindow.LoginwindowText = "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.";
+      loginwindow.SHOWFULLNAME = false;
+
+      # dock related settings
       dock.autohide = true;
       dock.orientation = "left";
       dock.static-only = true;
       dock.tilesize = 32;
+      dock.mineffect = "suck";
+      dock.minimize-to-application = true;
+      # disable show the desktop if focus on the wallpaper
+      WindowManager.EnableStandardClickToShowDesktop = false;
+
+      # keymap
+      # setting repeat key on hold
+      NSGlobalDomain.KeyRepeat = 2;
+      NSGlobalDomain.InitialKeyRepeat = 25;
+      NSGlobalDomain.ApplePressAndHoldEnabled = false;
+
+      # enable trackpad tap to click
+      trackpad.Clicking = true;
+
+      # disable animation when switching screens or opening apps
+      universalaccess.reduceMotion = true;
     };
   };
 
