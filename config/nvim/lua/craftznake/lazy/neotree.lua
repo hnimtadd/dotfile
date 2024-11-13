@@ -62,13 +62,25 @@ return {
         },
       },
     })
-    vim.keymap.set("n", "<leader>e", "<Cmd>Neotree toggle reveal=false<CR>", { desc = "Open neo-tree" })
-
-    vim.keymap.set(
-      "n",
-      "<leader>E",
-      "<Cmd>Neotree toggle reveal=true<CR>",
-      { desc = "Open neo-tree at current file or working directory" }
-    )
+    local wk = require("which-key")
+    wk.add({
+      {
+        mode = { "n" },
+        {
+          "<leader>e",
+          "<Cmd>Neotree toggle reveal=false<CR>",
+          desc = "Open neo-tree",
+          noremap = true,
+          silent = true,
+        },
+        {
+          "<leader>E",
+          "<Cmd>Neotree toggle reveal=true<CR>",
+          desc = "Open neo-tree at current file or working directory",
+          noremap = true,
+          silent = true,
+        },
+      },
+    })
   end,
 }

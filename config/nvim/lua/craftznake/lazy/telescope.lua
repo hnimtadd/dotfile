@@ -8,6 +8,7 @@ return {
       build = "make",
     },
     "nvim-telescope/telescope-file-browser.nvim",
+    "BurntSushi/ripgrep",
   },
   keys = {
     {
