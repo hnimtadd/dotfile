@@ -12,32 +12,18 @@
   system = {
     stateVersion = 5;
     # activationScripts are executed every time you boot the system or run `nixos-rebuild` / `darwin-rebuild`.
-    activationScripts.applications.text =
-      let
-        env = pkgs.buildEnv {
-          name = "system-applications";
-          paths = config.environment.systemPackages;
-          pathsToLink = "/Applications";
-        };
-      in
-      pkgs.lib.mkForce ''
-        # Set up applications.
-        echo "setting up /Applications..." >&2
-        rm -rf /Applications/Nix\ Apps
-        mkdir -p /Applications/Nix\ Apps
-
-        find ${env}/Applications -maxdepth 1 -type l -exec readlink '{}' + |
-        while read src; do
-          app_name=$(basename "$src")
-          echo "copying $src" >&2
-          ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
-        done
-      '';
     activationScripts.postUserActivation.text = ''
-      # Install homebrew if it isn't there
-      if [[ ! -d "/opt/homebrew/bin" ]]; then
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-      fi
+        # Install homebrew if it isn't there
+        if [[ ! -d "/opt/homebrew/bin" ]]; then
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        fi
+      rsyncArgs="--archive --checksum --chmod=-w --copy-unsafe-links --delete"
+      apps_source="${config.system.build.applications}/Applications"
+      moniker="Nix Trampolines"
+      app_target_base="$HOME/Applications"
+      app_target="$app_target_base/$moniker"
+      mkdir -p "$app_target"
+      ${pkgs.rsync}/bin/rsync $rsyncArgs "$apps_source/" "$app_target"
     '';
 
     defaults = {
