@@ -59,10 +59,10 @@ local keys = {
 	keyset(mods.C, "k", vim_utils.navigate(mods.C, "k")),
 	keyset(mods.C, "l", vim_utils.navigate(mods.C, "l")),
 	-- -- resize panes
-	keyset(mods.CS, "h", vim_utils.resize(mods.C, "h")),
-	keyset(mods.CS, "j", vim_utils.resize(mods.C, "j")),
-	keyset(mods.CS, "k", vim_utils.resize(mods.C, "k")),
-	keyset(mods.CS, "l", vim_utils.resize(mods.C, "l")),
+	keyset(mods.CS, "h", vim_utils.resize(mods.CS, "h")),
+	keyset(mods.CS, "j", vim_utils.resize(mods.CS, "j")),
+	keyset(mods.CS, "k", vim_utils.resize(mods.CS, "k")),
+	keyset(mods.CS, "l", vim_utils.resize(mods.CS, "l")),
 }
 
 return {
