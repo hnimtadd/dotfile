@@ -11,66 +11,57 @@ alt - p: yabai -m window --focus stack.prev ||  yabai -m window --focus stack.la
 ###################################################
 ################### Focus Spaces ##################
 ###################################################
-alt  - 1 :  yabai -m space --focus 1;
-alt  - 2 :  yabai -m space --focus 2;
-alt  - 3 :  yabai -m space --focus 3;
-alt  - 4 :  yabai -m space --focus 4;
-alt  - 5 :  yabai -m space --focus 5;
-alt  - 6 :  yabai -m space --focus 6;
-alt  - 7 :  yabai -m space --focus 7;
-alt  - 8 :  yabai -m space --focus 8;
-alt  - 9 :  yabai -m space --focus 9;
-alt  - 0 :  yabai -m space --focus 0;
+# focus to space, repeat go to the old space
+alt  - 1 :  yabai -m space --focus 1 || yabai -m space --focus recent;
+alt  - 2 :  yabai -m space --focus 2 || yabai -m space --focus recent;
+alt  - 3 :  yabai -m space --focus 3 || yabai -m space --focus recent;
+alt  - 4 :  yabai -m space --focus 4 || yabai -m space --focus recent;
+alt  - 5 :  yabai -m space --focus 5 || yabai -m space --focus recent;
+alt  - 6 :  yabai -m space --focus 6 || yabai -m space --focus recent;
+alt  - 7 :  yabai -m space --focus 7 || yabai -m space --focus recent;
+alt  - 8 :  yabai -m space --focus 8 || yabai -m space --focus recent;
+alt  - 9 :  yabai -m space --focus 9 || yabai -m space --focus recent;
+alt  - 0 :  yabai -m space --focus 0 || yabai -m space --focus recent;
 
 
 ###################################################
 ################## Swap Windows ###################
 ###################################################
 ### inner monitor
-alt + shift - h: yabai -m window --swap west  || ( yabai -m window --display west  ; yabai -m display --focus west  );
-alt + shift - j: yabai -m window --swap south || ( yabai -m window --display south ; yabai -m display --focus south );
-alt + shift - k: yabai -m window --swap north || ( yabai -m window --display north ; yabai -m display --focus north );
-alt + shift - l: yabai -m window --swap east  || ( yabai -m window --display east  ; yabai -m display --focus east  );
+alt + ctrl - h: yabai -m window --swap west  || yabai -m window --display west  --focus;
+alt + ctrl - j: yabai -m window --swap south || yabai -m window --display south --focus;
+alt + ctrl - k: yabai -m window --swap north || yabai -m window --display north --focus;
+alt + ctrl - l: yabai -m window --swap east  || yabai -m window --display east  --focus;
 
 ###################################################
 ################## Move Windows ###################
 ###################################################
-### inner monitor
-# shift + alt + cmd - h : yabai -m window --warp west;
-# shift + alt + cmd - j : yabai -m window --warp south;
-# shift + alt + cmd - k : yabai -m window --warp north;
-# shift + alt + cmd - l : yabai -m window --warp east;
 
 # move window to different spaces
-alt + ctrl - n : yabai -m window --space next ;
-alt + ctrl - p : yabai -m window --space prev ;
-alt + ctrl - 1 : yabai -m window --space 1    ; yabai -m space --focus 1;
-alt + ctrl - 2 : yabai -m window --space 2    ; yabai -m space --focus 2;
-alt + ctrl - 3 : yabai -m window --space 3    ; yabai -m space --focus 3;
-alt + ctrl - 4 : yabai -m window --space 4    ; yabai -m space --focus 4;
-alt + ctrl - 5 : yabai -m window --space 5    ; yabai -m space --focus 5;
-alt + ctrl - 6 : yabai -m window --space 6    ; yabai -m space --focus 6;
-alt + ctrl - 7 : yabai -m window --space 7    ; yabai -m space --focus 7;
-alt + ctrl - 8 : yabai -m window --space 8    ; yabai -m space --focus 8;
-alt + ctrl - 9 : yabai -m window --space 9    ; yabai -m space --focus 9;
-alt + ctrl - 0 : yabai -m window --space 0    ; yabai -m space --focus 0;
+alt + ctrl - n : yabai -m window --space next --focus;
+alt + ctrl - p : yabai -m window --space prev --focus;
+alt + ctrl - 1 : yabai -m window --space 1 --focus;
+alt + ctrl - 2 : yabai -m window --space 2 --focus;
+alt + ctrl - 3 : yabai -m window --space 3 --focus;
+alt + ctrl - 4 : yabai -m window --space 4 --focus;
+alt + ctrl - 5 : yabai -m window --space 5 --focus;
+alt + ctrl - 6 : yabai -m window --space 6 --focus;
+alt + ctrl - 7 : yabai -m window --space 7 --focus;
+alt + ctrl - 8 : yabai -m window --space 8 --focus;
+alt + ctrl - 9 : yabai -m window --space 9 --focus;
+alt + ctrl - 0 : yabai -m window --space 0 --focus;
 
 
-# create desktop; move window and follow focus - uses jq for parsing json (brew install jq)
-# shift + alt - n : yabai -m space --create && \
-#         index="$(yabai -m query --spaces --display | jq 'map(select(."is-native-fullscreen" == false))[-1].index')" && \
-#         yabai -m window --space "${index}" && \
-#         yabai -m space --focus "${index}"
 
 ###################################################
 ############ Create Slot of Windows ##############
 ###################################################
 # set insertion point in focused container
-ctrl + shift - h : yabai -m window --insert west
-ctrl + shift - j : yabai -m window --insert south
-ctrl + shift - k : yabai -m window --insert north
-ctrl + shift - l : yabai -m window --insert east
-ctrl + shift - s : yabai -m window --insert stack
+alt + shift - h : yabai -m window --insert west
+alt + shift - j : yabai -m window --insert south
+alt + shift - k : yabai -m window --insert north
+alt + shift - l : yabai -m window --insert east
+alt + shift - s : yabai -m window --insert stack
 
 ###################################################
 ############ Balance Size of Windows ##############
