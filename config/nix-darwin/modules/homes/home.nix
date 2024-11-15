@@ -1,4 +1,4 @@
-{ pkgs, username, home, ... }:
+{ pkgs, username, home, lib, config, ... }:
 let
   dotconfigs = "/Users/${username}/dotfile";
   ohMyZshFolder = "/Users/${username}/.oh-my-zsh";

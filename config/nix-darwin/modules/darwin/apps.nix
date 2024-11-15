@@ -42,6 +42,7 @@
       "middleclick"
       "spaceid"
       "karabiner-elements"
+      "homerow"
     ];
   };
   services.yabai = {
