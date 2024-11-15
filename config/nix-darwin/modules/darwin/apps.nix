@@ -40,12 +40,18 @@
       "stats"
       "aldente"
       "middleclick"
+      "spaceid"
+      "karabiner-elements"
     ];
   };
   services.yabai = {
     enable = true;
     enableScriptingAddition = true;
     package = pkgs.yabai;
+    extraConfig = ''
+      yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+      sudo yabai --load-sa
+    '';
   };
   services.skhd = {
     enable = true;
