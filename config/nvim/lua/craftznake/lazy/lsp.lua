@@ -20,11 +20,7 @@ return {
     require("mason-lspconfig").setup({
       ensure_installed = {
         "lua_ls",
-        "rust_analyzer",
-        "gopls",
         "vimls",
-        "golangci_lint_ls",
-        "ruff_lsp",
       },
       handlers = {
         function(server_name)
@@ -93,12 +89,6 @@ return {
                 },
               },
             },
-          })
-        end,
-        ["rust_analyzer"] = function()
-          local lspconfig = require("lspconfig")
-          lspconfig.rust_analyzer.setup({
-            capabilities = capabilities,
           })
         end,
       },
