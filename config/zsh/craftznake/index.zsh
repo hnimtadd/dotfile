@@ -22,11 +22,10 @@ if [[ -f "$ZSH_ROOT/alias.zsh" ]]; then
     source "$ZSH_ROOT/alias.zsh"
 fi
 
-
 if [[ -f "$ZSH_ROOT/themes.zsh" ]]; then
     source "$ZSH_ROOT/themes.zsh"
 fi
 
-if [[ -f "$ZSH_ROOT/envs.zsh" ]]; then
-    source "$ZSH_ROOT/envs.zsh"
+if [[ -f "$HOME/secret/envs.zsh" ]]; then
+    source "$HOME/secret/envs.zsh"
 fi
