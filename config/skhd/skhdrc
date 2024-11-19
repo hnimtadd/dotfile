@@ -12,8 +12,8 @@ alt - p: yabai -m window --focus stack.prev ||  yabai -m window --focus stack.la
 ################### Focus Spaces ##################
 ###################################################
 # focus to space, repeat go to the old space
-alt - [ :  yabai -m space --focus next|| yabai -m space --focus first;
-alt - ] :  yabai -m space --focus prev || yabai -m space --focus last;
+# alt - [ :  yabai -m space --focus next|| yabai -m space --focus first;
+# alt - ] :  yabai -m space --focus prev || yabai -m space --focus last;
 alt - 1 :  yabai -m space --focus 1 || yabai -m space --focus recent;
 alt - 2 :  yabai -m space --focus 2 || yabai -m space --focus recent;
 alt - 3 :  yabai -m space --focus 3 || yabai -m space --focus recent;
