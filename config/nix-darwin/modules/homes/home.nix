@@ -6,7 +6,7 @@ let
     owner = "ohmyzsh";
     repo = "ohmyzsh";
     rev = "master";
-    sha256 = "0r7577ilzqb1d4z2ng6gz7w5n1kzc8grv0wajf8lizmcdff9dnxd";
+    sha256 = "08a9x04jgli4xqclaqzyvrzb74kngnf2vg4q6wyqanrpskgbp3mc";
   };
   pluginFolder = "${ohMyZshFolder}/custom/plugins";
   zshPlugins = {
@@ -63,6 +63,9 @@ in
       kubectl
       vscode
       docker
+      terraform
+      colima
+      minikube
     ];
     username = "${username}";
     homeDirectory = "/Users/${username}";
