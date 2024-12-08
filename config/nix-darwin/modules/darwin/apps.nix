@@ -19,6 +19,7 @@
 
     # `brew install`
     brews = [
+      "displayplacer"
     ];
 
     # `brew install --cask`
