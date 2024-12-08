@@ -26,6 +26,9 @@ return {
     "navarasu/onedark.nvim",
   },
   {
+    "rebelot/kanagawa.nvim",
+  },
+  {
     "zaldih/themery.nvim",
     config = function()
       require("themery").setup({
@@ -41,6 +44,18 @@ return {
           {
             name = "Tokyo moon",
             colorscheme = "tokyonight-moon",
+          },
+          {
+            name = "Kanagawa-wave",
+            colorscheme = "kanagawa-wave",
+          },
+          {
+            name = "Kanagawa-dragon",
+            colorscheme = "kanagawa-dragon",
+          },
+          {
+            name = "Kanagawa-lotus",
+            colorscheme = "kanagawa-lotus",
           },
         },
       })
