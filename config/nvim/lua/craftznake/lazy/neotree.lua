@@ -49,6 +49,10 @@ return {
           ["y"] = "copy_to_clipboard",
           ["x"] = "cut_to_clipboard",
           ["p"] = "paste_from_clipboard",
+          ["P"] = function(state)
+            local node = state.tree:get_node()
+            require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
+          end,
           ["q"] = "close_window",
           ["R"] = "refresh",
           ["?"] = "show_help",
