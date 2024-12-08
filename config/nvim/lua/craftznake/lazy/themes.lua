@@ -29,6 +29,9 @@ return {
     "rebelot/kanagawa.nvim",
   },
   {
+    "p00f/alabaster.nvim",
+  },
+  {
     "zaldih/themery.nvim",
     config = function()
       require("themery").setup({
@@ -56,6 +59,10 @@ return {
           {
             name = "Kanagawa-lotus",
             colorscheme = "kanagawa-lotus",
+          },
+          {
+            name = "alabaster",
+            colorscheme = "alabaster",
           },
         },
       })
