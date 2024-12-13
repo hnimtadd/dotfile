@@ -63,9 +63,11 @@ in
       kubectl
       vscode
       docker
+    docker-compose
       terraform
       colima
       minikube
+      wget
     ];
     username = "${username}";
     homeDirectory = "/Users/${username}";
