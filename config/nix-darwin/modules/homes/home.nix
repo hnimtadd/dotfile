@@ -6,7 +6,7 @@ let
     owner = "ohmyzsh";
     repo = "ohmyzsh";
     rev = "master";
-    sha256 = "08a9x04jgli4xqclaqzyvrzb74kngnf2vg4q6wyqanrpskgbp3mc";
+    sha256 = "15pd529020swl36fysw5yfp39mjcsbi85mwf28hxchs607ghhp6z";
   };
   pluginFolder = "${ohMyZshFolder}/custom/plugins";
   zshPlugins = {
@@ -63,7 +63,7 @@ in
       kubectl
       vscode
       docker
-    docker-compose
+      docker-compose
       terraform
       colima
       minikube
