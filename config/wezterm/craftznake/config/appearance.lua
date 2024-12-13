@@ -45,8 +45,22 @@ local function get_display_cwd(tab)
 	return current_dir == HOME_DIR and "~/" or remove_abs_path(current_dir)
 end
 
+--  return current directory name
+-- if path is in home, return ~/relative path
+-- if path is not in home, return absolute path
+local function get_current_directory_pretty(path)
+	local HOME_DIR = os.getenv("HOME")
+	if path:startswith(HOME_DIR) then
+		-- return relative path to home starting with ~
+		return "~/" .. path:sub(#HOME_DIR + 1)
+	else
+		-- return absolute path
+		return path
+	end
+end
+
 -- Return the concise name or icon of the running process for display
-local function get_process(tab)
+local function get_process_name_with_icon(tab)
 	if not tab.active_pane or tab.active_pane.foreground_process_name == "" then
 		return "[?]"
 	end
@@ -62,15 +76,9 @@ end
 -- Pretty format the tab title
 local function format_title(tab)
 	local cwd = get_display_cwd(tab)
-	local process = get_process(tab)
+	local process = get_process_name_with_icon(tab)
 
-	local active_title = tab.active_pane.title
-	if active_title:find("- NVIM") then
-		active_title = active_title:gsub("^([^ ]+) .*", "%1")
-	end
-
-	local description = (not active_title or active_title == cwd) and "~" or active_title
-	return string.format(" %s %s/ %s ", process, cwd, description)
+	return string.format(" %s %s ", process, cwd)
 end
 
 -- Determine if a tab has unseen output since last visited
@@ -166,16 +174,11 @@ wezterm.on("update-status", function(window, pane)
 			cwd = cwd_uri.file_path
 			hostname = cwd_uri.host or wezterm.hostname()
 		else
-			-- an older version of wezterm, 20230712-072601-f4abf8fd or earlier,
-			-- which doesn't have the Url object
 			cwd_uri = cwd_uri:sub(8)
 			local slash = cwd_uri:find("/")
 			if slash then
 				hostname = cwd_uri:sub(1, slash - 1)
-				-- and extract the cwd from the uri, decoding %-encoding
-				cwd = cwd_uri:sub(slash):gsub("%%(%x%x)", function(hex)
-					return string.char(tonumber(hex, 16))
-				end)
+				cwd = get_current_directory_pretty(cwd_uri)
 			end
 		end
 
@@ -208,11 +211,11 @@ wezterm.on("update-status", function(window, pane)
 
 	-- Color palette for the backgrounds of each cell
 	local colors = {
-		"#3c1361",
-		"#52307c",
-		"#663a82",
-		"#7c5295",
-		"#b491c8",
+		"#395144",
+		"#4E6C50",
+		"#66785F",
+		"#91AC8F",
+		"#B2C9AD",
 	}
 
 	-- Foreground color for the text across the fade
@@ -272,11 +275,11 @@ return {
 		top = 5,
 		bottom = 5,
 	},
-	-- colors = {
-	-- 	tab_bar = {
-	-- 		background = "#0b0022",
-	-- 	},
-	-- },
+	colors = {
+		tab_bar = {
+			background = "#254336",
+		},
+	},
 	inactive_pane_hsb = {
 		saturation = 0.9,
 		brightness = 0.4,
