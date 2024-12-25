@@ -1,0 +1,29 @@
+#!/bin/sh
+
+## Usage:
+##   . ./unexport-env <file> ; $COMMAND
+##   . ./unexport-env <file> ; echo ${MINIENTREGA_FECHALIMITE}
+
+if [ ! -f $1 ]; then
+    echo "Error: $1 file not found"
+    exit 1
+fi
+
+# Read .env file and unset each variable
+while IFS= read -r line; do
+    # Skip empty lines and comments
+    [ -z "$line" ] && continue
+    [[ $line = \#* ]] && continue
+
+    # Extract key
+    key=${line%%=*}
+
+    # Remove any leading/trailing whitespace
+    key=$(echo "$key" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+
+    # Only unset if key is not empty
+    if [ -n "$key" ]; then
+        unset "$key"
+    fi
+done <$1
+
