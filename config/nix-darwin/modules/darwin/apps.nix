@@ -15,11 +15,22 @@
 
     taps = [
       "homebrew/services"
+        "nikitabobko/tap"
+            "FelixKratz/formulae"
     ];
 
     # `brew install`
     brews = [
       "displayplacer"
+      "coreutils"
+      "libtool"
+      "cmake"
+      "ninja"
+      "clang-format"
+      "autoconf"
+      "aspell"
+      "openjdk@11"
+      "tlrc"
     ];
 
     # `brew install --cask`
@@ -33,22 +44,25 @@
       "spaceid"
       "karabiner-elements"
       "homerow"
+      "keycastr"
+      "aerospace"
+            "borders"
     ];
   };
   services = {
-    yabai = {
-      enable = true;
-      enableScriptingAddition = true;
-      package = pkgs.yabai;
-      extraConfig = ''
-        yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
-        sudo yabai --load-sa
-      '';
-    };
-    skhd = {
-      enable = true;
-      package = pkgs.skhd;
-    };
+    # yabai = {
+    #   enable = true;
+    #   enableScriptingAddition = true;
+    #   package = pkgs.yabai;
+    #   extraConfig = ''
+    #     yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+    #     sudo yabai --load-sa
+    #   '';
+    # };
+    # skhd = {
+    #   enable = true;
+    #   package = pkgs.skhd;
+    # };
   };
   programs.zsh.enable = true;
 }
