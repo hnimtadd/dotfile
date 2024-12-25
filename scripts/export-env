@@ -1,0 +1,36 @@
+#!/bin/sh
+
+## Usage:
+##   . ./export-env <file> ; $COMMAND
+##   . ./export-env <file> ; echo ${MINIENTREGA_FECHALIMITE}
+
+## This script exports the environment variables from the <file> file
+## It supports Linux and FreeBSD/Darwin
+
+#!/bin/sh
+
+if [ ! -f $1 ]; then
+    echo "Error: $1 file not found"
+    exit 1
+fi
+
+while IFS= read -r line; do
+    # Skip empty lines and comments
+    [ -z "$line" ] && continue
+    [[ $line = \#* ]] && continue
+
+    # Extract key and value
+    key=${line%%=*}
+    value=${line#*=}
+
+    # eval the value
+    value=$(eval echo "$value")
+
+    # Remove any leading/trailing whitespace
+    key=$(echo "$key" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+
+    # Only export if key is not empty
+    if [ -n "$key" ]; then
+        export "$key=$value"
+    fi
+done <$1
