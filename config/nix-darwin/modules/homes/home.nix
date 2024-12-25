@@ -59,6 +59,7 @@ in
       ripgrep
       neovim
       lazygit
+      bazel_7
       neovide
       kubectl
       vscode
@@ -68,6 +69,8 @@ in
       colima
       minikube
       wget
+      bazelisk
+      bazel-buildtools
     ];
     username = "${username}";
     homeDirectory = "/Users/${username}";
@@ -98,12 +101,20 @@ in
     };
     initExtra = ''
       source ~/.config/zsh/index.zsh
+      if [[ $(uname -m) == 'arm64' ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+      fi
     '';
   };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
   home.file = {
+    "aerospace" = {
+      source = "${dotconfigs}/config/aerospace";
+      target = ".config/aerospace";
+      recursive = true;
+    };
     "alacritty" = {
       source = "${dotconfigs}/config/alacritty";
       target = ".config/alacritty";
@@ -134,11 +145,11 @@ in
       target = ".config/nvim";
       recursive = true;
     };
-    "skhd" = {
-      source = "${dotconfigs}/config/skhd";
-      target = ".config/skhd";
-      recursive = true;
-    };
+    # "skhd" = {
+    #   source = "${dotconfigs}/config/skhd";
+    #   target = ".config/skhd";
+    #   recursive = true;
+    # };
     "tmux" = {
       source = "${dotconfigs}/config/tmux";
       target = ".config/tmux";
@@ -149,11 +160,11 @@ in
       target = ".config/wezterm";
       recursive = true;
     };
-    "yabai" = {
-      source = "${dotconfigs}/config/yabai";
-      target = ".config/yabai";
-      recursive = true;
-    };
+    # "yabai" = {
+    #   source = "${dotconfigs}/config/yabai";
+    #   target = ".config/yabai";
+    #   recursive = true;
+    # };
     "zsh" = {
       source = "${dotconfigs}/config/zsh";
       target = ".config/zsh";
