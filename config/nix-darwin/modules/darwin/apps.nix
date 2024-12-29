@@ -31,6 +31,7 @@
       "aspell"
       "openjdk@11"
       "tlrc"
+            "borders"
     ];
 
     # `brew install --cask`
@@ -46,7 +47,6 @@
       "homerow"
       "keycastr"
       "aerospace"
-            "borders"
     ];
   };
   services = {
