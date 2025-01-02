@@ -32,7 +32,13 @@
       username = if builtins.getEnv "USER" != "" then builtins.getEnv "USER" else "hnimtadd";
 
       system = "aarch64-darwin"; # aarch64-darwin or x86_64-darwin
-      hostname = if (builtins.pathExists ./private.nix) then (import ./private.nix) else "ITVN003783-MAC";
+      homeDir = builtins.getEnv "HOME";
+      privatePath = homeDir + "/secrets/private.nix";
+      hostname =
+        if (builtins.pathExists privatePath)
+        then (builtins.trim (builtins.readFile privatePath))
+        else "pro";
+
       specialArgs =
         inputs
         // {

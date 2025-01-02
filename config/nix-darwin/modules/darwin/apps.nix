@@ -15,8 +15,8 @@
 
     taps = [
       "homebrew/services"
-        "nikitabobko/tap"
-            "FelixKratz/formulae"
+      "nikitabobko/tap"
+      "FelixKratz/formulae"
     ];
 
     # `brew install`
@@ -31,7 +31,7 @@
       "aspell"
       "openjdk@11"
       "tlrc"
-            "borders"
+      "borders"
     ];
 
     # `brew install --cask`
