@@ -30,14 +30,19 @@
     let
       # TODO replace with your own username, system and hostname
       username = if builtins.getEnv "USER" != "" then builtins.getEnv "USER" else "hnimtadd";
-
       system = "aarch64-darwin"; # aarch64-darwin or x86_64-darwin
       homeDir = builtins.getEnv "HOME";
-      privatePath = homeDir + "/secrets/private.nix";
-      hostname =
-        if (builtins.pathExists privatePath)
-        then (builtins.trim (builtins.readFile privatePath))
-        else "pro";
+      privatePath = homeDir + "/secret/private.nix";
+            hostname = 
+        let
+          exists = builtins.pathExists privatePath;
+          content = if exists then (builtins.readFile privatePath) else "";
+        in
+        builtins.trace "Debug: path=${privatePath}, exists=${builtins.toString exists}, content=${content}"
+        (if exists
+         then (builtins.replaceStrings ["\n"] [""] content)
+         else "pro");
+
 
       specialArgs =
         inputs
