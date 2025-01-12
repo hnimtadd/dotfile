@@ -6,45 +6,40 @@ let
     owner = "ohmyzsh";
     repo = "ohmyzsh";
     rev = "master";
-    sha256 = "15pd529020swl36fysw5yfp39mjcsbi85mwf28hxchs607ghhp6z";
+    hash="sha256-NPFrqbyCet8CFxD2BM3DzU0ybUAWIGVJCXf0AKaJdgY=";
   };
+
   pluginFolder = "${ohMyZshFolder}/custom/plugins";
   zshPlugins = {
     zsh-autosuggestions = pkgs.fetchFromGitHub {
       owner = "zsh-users";
       repo = "zsh-autosuggestions";
       rev = "v0.7.0";
-      sha256 = "1g3pij5qn2j7v7jjac2a63lxd97mcsgw6xq6k5p7835q9fjiid98";
+    hash="sha256-KLUYpUu4DHRumQZ3w59m9aTW6TBKMCXl2UcKi4uMd7w=";
     };
     zsh-syntax-highlighting = pkgs.fetchFromGitHub {
       owner = "zsh-users";
       repo = "zsh-syntax-highlighting";
       rev = "0.8.0";
-      sha256 = "1yl8zdip1z9inp280sfa5byjbf2vqh2iazsycar987khjsi5d5w8";
-    };
-    zsh-z = pkgs.fetchFromGitHub {
-      owner = "agkozak";
-      repo = "zsh-z";
-      rev = "master";
-      sha256 = "1s23azd9hk57dgya0xrqh16jq1qbmm0n70x32mxg8b29ynks6w8n";
+      hash = "sha256-iJdWopZwHpSyYl5/FQXEW7gl/SrKaYDEtTH9cGP7iPo=";
     };
     zsh-abbr = pkgs.fetchFromGitHub {
       owner = "olets";
       repo = "zsh-abbr";
       rev = "v5.8.3";
-      sha256 = "1ds6n3r03s7gh3lrmzxymxszrkbny3l61xbi2x9wy3mqai5pqpra";
+      hash = "sha256-Kl98S1S4Ds9TF3H1YOjwds38da++/5rpgO/oAfKwRrc=";
     };
     zsh-vi-mode = pkgs.fetchFromGitHub {
       owner = "jeffreytse";
       repo = "zsh-vi-mode";
       rev = "v0.11.0";
-      sha256 = "0bs5p6p5846hcgf3rb234yzq87rfjs18gfha9w0y0nf5jif23dy5";
+      hash = "sha256-xbchXJTFWeABTwq6h4KWLh+EvydDrDzcY9AQVK65RS8=";
     };
     zsh-eza = pkgs.fetchFromGitHub {
       owner = "z-shell";
       repo = "zsh-eza";
       rev = "master";
-      sha256 = "0xn25dpzy8aw497fpsywlcvb1mym4g86823z11qj5zhj3790l9sk";
+      hash = "sha256-UycK0hkS/iJxCH8IZNAj1dewNqPc6+tOIlwh/28rwnY=";
     };
   };
 in
@@ -71,6 +66,7 @@ in
       wget
       bazelisk
       bazel-buildtools
+        zoxide
     ];
     username = "${username}";
     homeDirectory = "/Users/${username}";
@@ -188,11 +184,6 @@ in
     "zsh-syntax-highlighting" = {
       source = zshPlugins.zsh-syntax-highlighting;
       target = "${pluginFolder}/zsh-syntax-highlighting";
-      recursive = true;
-    };
-    "zsh-z" = {
-      source = zshPlugins.zsh-z;
-      target = "${pluginFolder}/zsh-z";
       recursive = true;
     };
     "zsh-abbr" = {
