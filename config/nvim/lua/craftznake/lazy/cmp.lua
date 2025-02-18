@@ -28,6 +28,10 @@ return {
 
     local lspkind = require("lspkind")
     cmp.setup({
+      completion = {
+        autocomplete = false,
+      },
+      ---@diagnostic disable-next-line: missing-fields
       formatting = {
         format = lspkind.cmp_format({
           mode = "text_symbol",
@@ -36,36 +40,6 @@ return {
           -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
           ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
           show_labelDetails = false,
-          -- symbol_map = {
-          --   Text = "🈯",
-          --   Method = "🈸",
-          --   Function = "🈹",
-          --   Constructor = "🈴",
-          --   Field = "🈂️",
-          --   Variable = "🈲",
-          --   Class = "🈶",
-          --   Interface = "🈵",
-          --   Module = "🈳",
-          --   Property = "🈵",
-          --   Unit = "🈳",
-          --   Value = "🈂️",
-          --   Enum = "🈲",
-          --   Keyword = "🈺",
-          --   Snippet = "🈶",
-          --   Color = "🈸",
-          --   File = "🈺",
-          --   Reference = "🈶",
-          --   Folder = "🈯",
-          --   EnumMember = "",
-          --   Constant = "🈹",
-          --   Struct = "🈴",
-          --   Event = "🈺",
-          --   Operator = "🈹",
-          --   TypeParameter = "🈯",
-          --   Copilot = "🈺",
-          --   Codeium = "🈚",
-          --   TabNine = "🈺",
-          -- },
         }),
       },
       snippet = {
@@ -97,7 +71,6 @@ return {
           end
         end),
       }),
-
       sources = cmp.config.sources({
         -- { name = "copilot", group_index = 2, priority = 100 },
         -- { name = "codeium", group_index = 2, priority = 100 },
@@ -110,9 +83,7 @@ return {
         { name = "buffer" },
       }),
       auto_brackets = { "python" },
-      experimental = {
-        ghost_text = true,
-      },
+      experimental = { ghost_text = true },
     })
   end,
 }
