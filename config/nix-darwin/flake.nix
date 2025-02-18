@@ -33,15 +33,15 @@
       system = "aarch64-darwin"; # aarch64-darwin or x86_64-darwin
       homeDir = builtins.getEnv "HOME";
       privatePath = homeDir + "/secret/private.nix";
-            hostname = 
+      hostname =
         let
           exists = builtins.pathExists privatePath;
           content = if exists then (builtins.readFile privatePath) else "";
         in
         builtins.trace "Debug: path=${privatePath}, exists=${builtins.toString exists}, content=${content}"
-        (if exists
-         then (builtins.replaceStrings ["\n"] [""] content)
-         else "pro");
+          (if exists
+          then (builtins.replaceStrings [ "\n" ] [ "" ] content)
+          else "pro");
 
 
       specialArgs =
