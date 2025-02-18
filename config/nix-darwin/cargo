@@ -57,6 +57,7 @@ in
       bazel_7
       neovide
       kubectl
+      vscode
       docker
       docker-compose
       terraform
@@ -68,8 +69,7 @@ in
       bazel-buildtools
       zoxide
       neofetch
-      buf
-      protobuf
+    buf
     ];
     username = "${username}";
     homeDirectory = "/Users/${username}";
