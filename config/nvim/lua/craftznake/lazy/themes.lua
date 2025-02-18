@@ -32,6 +32,16 @@ return {
     "p00f/alabaster.nvim",
   },
   {
+    "craftzdog/solarized-osaka.nvim",
+  },
+
+  {
+    "AlexvZyl/nordic.nvim",
+    config = function()
+      require("nordic").load()
+    end,
+  },
+  {
     "zaldih/themery.nvim",
     config = function()
       require("themery").setup({
@@ -63,6 +73,14 @@ return {
           {
             name = "alabaster",
             colorscheme = "alabaster",
+          },
+          {
+            name = "solarized-osaka",
+            colorscheme = "solarized-osaka",
+          },
+          {
+            name = "nordic",
+            colorscheme = "nordic",
           },
         },
       })

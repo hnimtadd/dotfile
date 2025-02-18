@@ -15,16 +15,7 @@ return {
       wk.add({
         mode = { "n" },
         {
-          "<leader>ha",
-          function()
-            harpoon:list():add()
-          end,
-          desc = "Harpoon [A]dd",
-          noremap = true,
-          silent = true,
-        },
-        {
-          "<leader>h1",
+          "<leader>1",
           function()
             harpoon:list():select(1)
           end,
@@ -33,7 +24,7 @@ return {
           silent = true,
         },
         {
-          "<leader>h2",
+          "<leader>2",
           function()
             harpoon:list():select(2)
           end,
@@ -42,7 +33,7 @@ return {
           silent = true,
         },
         {
-          "<leader>h3",
+          "<leader>3",
           function()
             harpoon:list():select(3)
           end,
@@ -51,11 +42,20 @@ return {
           silent = true,
         },
         {
-          "<leader>h4",
+          "<leader>4",
           function()
             harpoon:list():select(4)
           end,
           desc = "Harpoon [4]",
+          noremap = true,
+          silent = true,
+        },
+        {
+          "<leader>ha",
+          function()
+            harpoon:list():add()
+          end,
+          desc = "Harpoon Add",
           noremap = true,
           silent = true,
         },
@@ -141,7 +141,7 @@ return {
           silent = true,
         },
         {
-          "<leader>hd4",
+          "<leader>hn",
           function()
             harpoon:list():next()
           end,

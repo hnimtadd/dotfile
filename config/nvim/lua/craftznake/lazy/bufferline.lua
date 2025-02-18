@@ -9,7 +9,6 @@ return {
     { "<leader>bl", false },
     { "<leader>bd", false },
     { "<leader>bo", false },
-
     { "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
     { "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
   },
