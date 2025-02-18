@@ -32,6 +32,7 @@
       "openjdk@11"
       "tlrc"
       "borders"
+      "git-crypt"
     ];
 
     # `brew install --cask`
@@ -47,6 +48,7 @@
       "homerow"
       "keycastr"
       "aerospace"
+      "qutebrowser"
     ];
   };
   services = {
