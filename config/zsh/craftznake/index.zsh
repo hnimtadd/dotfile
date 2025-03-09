@@ -1,6 +1,7 @@
-if [[ -f "$ZSH_ROOT/utils.zsh" ]]; then
-    source "$ZSH_ROOT/utils.zsh"
-fi
+source ~/secret/utils.zsh
+# if [[ -f "$ZSH_ROOT/utils.zsh" ]]; then
+#     source "$ZSH_ROOT/utils.zsh"
+# fi
 
 if [[ -f "$ZSH_ROOT/options.zsh" ]]; then
     source "$ZSH_ROOT/options.zsh"
