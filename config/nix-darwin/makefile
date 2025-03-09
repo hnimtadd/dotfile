@@ -6,8 +6,10 @@ else
 	@hash=$$(nix-prefetch-url --unpack $(url)) && nix hash convert --to sri --hash-algo sha256 $$hash
 endif
 
+fmt:
+	nix fmt .
+
 switch:
 	nix run nix-darwin -- switch --flake ~/dotfile/config/nix-darwin --impure
 
-.PHONY: fetch switch
-
+.PHONY: fetch switch fmt
