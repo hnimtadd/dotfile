@@ -55,9 +55,6 @@
       NSGlobalDomain.InitialKeyRepeat = 25;
       NSGlobalDomain.ApplePressAndHoldEnabled = false;
 
-      # enable trackpad tap to click
-      trackpad.Clicking = true;
-
       # disable animation when switching screens or opening apps
       universalaccess.reduceMotion = true;
     };
