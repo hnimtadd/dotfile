@@ -18,46 +18,26 @@ return {
     require("fidget").setup({})
     require("mason").setup({})
     require("mason-lspconfig").setup({
-      ensure_installed = {
-        "lua_ls",
-        "vimls",
-      },
+      ensure_installed = { "lua_ls", "vimls" },
       handlers = {
         function(server_name)
-          require("lspconfig")[server_name].setup({
-            capabilities = capabilities,
-          })
+          require("lspconfig")[server_name].setup({ capabilities = capabilities })
         end,
 
-        -- ["golangci_lint_ls"] = function()
-        --   local lspconfig = require("lspconfig")
-        --   local configs = require("lspconfig/configs")
-        --
-        --   if not configs.golangcilsp then
-        --     configs.golangcilsp = {
-        --       default_config = {
-        --         cmd = { "golangci-lint-langserver" },
-        --         root_dir = lspconfig.util.root_pattern(".git", "go.mod"),
-        --         init_options = {
-        --           command = {
-        --             "golangci-lint",
-        --             "run",
-        --             "--enable-all",
-        --             "--disable",
-        --             "lll",
-        --             "--out-format",
-        --             "json",
-        --             "--issues-exit-code=1",
-        --           },
-        --         },
-        --       },
-        --     }
-        --   end
-        --   lspconfig.golangci_lint_ls.setup({
-        --     filetypes = { "go", "gomod" },
-        --     capabilities = capabilities,
-        --   })
-        -- end,
+        ["gopls"] = function()
+          local lspconfig = require("lspconfig")
+          lspconfig.gopls.setup({
+            capabilities = capabilities,
+            root_dir = lspconfig.util.root_pattern("go.mod", ".git"),
+            settings = {
+              gopls = {
+                gofumpt = true,
+                semanticTokens = true,
+                staticcheck = true,
+              },
+            },
+          })
+        end,
 
         ["lua_ls"] = function()
           local lspconfig = require("lspconfig")
