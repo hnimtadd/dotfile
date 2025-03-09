@@ -17,6 +17,11 @@
       "homebrew/services"
       "nikitabobko/tap"
       "FelixKratz/formulae"
+      # Custom tag used inside Grab
+      {
+        name = "gandalf/homebrew";
+        clone_target = "git@gitlab.myteksi.net:gandalf/homebrew.git";
+      }
     ];
 
     # `brew install`
@@ -33,6 +38,9 @@
       "tlrc"
       "borders"
       "git-crypt"
+      "slides"
+      "docker-buildx"
+      "test-cli"
     ];
 
     # `brew install --cask`
@@ -43,15 +51,14 @@
       "stats"
       "aldente"
       "middleclick"
-      "spaceid"
       "karabiner-elements"
       "homerow"
       "keycastr"
       "aerospace"
-      "qutebrowser"
     ];
   };
   services = {
+    # Disable it for now since we don't use yabai
     # yabai = {
     #   enable = true;
     #   enableScriptingAddition = true;
