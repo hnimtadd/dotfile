@@ -1,4 +1,6 @@
 local wezterm = require("wezterm")
+local base_path = "craftznake."
+local colorsutils = require(base_path .. "utils.colors")
 
 local process_icons = {
 	["bash"] = wezterm.nerdfonts.cod_terminal_bash,
@@ -28,6 +30,12 @@ local process_icons = {
 	["wget"] = wezterm.nerdfonts.mdi_arrow_down_box,
 	["zsh"] = wezterm.nerdfonts.dev_terminal,
 }
+
+local tabbar_bg = "#254336"
+local colors = { "#395144", "#4E6C50", "#66785F", "#91AC8F" }
+
+local text_fg = "#c0c0c0" -- Foreground color for the text across the fade
+
 -- Return the Tab's current working directory
 local function get_cwd(tab)
 	return tab.active_pane.current_working_dir.file_path or ""
@@ -35,50 +43,50 @@ end
 
 -- Remove all path components and return only the last value
 local function remove_abs_path(path)
-	return path:gsub("(.*[/\\])(.*)", "%2")
-end
-
--- Return the pretty path of the tab's current working directory
-local function get_display_cwd(tab)
-	local current_dir = get_cwd(tab)
-	local HOME_DIR = string.format("file://%s", os.getenv("HOME"))
-	return current_dir == HOME_DIR and "~/" or remove_abs_path(current_dir)
+	return string.gsub(path, "(.*[/\\])(.*)", "%2")
 end
 
 --  return current directory name
 -- if path is in home, return ~/relative path
 -- if path is not in home, return absolute path
 local function get_current_directory_pretty(path)
-	local HOME_DIR = os.getenv("HOME")
-	if path:startswith(HOME_DIR) then
-		-- return relative path to home starting with ~
-		return "~/" .. path:sub(#HOME_DIR + 1)
-	else
-		-- return absolute path
-		return path
-	end
+	local home = os.getenv("HOME")
+	return string.gsub(path, "^" .. home, "~")
 end
 
--- Return the concise name or icon of the running process for display
-local function get_process_name_with_icon(tab)
+local function get_process_name(tab)
 	if not tab.active_pane or tab.active_pane.foreground_process_name == "" then
-		return "[?]"
+		return "?"
 	end
 
 	local process_name = remove_abs_path(tab.active_pane.foreground_process_name)
 	if process_name:find("kubectl") then
 		process_name = "kubectl"
 	end
+	return process_name
+end
 
-	return process_icons[process_name] or string.format("[%s]", process_name)
+-- Return the concise name or icon of the running process for display
+local function get_process_icon(process_name)
+	local icon = process_icons[process_name] or string.format("[%s]", process_name)
+	return icon
 end
 
 -- Pretty format the tab title
 local function format_title(tab)
-	local cwd = get_display_cwd(tab)
-	local process = get_process_name_with_icon(tab)
+	local process = get_process_name(tab)
+	local icon = get_process_icon(process)
+	local title
+	if tab.is_active then
+		title = tab.active_pane.title
+	else
+		title = process
+	end
 
-	return string.format(" %s %s ", process, cwd)
+	local cwd = tab.active_pane.current_working_dir.file_path or "Unknown"
+	cwd = remove_abs_path(cwd)
+
+	return string.format("%s %s |  %s", icon, title, cwd)
 end
 
 -- Determine if a tab has unseen output since last visited
@@ -97,35 +105,9 @@ end
 local function get_tab_title(tab)
 	local title = tab.tab_title
 	if title and #title > 0 then
-		return title
+		return " " .. title .. " "
 	end
-	return format_title(tab)
-end
-
--- Convert arbitrary strings to a unique hex color value
--- Based on: https://stackoverflow.com/a/3426956/3219667
-local function string_to_color(str)
-	-- Convert the string to a unique integer
-	local hash = 0
-	for i = 1, #str do
-		hash = string.byte(str, i) + ((hash << 5) - hash)
-	end
-
-	-- Convert the integer to a unique color
-	local c = string.format("%06X", hash & 0x00FFFFFF)
-	return "#" .. (string.rep("0", 6 - #c) .. c):upper()
-end
-
-local function select_contrasting_fg_color(hex_color)
-	-- Note: this could use `return color:complement_ryb()` instead if you prefer or other builtins!
-
-	local color = wezterm.color.parse(hex_color)
-	---@diagnostic disable-next-line: unused-local
-	local lightness, _a, _b, _alpha = color:laba()
-	if lightness > 55 then
-		return "#000000" -- Black has higher contrast with colors perceived to be "bright"
-	end
-	return "#FFFFFF" -- White has higher contrast
+	return " " .. format_title(tab) .. " "
 end
 
 -- On format tab title events, override the default handling to return a custom title
@@ -133,13 +115,13 @@ end
 ---@diagnostic disable-next-line: unused-local
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
 	local title = get_tab_title(tab)
-	local color = string_to_color(get_cwd(tab))
+	local color = colorsutils.string_to_hex(get_cwd(tab))
 
 	if tab.is_active then
 		return {
 			{ Attribute = { Intensity = "Bold" } },
 			{ Background = { Color = color } },
-			{ Foreground = { Color = select_contrasting_fg_color(color) } },
+			{ Foreground = { Color = colorsutils.get_contrast_color(color) } },
 			{ Text = title },
 		}
 	end
@@ -159,40 +141,15 @@ wezterm.on("update-status", function(window, pane)
 	-- Each element holds the text for a cell in a "powerline" style << fade
 	local cells = {}
 
+	-- table.insert(cells, stats_library.current_stats_generator())
+
 	-- Figure out the cwd and host of the current pane.
 	-- This will pick up the hostname for the remote host if your
 	-- shell is using OSC 7 on the remote host.
 	local cwd_uri = pane:get_current_working_dir()
 	if cwd_uri then
-		local cwd = ""
-		local hostname = ""
-
-		if type(cwd_uri) == "userdata" then
-			-- Running on a newer version of wezterm and we have
-			-- a URL object here, making this simple!
-
-			cwd = cwd_uri.file_path
-			hostname = cwd_uri.host or wezterm.hostname()
-		else
-			cwd_uri = cwd_uri:sub(8)
-			local slash = cwd_uri:find("/")
-			if slash then
-				hostname = cwd_uri:sub(1, slash - 1)
-				cwd = get_current_directory_pretty(cwd_uri)
-			end
-		end
-
-		-- Remove the domain name portion of the hostname
-		local dot = hostname:find("[.]")
-		if dot then
-			hostname = hostname:sub(1, dot - 1)
-		end
-		if hostname == "" then
-			hostname = wezterm.hostname()
-		end
-
+		local cwd = get_current_directory_pretty(cwd_uri.file_path)
 		table.insert(cells, cwd)
-		table.insert(cells, hostname)
 	end
 
 	-- I like my date/time in this style: "Wed Mar 3 08:14"
@@ -204,38 +161,30 @@ wezterm.on("update-status", function(window, pane)
 		table.insert(cells, string.format("%.0f%%", b.state_of_charge * 100))
 	end
 
-	-- The powerline < symbol
-	local LEFT_ARROW = utf8.char(0xe0b3)
 	-- The filled in variant of the < symbol
 	local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
 
 	-- Color palette for the backgrounds of each cell
-	local colors = {
-		"#395144",
-		"#4E6C50",
-		"#66785F",
-		"#91AC8F",
-		"#B2C9AD",
-	}
-
-	-- Foreground color for the text across the fade
-	local text_fg = "#c0c0c0"
-
-	-- The elements to be formatted
-	local elements = {}
-	-- How many cells have been formatted
-	local num_cells = 0
+	local elements = {} -- The elements to be formatted
+	local num_cells = 0 -- How many cells have been formatted
 
 	-- Translate a cell into elements
-	function push(text, is_last)
+	local function push(text, is_last)
 		local cell_no = num_cells + 1
+		if cell_no == 1 then
+			-- first cell must have bg of tabbar
+			table.insert(elements, { Background = { Color = tabbar_bg } })
+		else
+			table.insert(elements, { Background = { Color = colors[cell_no - 1] } })
+		end
+
+		table.insert(elements, { Foreground = { Color = colors[cell_no] } })
+		table.insert(elements, { Text = SOLID_LEFT_ARROW })
+		table.insert(elements, "ResetAttributes") -- Reset attributes affect to next element
 		table.insert(elements, { Foreground = { Color = text_fg } })
 		table.insert(elements, { Background = { Color = colors[cell_no] } })
 		table.insert(elements, { Text = " " .. text .. " " })
-		if not is_last then
-			table.insert(elements, { Foreground = { Color = colors[cell_no + 1] } })
-			table.insert(elements, { Text = SOLID_LEFT_ARROW })
-		end
+		table.insert(elements, "ResetAttributes") -- Reset attributes affect to next element
 		num_cells = num_cells + 1
 	end
 
@@ -267,7 +216,7 @@ return {
 	-- tab bar
 	use_fancy_tab_bar = false,
 	show_new_tab_button_in_tab_bar = false,
-
+	tab_max_width = 100,
 	-- window
 	window_padding = {
 		left = 5,
@@ -277,7 +226,7 @@ return {
 	},
 	colors = {
 		tab_bar = {
-			background = "#254336",
+			background = tabbar_bg,
 		},
 	},
 	inactive_pane_hsb = {
