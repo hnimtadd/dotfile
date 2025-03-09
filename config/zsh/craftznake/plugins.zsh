@@ -9,7 +9,6 @@ plugins=(
     zsh-syntax-highlighting
     zsh-abbr
     zsh-vi-mode
-    zsh-z
     zsh-eza
 )
 
@@ -21,4 +20,5 @@ fi
 import plugins.after/zshvimode-abbr.zsh
 import plugins.after/zsh-fzf.zsh
 import plugins.after/zsh-starship.zsh
-
+import plugins.after/zsh-z.zsh
+# import plugins.after/wt.zsh
