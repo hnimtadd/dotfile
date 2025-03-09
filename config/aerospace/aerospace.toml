@@ -1,6 +1,3 @@
-# Place a copy of this config to ~/.aerospace.toml
-# After that, you can edit ~/.aerospace.toml to your liking
-
 # You can use it to add commands that run after login to macOS user session.
 # 'start-at-login' needs to be 'true' for 'after-login-command' to work
 # Available commands: https://nikitabobko.github.io/AeroSpace/commands
@@ -66,48 +63,41 @@ outer.right =      0
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 # 'main' binding mode must be always presented
 [mode.main.binding]
-cmd-h = 'macos-native-minimize'
-cmd-alt-h = [] # Disable "hide others"
+cmd-h       = 'macos-native-minimize'
+cmd-alt-h   = [] # Disable "hide others"
+alt-enter   = 'exec-and-forget open -n ~/Applications/Nix\ Trampolines/WezTerm.app' # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
+alt-equal   = 'balance-sizes'
+alt-shift-9 = 'flatten-workspace-tree' #Flatten the tree of the focused workspace
+alt-f       = 'fullscreen' # Toggle fullscreen
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
-alt-enter = 'exec-and-forget open -n ~/Applications/Nix\ Trampolines/WezTerm.app'
-alt-equal = 'balance-sizes'
-#Flatten the tree of the focused workspace
-alt-shift-9 = 'flatten-workspace-tree'
-# Toggle fullscreen
-alt-f = 'fullscreen'
-
-alt-s = 'layout v_accordion' # 'layout stacking' in i3
-alt-w = 'layout h_accordion' # 'layout tabbed' in i3
-alt-e = 'layout tiles' # 'layout toggle split' in i3
+alt-s       = 'layout v_accordion' # 'layout stacking' in i3
+alt-w       = 'layout h_accordion' # 'layout tabbed' in i3
+alt-e       = 'layout tiles' # 'layout toggle split' in i3
 alt-shift-e = 'layout horizontal vertical' # rotate
-
-alt-t = 'layout floating tiling' # 'floating toggle' in i3
 alt-shift-c = 'reload-config'
-alt-r = 'mode resize'
+alt-t       = 'layout floating tiling' # 'floating toggle' in i3
+alt-r       = 'mode resize'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
 # See: https://nikitabobko.github.io/AeroSpace/commands#move
 # See: https://nikitabobko.github.io/AeroSpace/commands#join-with
 # inner monitor movement
-alt-h = 'focus left --boundaries all-monitors-outer-frame --boundaries-action wrap-around-the-workspace'
-alt-j = 'focus down --boundaries all-monitors-outer-frame --boundaries-action wrap-around-the-workspace'
-alt-k = 'focus up --boundaries all-monitors-outer-frame --boundaries-action wrap-around-the-workspace'
-alt-l = 'focus right --boundaries all-monitors-outer-frame --boundaries-action wrap-around-the-workspace'
-alt-ctrl-h = 'move left'
-alt-ctrl-j = 'move down'
-alt-ctrl-k = 'move up'
-alt-ctrl-l = 'move right'
-alt-shift-h = 'join-with left'
-alt-shift-j = 'join-with down'
-alt-shift-k = 'join-with up'
-alt-shift-l = 'join-with right'
-
-alt-ctrl-left = 'move-node-to-monitor --focus-follows-window left'
-alt-ctrl-down = 'move-node-to-monitor --focus-follows-window down'
-alt-ctrl-up = 'move-node-to-monitor --focus-follows-window up'
+alt-h          = 'focus left --boundaries all-monitors-outer-frame --boundaries-action wrap-around-the-workspace'
+alt-j          = 'focus down --boundaries all-monitors-outer-frame --boundaries-action wrap-around-the-workspace'
+alt-k          = 'focus up --boundaries all-monitors-outer-frame --boundaries-action wrap-around-the-workspace'
+alt-l          = 'focus right --boundaries all-monitors-outer-frame --boundaries-action wrap-around-the-workspace'
+alt-ctrl-h     = 'move left'
+alt-ctrl-j     = 'move down'
+alt-ctrl-k     = 'move up'
+alt-ctrl-l     = 'move right'
+alt-shift-h    = 'join-with left'
+alt-shift-j    = 'join-with down'
+alt-shift-k    = 'join-with up'
+alt-shift-l    = 'join-with right'
+alt-ctrl-left  = 'move-node-to-monitor --focus-follows-window left'
+alt-ctrl-down  = 'move-node-to-monitor --focus-follows-window down'
+alt-ctrl-up    = 'move-node-to-monitor --focus-follows-window up'
 alt-ctrl-right = 'move-node-to-monitor --focus-follows-window right'
-
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
 alt-1 = 'workspace 1'
@@ -119,6 +109,7 @@ alt-6 = 'workspace 6'
 alt-7 = 'workspace 7'
 alt-8 = 'workspace 8'
 alt-9 = 'workspace 9'
+alt-p = 'workspace p'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 alt-ctrl-1 = [ 'move-node-to-workspace 1', 'workspace 1' ]
@@ -130,6 +121,7 @@ alt-ctrl-6 = [ 'move-node-to-workspace 6', 'workspace 6' ]
 alt-ctrl-7 = [ 'move-node-to-workspace 7', 'workspace 7' ]
 alt-ctrl-8 = [ 'move-node-to-workspace 8', 'workspace 8' ]
 alt-ctrl-9 = [ 'move-node-to-workspace 9', 'workspace 9' ]
+alt-ctrl-p = [ 'move-node-to-workspace p', 'workspace p' ]
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-tab = 'workspace-back-and-forth'
@@ -142,20 +134,74 @@ alt-shift-semicolon = 'mode service'
 [mode.service.binding]
 backspace = ['close-all-windows-but-current', 'mode main']
 
-down = 'volume down'
-up = 'volume up'
+down       = 'volume down'
+up         = 'volume up'
 shift-down = ['volume set 0', 'mode main']
-enter = 'mode main'
-esc = 'mode main'
+enter      = 'mode main'
+esc        = 'mode main'
 
 [mode.resize.binding]      # 2. Declare 'resize' binding mode
-h = 'resize width -50'
-j = 'resize height +50'
-k = 'resize height -50'
-l = 'resize width +50'
+h     = 'resize width -50'
+j     = 'resize height +50'
+k     = 'resize height -50'
+l     = 'resize width +50'
 enter = 'mode main'
-esc = 'mode main'
+esc   = 'mode main'
 
 [workspace-to-monitor-force-assignment]
 1 = 'main'
-2 = 'secondary'
+2 = 'main'
+3 = 'main'
+4 = 'secondary'
+5 = 'secondary'
+6 = 'secondary'
+7 = 'secondary'
+
+[[on-window-detected]]
+    if.app-id = 'com.github.wez.wezterm'
+    run = 'move-node-to-workspace 1' # mnemonics 1 - Dev stuffs
+
+[[on-window-detected]]
+    if.app-id = 'com.brave.Browser'
+    run = 'move-node-to-workspace 2' # mnemonics 2 - Web stuffs for work
+
+[[on-window-detected]]
+    if.app-id = 'md.obsidian'
+    run = 'move-node-to-workspace 3' # mnemonics 3 - Obsidians stuffs
+
+[[on-window-detected]]
+    if.app-id = 'com.openai.chat'
+    run = 'move-node-to-workspace 3' # mnemonics 3 - Obsidians stuffs
+
+[[on-window-detected]]
+    if.app-id = 'com.tinyspeck.slackmacgap'
+    run = 'move-node-to-workspace 4' # mnemonics 4 - Communication stuffs
+
+[[on-window-detected]]
+    if.app-id = 'app.zen-browser.zen'
+    run = 'move-node-to-workspace 4' # mnemonics 5 - Personal stuffs
+
+[[on-window-detected]]
+    if.app-id = 'com.spotify.client'
+    run = 'move-node-to-workspace 5' # mnemonics 6 - Multimedia stuffs
+
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.systempreferences'
+    run = 'move-node-to-workspace 7' # mnemonics 7 - Utilities stuffs
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.ActivityMonitor'
+    run = 'move-node-to-workspace 7' # mnemonics 7 - Utilities stuffs
+
+[[on-window-detected]]
+    if.app-id = 'com.zscaler.zscaler'
+    run = 'move-node-to-workspace 7' # mnemonics 7 - Utilities stuffs
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.finder'
+    run = 'move-node-to-workspace 7' # mnemonics 7 - Utilities stuffs
+
+[[on-window-detected]]
+    if.app-id = 'com.cisco.secureclient.gui'
+    run = 'move-node-to-workspace 7' # mnemonics 7 - Utilities stuffs
