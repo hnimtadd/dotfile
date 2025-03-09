@@ -70,6 +70,7 @@ in
       neofetch
       buf
       protobuf
+      bat
     ];
     username = "${username}";
     homeDirectory = "/Users/${username}";

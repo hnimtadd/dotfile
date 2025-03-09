@@ -1,2 +1,4 @@
 [tools]
 rust = "latest"
+lua = "latest"
+go = "latest"
