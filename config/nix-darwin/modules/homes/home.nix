@@ -71,6 +71,9 @@ in
       buf
       protobuf
       bat
+      fzf
+      tree
+      ripgrep
     ];
     username = "${username}";
     homeDirectory = "/Users/${username}";

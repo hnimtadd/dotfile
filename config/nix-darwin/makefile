@@ -10,6 +10,7 @@ fmt:
 	nix fmt .
 
 switch:
+	./scripts/check.sh
 	nix run nix-darwin -- switch --flake ~/dotfile/config/nix-darwin --impure
 
 .PHONY: fetch switch fmt
