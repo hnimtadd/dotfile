@@ -17,15 +17,15 @@ return {
 
     require("fidget").setup({})
     require("mason").setup({})
+    local lspconfig = require("lspconfig")
+    ---@diagnostic disable-next-line: missing-fields
     require("mason-lspconfig").setup({
       ensure_installed = { "lua_ls", "vimls" },
       handlers = {
         function(server_name)
-          require("lspconfig")[server_name].setup({ capabilities = capabilities })
+          lspconfig[server_name].setup({ capabilities = capabilities })
         end,
-
         ["gopls"] = function()
-          local lspconfig = require("lspconfig")
           lspconfig.gopls.setup({
             capabilities = capabilities,
             root_dir = lspconfig.util.root_pattern("go.mod", ".git"),
@@ -40,7 +40,6 @@ return {
         end,
 
         ["lua_ls"] = function()
-          local lspconfig = require("lspconfig")
           lspconfig.lua_ls.setup({
             capabilities = capabilities,
             settings = {
@@ -54,8 +53,6 @@ return {
           })
         end,
         ["pylsp"] = function()
-          local lspconfig = require("lspconfig")
-
           lspconfig.pylsp.setup({
             capabilities = capabilities,
             settings = {
@@ -74,16 +71,27 @@ return {
       },
     })
 
-    vim.diagnostic.config({
-      -- update_in_insert = true,
-      float = {
-        focusable = false,
-        style = "minimal",
-        border = "rounded",
-        source = "if_many",
-        header = "",
-        prefix = "",
+    vim.lsp.handlers["textDocument/diagnostic"] = vim.lsp.with(vim.lsp.diagnostic.on_diagnostic, {
+      -- Enable underline, use default values
+      underline = true,
+      -- Enable virtual text, override spacing to 4
+      virtual_text = {
+        spacing = 4,
       },
+      -- Use a function to dynamically turn signs off
+      -- and on, using buffer local variables
+      signs = function(_, bufnr)
+        return vim.b[bufnr].show_signs == true
+      end,
+      -- Disable a feature
+      update_in_insert = false,
     })
+
+    local lsp_utils = require("craftznake.lazy.utils.lsp_utils")
+    lsp_utils.setup()
+    require("craftznake.lazy.langs.go").setup()
+
+    -- Set key mapping to toggle LSP on or off with <leader>tl
+    vim.keymap.set("n", "<leader>tl", lsp_utils.toggle_lsp, { desc = "[T]oggle [L]sps" })
   end,
 }
