@@ -2,8 +2,6 @@ local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
 -- Increment/Decrement
-keymap.set("n", "_", "<C-x>", opts)
-keymap.set("n", "+", "<C-a>", opts)
 
 -- Delete a word backward
 keymap.set("n", "dw", "vb_d", opts)
@@ -23,8 +21,6 @@ keymap.set("n", "<C-u>", "<C-u>zz", opts)
 keymap.set("n", "n", "nzz", opts)
 keymap.set("n", "N", "Nzz", opts)
 
-keymap.set("n", "<leader>rst", "<cmd>LspRestart<cr>", opts)
-
 -- greatest remap ever
 keymap.set("x", "<leader>p", [["_dP]], opts)
 
@@ -37,8 +33,6 @@ keymap.set("n", "Q", "<nop>")
 keymap.set("n", "<leader>w", "<c-w>", { desc = "Windows", remap = true })
 keymap.set("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
 keymap.set("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
-keymap.set("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
-
 keymap.set("n", "<leader><tab>o", "<cmd>tabonly<cr>", { desc = "Close Other Tabs" })
 -- tab
 keymap.set("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })

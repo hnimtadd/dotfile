@@ -87,3 +87,31 @@ autocmd("LspAttach", {
     vim.keymap.set("n", "[w", diagnostic_goto(false, "WARN"), vim.tbl_extend("force", opts, { desc = "Prev [W]arn" }))
   end,
 })
+
+--Auto set relative number off when editing
+autocmd("InsertEnter", {
+  callback = function()
+    vim.opt.relativenumber = false
+  end,
+})
+
+autocmd("InsertLeave", {
+  callback = function()
+    vim.opt.relativenumber = true
+  end,
+})
+
+autocmd("InsertLeave", {
+  callback = function()
+    vim.opt.relativenumber = true
+  end,
+})
+
+-- Allow to use <C-n> and <C-p> while standing in the quickfix list to navigate throught items
+autocmd("FileType", {
+  pattern = "qf",
+  callback = function()
+    vim.keymap.set("n", "<C-n>", "]q", { buffer = true })
+    vim.keymap.set("n", "<C-p>", "[q", { buffer = true })
+  end,
+})
