@@ -22,19 +22,11 @@ return {
       })
     end,
   },
-  {
-    "navarasu/onedark.nvim",
-  },
-  {
-    "rebelot/kanagawa.nvim",
-  },
-  {
-    "p00f/alabaster.nvim",
-  },
-  {
-    "craftzdog/solarized-osaka.nvim",
-  },
-
+  { "navarasu/onedark.nvim" },
+  { "rebelot/kanagawa.nvim" },
+  { "p00f/alabaster.nvim" },
+  { "craftzdog/solarized-osaka.nvim" },
+  { "ellisonleao/gruvbox.nvim" },
   {
     "AlexvZyl/nordic.nvim",
     config = function()
@@ -45,43 +37,18 @@ return {
     "zaldih/themery.nvim",
     config = function()
       require("themery").setup({
+        livePreview = true,
         themes = {
-          {
-            name = "Onedark",
-            colorscheme = "onedark",
-          },
-          {
-            name = "Rose pine Moon",
-            colorscheme = "rose-pine-moon",
-          },
-          {
-            name = "Tokyo moon",
-            colorscheme = "tokyonight-moon",
-          },
-          {
-            name = "Kanagawa-wave",
-            colorscheme = "kanagawa-wave",
-          },
-          {
-            name = "Kanagawa-dragon",
-            colorscheme = "kanagawa-dragon",
-          },
-          {
-            name = "Kanagawa-lotus",
-            colorscheme = "kanagawa-lotus",
-          },
-          {
-            name = "alabaster",
-            colorscheme = "alabaster",
-          },
-          {
-            name = "solarized-osaka",
-            colorscheme = "solarized-osaka",
-          },
-          {
-            name = "nordic",
-            colorscheme = "nordic",
-          },
+          { name = "Onedark", colorscheme = "onedark" },
+          { name = "Rose pine Moon", colorscheme = "rose-pine-moon" },
+          { name = "Tokyo moon", colorscheme = "tokyonight-moon" },
+          { name = "Kanagawa-wave", colorscheme = "kanagawa-wave" },
+          { name = "Kanagawa-dragon", colorscheme = "kanagawa-dragon" },
+          { name = "Kanagawa-lotus", colorscheme = "kanagawa-lotus" },
+          { name = "alabaster", colorscheme = "alabaster" },
+          { name = "solarized-osaka", colorscheme = "solarized-osaka" },
+          { name = "nordic", colorscheme = "nordic" },
+          { name = "gruvbox", colorscheme = "gruvbox" },
         },
       })
     end,
