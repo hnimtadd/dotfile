@@ -88,25 +88,6 @@ autocmd("LspAttach", {
   end,
 })
 
---Auto set relative number off when editing
-autocmd("InsertEnter", {
-  callback = function()
-    vim.opt.relativenumber = false
-  end,
-})
-
-autocmd("InsertLeave", {
-  callback = function()
-    vim.opt.relativenumber = true
-  end,
-})
-
-autocmd("InsertLeave", {
-  callback = function()
-    vim.opt.relativenumber = true
-  end,
-})
-
 -- Allow to use <C-n> and <C-p> while standing in the quickfix list to navigate throught items
 autocmd("FileType", {
   pattern = "qf",
