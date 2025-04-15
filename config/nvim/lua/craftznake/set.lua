@@ -57,7 +57,7 @@ vim.cmd([[let &t_Ce = "\e[4:0m]"]])
 
 vim.opt.listchars = {
   -- eol = "↲",
-  tab = "  ",
+  tab = ">~",
   trail = "_",
   extends = ">",
   precedes = "<",

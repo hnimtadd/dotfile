@@ -2,6 +2,7 @@ return {
   {
     "rose-pine/neovim",
     config = function()
+      ---@diagnostic disable-next-line: missing-fields
       require("rose-pine").setup({
         disable_background = false,
         -- transparent telescope
@@ -23,16 +24,8 @@ return {
     end,
   },
   { "navarasu/onedark.nvim" },
-  { "rebelot/kanagawa.nvim" },
-  { "p00f/alabaster.nvim" },
   { "craftzdog/solarized-osaka.nvim" },
   { "ellisonleao/gruvbox.nvim" },
-  {
-    "AlexvZyl/nordic.nvim",
-    config = function()
-      require("nordic").load()
-    end,
-  },
   {
     "zaldih/themery.nvim",
     config = function()
@@ -41,13 +34,7 @@ return {
         themes = {
           { name = "Onedark", colorscheme = "onedark" },
           { name = "Rose pine Moon", colorscheme = "rose-pine-moon" },
-          { name = "Tokyo moon", colorscheme = "tokyonight-moon" },
-          { name = "Kanagawa-wave", colorscheme = "kanagawa-wave" },
-          { name = "Kanagawa-dragon", colorscheme = "kanagawa-dragon" },
-          { name = "Kanagawa-lotus", colorscheme = "kanagawa-lotus" },
-          { name = "alabaster", colorscheme = "alabaster" },
           { name = "solarized-osaka", colorscheme = "solarized-osaka" },
-          { name = "nordic", colorscheme = "nordic" },
           { name = "gruvbox", colorscheme = "gruvbox" },
         },
       })
