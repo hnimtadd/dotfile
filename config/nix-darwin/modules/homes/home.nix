@@ -1,46 +1,12 @@
 { pkgs, username, home, lib, config, ... }:
 let
   dotconfigs = "/Users/${username}/dotfile";
-  ohMyZshFolder = "/Users/${username}/.oh-my-zsh";
-  ohMyZsh = pkgs.fetchFromGitHub {
-    owner = "ohmyzsh";
-    repo = "ohmyzsh";
-    rev = "master";
-    hash = "sha256-NPFrqbyCet8CFxD2BM3DzU0ybUAWIGVJCXf0AKaJdgY=";
-  };
-
-  pluginFolder = "${ohMyZshFolder}/custom/plugins";
-  zshPlugins = {
-    zsh-autosuggestions = pkgs.fetchFromGitHub {
-      owner = "zsh-users";
-      repo = "zsh-autosuggestions";
-      rev = "v0.7.0";
-      hash = "sha256-KLUYpUu4DHRumQZ3w59m9aTW6TBKMCXl2UcKi4uMd7w=";
-    };
-    zsh-syntax-highlighting = pkgs.fetchFromGitHub {
-      owner = "zsh-users";
-      repo = "zsh-syntax-highlighting";
-      rev = "0.8.0";
-      hash = "sha256-iJdWopZwHpSyYl5/FQXEW7gl/SrKaYDEtTH9cGP7iPo=";
-    };
-    zsh-abbr = pkgs.fetchFromGitHub {
-      owner = "olets";
-      repo = "zsh-abbr";
-      rev = "v5.8.3";
-      hash = "sha256-Kl98S1S4Ds9TF3H1YOjwds38da++/5rpgO/oAfKwRrc=";
-    };
-    zsh-vi-mode = pkgs.fetchFromGitHub {
-      owner = "jeffreytse";
-      repo = "zsh-vi-mode";
-      rev = "v0.11.0";
-      hash = "sha256-xbchXJTFWeABTwq6h4KWLh+EvydDrDzcY9AQVK65RS8=";
-    };
-    zsh-eza = pkgs.fetchFromGitHub {
-      owner = "z-shell";
-      repo = "zsh-eza";
-      rev = "master";
-      hash = "sha256-UycK0hkS/iJxCH8IZNAj1dewNqPc6+tOIlwh/28rwnY=";
-    };
+  zinitFolder = "/Users/${username}/.local/state/zinit/zinit.git";
+  zinit = pkgs.fetchFromGitHub {
+    owner = "zdharma-continuum";
+    repo = "zinit";
+    rev = "v3.14.0";
+    hash = "sha256-cBMGmFrveBes30aCSLMBO8WrtoPZeMNjcEQoQEzBNvM=";
   };
 in
 {
@@ -74,6 +40,7 @@ in
       fzf
       tree
       ripgrep
+      direnv
     ];
     username = "${username}";
     homeDirectory = "/Users/${username}";
@@ -98,15 +65,21 @@ in
     sessionVariables = {
       EDITOR = "nvim";
       CLICOLOR = 1;
-      ZSH_PLUGINS_FOLDER = pluginFolder;
-      ZSH = ohMyZshFolder;
-      ZSH_CUSTOM = "${ohMyZshFolder}/custom";
+      # ZSH_PLUGINS_FOLDER = pluginFolder;
+      # ZSH = ohMyZshFolder;
+      # ZSH_CUSTOM = "${ohMyZshFolder}/custom";
     };
     initExtra = ''
+      # FROM https://github.com/zdharma-continuum/zinit?tab=readme-ov-file#manual
+      source "${zinitFolder}/zinit.zsh"
+      autoload -Uz _zinit
+
+      (( ''${+_comps} )) && _comps[zinit]=_zinit
       source ~/.config/zsh/index.zsh
       if [[ $(uname -m) == 'arm64' ]]; then
-        eval "$(/opt/homebrew/bin/brew shellenv)"
+          eval "$(/opt/homebrew/bin/brew shellenv)"
       fi
+      eval "$(direnv hook zsh)"
     '';
   };
 
@@ -118,19 +91,9 @@ in
       target = ".config/aerospace";
       recursive = true;
     };
-    "alacritty" = {
-      source = "${dotconfigs}/config/alacritty";
-      target = ".config/alacritty";
-      recursive = true;
-    };
     "eza" = {
       source = "${dotconfigs}/config/eza";
       target = ".config/eza";
-      recursive = true;
-    };
-    "fish" = {
-      source = "${dotconfigs}/config/fish";
-      target = ".config/fish";
       recursive = true;
     };
     "karabiner" = {
@@ -138,24 +101,9 @@ in
       target = ".config/karabiner";
       recursive = true;
     };
-    "kitty" = {
-      source = "${dotconfigs}/config/kitty";
-      target = ".config/kitty";
-      recursive = true;
-    };
     "nvim" = {
       source = "${dotconfigs}/config/nvim";
       target = ".config/nvim";
-      recursive = true;
-    };
-    # "skhd" = {
-    #   source = "${dotconfigs}/config/skhd";
-    #   target = ".config/skhd";
-    #   recursive = true;
-    # };
-    "tmux" = {
-      source = "${dotconfigs}/config/tmux";
-      target = ".config/tmux";
       recursive = true;
     };
     "wezterm" = {
@@ -163,11 +111,6 @@ in
       target = ".config/wezterm";
       recursive = true;
     };
-    # "yabai" = {
-    #   source = "${dotconfigs}/config/yabai";
-    #   target = ".config/yabai";
-    #   recursive = true;
-    # };
     "zsh" = {
       source = "${dotconfigs}/config/zsh";
       target = ".config/zsh";
@@ -183,35 +126,41 @@ in
       target = ".scripts";
       recursive = true;
     };
-    "zsh-autosuggestions" = {
-      source = zshPlugins.zsh-autosuggestions;
-      target = "${pluginFolder}/zsh-autosuggestions";
+    "zinit" = {
+      source = zinit;
+      target = zinitFolder;
       recursive = true;
     };
-    "zsh-syntax-highlighting" = {
-      source = zshPlugins.zsh-syntax-highlighting;
-      target = "${pluginFolder}/zsh-syntax-highlighting";
-      recursive = true;
-    };
-    "zsh-abbr" = {
-      source = zshPlugins.zsh-abbr;
-      target = "${pluginFolder}/zsh-abbr";
-      recursive = true;
-    };
-    "zsh-vi-mode" = {
-      source = zshPlugins.zsh-vi-mode;
-      target = "${pluginFolder}/zsh-vi-mode";
-      recursive = true;
-    };
-    "zsh-eza" = {
-      source = zshPlugins.zsh-eza;
-      target = "${pluginFolder}/zsh-eza";
-      recursive = true;
-    };
-    "oh-my-zsh" = {
-      source = ohMyZsh;
-      target = ohMyZshFolder;
-      recursive = true;
-    };
+    # NOTE: not used stuffs
+    # "kitty" = {
+    #   source = "${dotconfigs}/config/kitty";
+    #   target = ".config/kitty";
+    #   recursive = true;
+    # };
+    # "skhd" = {
+    #   source = "${dotconfigs}/config/skhd";
+    #   target = ".config/skhd";
+    #   recursive = true;
+    # };
+    # "yabai" = {
+    #   source = "${dotconfigs}/config/yabai";
+    #   target = ".config/yabai";
+    #   recursive = true;
+    # };
+    # "tmux" = {
+    #   source = "${dotconfigs}/config/tmux";
+    #   target = ".config/tmux";
+    #   recursive = true;
+    # };
+    # "alacritty" = {
+    #   source = "${dotconfigs}/config/alacritty";
+    #   target = ".config/alacritty";
+    #   recursive = true;
+    # };
+    # "fish" = {
+    #   source = "${dotconfigs}/config/fish";
+    #   target = ".config/fish";
+    #   recursive = true;
+    # };
   };
 }

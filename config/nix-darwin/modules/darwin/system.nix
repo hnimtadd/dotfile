@@ -50,9 +50,12 @@
 
       # keymap
       # setting repeat key on hold
-      NSGlobalDomain.KeyRepeat = 2;
+      NSGlobalDomain.KeyRepeat = 3;
       NSGlobalDomain.InitialKeyRepeat = 25;
       NSGlobalDomain.ApplePressAndHoldEnabled = false;
+
+      # Disable click on tap
+      trackpad.Clicking = false;
 
       # disable animation when switching screens or opening apps
       universalaccess.reduceMotion = true;

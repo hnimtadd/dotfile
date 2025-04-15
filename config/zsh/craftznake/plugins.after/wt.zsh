@@ -47,7 +47,7 @@ wt_new() {
         for remote in $remotes; do
             # check if branch exists on remote
             if [[ -n "$(git ls-remote --heads "$remote" "$branch")" ]]; then
-                run_command "Setting upstream branch to '$remote/$branch'" git branch --set-upstream-to="$remote/$branch"
+                run_command "Setting upstream branch to '$remote/$branch'" git branch --set-upstream-to="$remote/$branch" $branch
                 if [[ $? -ne 0 ]]; then
                     die "STOPPED" 1
                     return 1

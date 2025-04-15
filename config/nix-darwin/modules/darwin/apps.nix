@@ -41,6 +41,8 @@
       "slides"
       "docker-buildx"
       "test-cli"
+      "displayplacer"
+      "watch"
     ];
 
     # `brew install --cask`

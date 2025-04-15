@@ -22,6 +22,12 @@ ABBR_SET_EXPANSION_CURSOR=1
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#907aa9,bg=#2a273f,bold,underline"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
+# If a command is issued that can’t be executed as a normal command,
+# and the command is the name of a directory, perform the cd command to that directory.
+# This option is only applicable if the option SHIN_STDIN is set, i.e. if commands are being read from standard input.
+# The option is designed for interactive use;
+setopt auto_cd
+
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
