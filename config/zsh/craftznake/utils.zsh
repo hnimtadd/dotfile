@@ -95,7 +95,7 @@ function spinner() {
 run_command() {
     local message=$1
     shift
-    echo >&2 -ne "$message \n"
+    echo >&2 -ne "$message "
 
     # Create a temporary file for error output
     local temp_err=$(mktemp)
