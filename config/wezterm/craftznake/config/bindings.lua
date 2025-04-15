@@ -18,6 +18,35 @@ local function rename_tab_helper()
 	})
 end
 
+-- https://github.com/wez/wezterm/issues/909
+-- newtab_to_next create new tab
+-- and move that tab to the next tab of the current active tab
+--
+-- This one is default behavior from Tmux
+local newtab_to_next = wezterm.action_callback(function(win, pane)
+	-- Returns the MuxWindow representation of this window.
+	local mux_win = win:mux_window()
+	for _, item in ipairs(mux_win:tabs_with_info()) do
+		print(item.is_active)
+		if item.is_active then
+			mux_win:spawn_tab({})
+			win:perform_action(act.MoveTab(item.index + 1), pane)
+			return
+		end
+	end
+end)
+
+local function rename_workspace_helper()
+	return act.PromptInputLine({
+		description = "Enter new name for workspace",
+		action = wezterm.action_callback(function(_, _, line)
+			if line then
+				wezterm.mux.rename_workspace(wezterm.mux.get_active_workspace(), line)
+			end
+		end),
+	})
+end
+
 local keys = {
 	keyset(mods.CS, "f", act.Search({ CaseInSensitiveString = "" })),
 	keyset(mods.L, "\\", act.SplitPane({ direction = "Right", size = { Percent = 50 } })),
@@ -29,19 +58,16 @@ local keys = {
 	-- Tmux zen mode
 	keyset(mods.L, "z", act.TogglePaneZoomState),
 	-- tmux new tab
-	keyset(mods.L, "c", act.SpawnTab("CurrentPaneDomain")),
+	keyset(mods.L, "c", newtab_to_next),
 	-- navigate between tabs
 	keyset(mods.L, "n", act.ActivateTabRelative(1)),
 	keyset(mods.L, "p", act.ActivateTabRelative(-1)),
-	-- tmux rename tab
-	keyset(mods.L, ",", rename_tab_helper()),
+	keyset(mods.L, "o", act.ActivateLastTab),
 	-- move tab
 	keyset(mods.L, "<", act.MoveTabRelative(-1)),
 	keyset(mods.L, ">", act.MoveTabRelative(1)),
 	keyset(mods.L, ";", act.PaneSelect),
 	keyset(mods.L, "m", act.PaneSelect({ mode = "SwapWithActiveKeepFocus" })),
-	-- show tab navigator
-	keyset(mods.L, "w", act.ShowTabNavigator),
 	-- close current pane or tab
 	keyset(mods.L, "x", act.CloseCurrentPane({ confirm = false })),
 	-- some default keymap
@@ -63,10 +89,19 @@ local keys = {
 	keyset(mods.CS, "j", vim_utils.resize(mods.CS, "j")),
 	keyset(mods.CS, "k", vim_utils.resize(mods.CS, "k")),
 	keyset(mods.CS, "l", vim_utils.resize(mods.CS, "l")),
+	keyset(mods.C, "E", act.EmitEvent("trigger-vim-with-scrollback")),
+	-- show tab navigator
+	keyset(mods.L, "w", act.ShowLauncherArgs({ flags = "FUZZY|TABS" })),
+	-- tmux rename tab
+	keyset(mods.L, ",", rename_tab_helper()),
+
+	-- show work[s]paces navigator
+	keyset(mods.L, "s", act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" })),
+	keyset(mods.L, ".", rename_workspace_helper()),
 }
 
 return {
 	disable_default_key_bindings = false,
-	leader = { key = "Space", mods = mods.C, timeout_milliseconds = 1000 },
+	leader = { key = "Space", mods = mods.CSAD, timeout_milliseconds = 1000 },
 	keys = mytable.flatten_list(keys),
 }

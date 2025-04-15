@@ -1,101 +1,44 @@
 local wezterm = require("wezterm")
 local base_path = "craftznake."
-local colorsutils = require(base_path .. "utils.colors")
+local palette = require(base_path .. "config.colors")
 
-local process_icons = {
-	["bash"] = wezterm.nerdfonts.cod_terminal_bash,
-	["btm"] = wezterm.nerdfonts.mdi_chart_donut_variant,
-	["cargo"] = wezterm.nerdfonts.dev_rust,
-	["curl"] = wezterm.nerdfonts.mdi_flattr,
-	["docker"] = wezterm.nerdfonts.linux_docker,
-	["docker-compose"] = wezterm.nerdfonts.linux_docker,
-	["gh"] = wezterm.nerdfonts.dev_github_badge,
-	["git"] = wezterm.nerdfonts.fa_git,
-	["go"] = wezterm.nerdfonts.seti_go,
-	["htop"] = wezterm.nerdfonts.mdi_chart_donut_variant,
-	["kubectl"] = wezterm.nerdfonts.linux_docker,
-	["kuberlr"] = wezterm.nerdfonts.linux_docker,
-	["lazydocker"] = wezterm.nerdfonts.linux_docker,
-	["lazygit"] = wezterm.nerdfonts.oct_git_compare,
-	["lua"] = wezterm.nerdfonts.seti_lua,
-	["make"] = wezterm.nerdfonts.seti_makefile,
-	["node"] = wezterm.nerdfonts.mdi_hexagon,
-	["nvim"] = wezterm.nerdfonts.custom_vim,
-	["psql"] = "󱤢",
-	["ruby"] = wezterm.nerdfonts.cod_ruby,
-	["stern"] = wezterm.nerdfonts.linux_docker,
-	["sudo"] = wezterm.nerdfonts.fa_hashtag,
-	["usql"] = "󱤢",
-	["vim"] = wezterm.nerdfonts.dev_vim,
-	["wget"] = wezterm.nerdfonts.mdi_arrow_down_box,
-	["zsh"] = wezterm.nerdfonts.dev_terminal,
-}
-
-local tabbar_bg = "#254336"
-local colors = { "#395144", "#4E6C50", "#66785F", "#91AC8F" }
-
-local text_fg = "#c0c0c0" -- Foreground color for the text across the fade
+local text_fg = palette.light4 -- Foreground color for the text across the fade
+local tabbar_bg = palette.dark0
 
 -- Return the Tab's current working directory
-local function get_cwd(tab)
-	return tab.active_pane.current_working_dir.file_path or ""
-end
+-- calling get_foreground_process_info is supposedly slow, so cache the results by
+-- in a map of foreground_process_name -> get_foregoround_process_info().name.
+local pane_cache = {}
 
 -- Remove all path components and return only the last value
-local function remove_abs_path(path)
-	return string.gsub(path, "(.*[/\\])(.*)", "%2")
+local function basename(path)
+	return path:match("^%s*(%S+)") or path
 end
 
---  return current directory name
--- if path is in home, return ~/relative path
--- if path is not in home, return absolute path
-local function get_current_directory_pretty(path)
-	local home = os.getenv("HOME")
-	return string.gsub(path, "^" .. home, "~")
-end
-
-local function get_process_name(tab)
-	if not tab.active_pane or tab.active_pane.foreground_process_name == "" then
-		return "?"
+local function get_process(pane_info)
+	local proc_name = pane_info.foreground_process_name
+	if pane_cache[proc_name] then
+		return pane_cache[proc_name]
 	end
 
-	local process_name = remove_abs_path(tab.active_pane.foreground_process_name)
-	if process_name:find("kubectl") then
-		process_name = "kubectl"
-	end
-	return process_name
+	local title = wezterm.mux.get_pane(pane_info.pane_id):get_foreground_process_info().name
+	--  Get the last executable path
+	title = basename(title)
+	pane_cache[proc_name] = title
+	return title
 end
 
--- Return the concise name or icon of the running process for display
-local function get_process_icon(process_name)
-	local icon = process_icons[process_name] or string.format("[%s]", process_name)
-	return icon
-end
-
--- Pretty format the tab title
+-- Pretty format the tab title, this is the default format from tmux
 local function format_title(tab)
-	local process = get_process_name(tab)
-	local icon = get_process_icon(process)
-	local title
-	if tab.is_active then
-		title = tab.active_pane.title
-	else
-		title = process
-	end
-
-	local cwd = tab.active_pane.current_working_dir.file_path or "Unknown"
-	cwd = remove_abs_path(cwd)
-
-	return string.format("%s %s |  %s", icon, title, cwd)
+	local process = get_process(tab.active_pane)
+	return process
 end
 
 -- Determine if a tab has unseen output since last visited
 local function has_unseen_output(tab)
-	if not tab.is_active then
-		for _, pane in ipairs(tab.panes) do
-			if pane.has_unseen_output then
-				return true
-			end
+	for _, pane in ipairs(tab.panes) do
+		if pane.has_unseen_output then
+			return true
 		end
 	end
 	return false
@@ -104,85 +47,95 @@ end
 -- Returns manually set title (from `tab:set_title()` or `wezterm cli set-tab-title`) or creates a new one
 local function get_tab_title(tab)
 	local title = tab.tab_title
+	local index = tab.tab_index + 1
 	if title and #title > 0 then
-		return " " .. title .. " "
+		return string.format("%d:%s", index, title)
 	end
-	return " " .. format_title(tab) .. " "
+	return string.format("%d:%s", index, format_title(tab))
 end
 
 -- On format tab title events, override the default handling to return a custom title
 -- Docs: https://wezfurlong.org/wezterm/config/lua/window-events/format-tab-title.html
 ---@diagnostic disable-next-line: unused-local
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-	local title = get_tab_title(tab)
-	local color = colorsutils.string_to_hex(get_cwd(tab))
+	local title = {}
+	table.insert(title, { Background = { Color = tabbar_bg } })
+	table.insert(title, { Text = " " })
+	-- if tab.tab_index == 0 then
+	-- end
 
 	if tab.is_active then
-		return {
-			{ Attribute = { Intensity = "Bold" } },
-			{ Background = { Color = color } },
-			{ Foreground = { Color = colorsutils.get_contrast_color(color) } },
-			{ Text = title },
-		}
+		table.insert(title, { Foreground = { Color = palette.light0 } })
+	else
+		table.insert(title, { Foreground = { Color = text_fg } })
 	end
-	if has_unseen_output(tab) then
-		return {
-			{ Foreground = { Color = "#EBD168" } },
-			{ Text = title },
-		}
+	local proc_title = get_tab_title(tab)
+
+	if hover then
+		table.insert(title, { Attribute = { Underline = "Single" } })
+	end
+
+	if tab.is_active then
+		table.insert(title, { Text = proc_title .. "*" })
+	elseif has_unseen_output(tab) then
+		table.insert(title, { Text = proc_title .. "!" })
+	else
+		-- to ensure tab preserve same length
+		table.insert(title, { Text = proc_title .. " " })
+	end
+
+	table.insert(title, { Attribute = { Underline = "None" } })
+
+	if tab.tab_index + 1 < #tabs then
+		table.insert(title, { Text = " " })
+		table.insert(title, { Foreground = { Color = text_fg } })
+		table.insert(title, { Text = "⎮" })
 	end
 	return title
 end)
 
+-- colors to use in right status bar
+local colors = {
+	palette.dark1,
+	palette.dark2,
+	palette.dark3,
+}
+local SOLID_LEFT_ARROW = utf8.char(0xe0b2) -- 
+local SOLID_RIGHT_ARROW = utf8.char(0xe0b0) -- 
+local NIXOS_ICON = utf8.char(0xf313) -- 
 -- update right status bar
 -- Docs: https://wezfurlong.org/wezterm/config/lua/window-events/update-right-status.html
--- @diagnostic display-next-line: unused-local
-wezterm.on("update-status", function(window, pane)
+-- @diagnostic disable-next-line: unused-local
+wezterm.on("update-status", function(window, _)
 	-- Each element holds the text for a cell in a "powerline" style << fade
 	local cells = {}
-
-	-- table.insert(cells, stats_library.current_stats_generator())
-
-	-- Figure out the cwd and host of the current pane.
-	-- This will pick up the hostname for the remote host if your
-	-- shell is using OSC 7 on the remote host.
-	local cwd_uri = pane:get_current_working_dir()
-	if cwd_uri then
-		local cwd = get_current_directory_pretty(cwd_uri.file_path)
-		table.insert(cells, cwd)
-	end
-
 	-- I like my date/time in this style: "Wed Mar 3 08:14"
 	local date = wezterm.strftime("%a %b %-d %H:%M")
 	table.insert(cells, date)
-
-	-- An entry for each battery (typically 0 or 1 battery)
-	for _, b in ipairs(wezterm.battery_info()) do
-		table.insert(cells, string.format("%.0f%%", b.state_of_charge * 100))
-	end
-
-	-- The filled in variant of the < symbol
-	local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
 
 	-- Color palette for the backgrounds of each cell
 	local elements = {} -- The elements to be formatted
 	local num_cells = 0 -- How many cells have been formatted
 
 	-- Translate a cell into elements
-	local function push(text, is_last)
-		local cell_no = num_cells + 1
-		if cell_no == 1 then
-			-- first cell must have bg of tabbar
+	local function push(text)
+		local idx = num_cells + 1
+		-- first shell
+		-- in lua is 1-based index
+		-- Add the left separator, this should be the colors of the
+		-- left of current cell
+		if idx == 1 then
 			table.insert(elements, { Background = { Color = tabbar_bg } })
 		else
-			table.insert(elements, { Background = { Color = colors[cell_no - 1] } })
+			table.insert(elements, { Background = { Color = colors[idx - 1] } })
 		end
-
-		table.insert(elements, { Foreground = { Color = colors[cell_no] } })
+		table.insert(elements, { Foreground = { Color = colors[idx] } })
 		table.insert(elements, { Text = SOLID_LEFT_ARROW })
+
+		-- Add the text
 		table.insert(elements, "ResetAttributes") -- Reset attributes affect to next element
 		table.insert(elements, { Foreground = { Color = text_fg } })
-		table.insert(elements, { Background = { Color = colors[cell_no] } })
+		table.insert(elements, { Background = { Color = colors[idx] } })
 		table.insert(elements, { Text = " " .. text .. " " })
 		table.insert(elements, "ResetAttributes") -- Reset attributes affect to next element
 		num_cells = num_cells + 1
@@ -190,10 +143,23 @@ wezterm.on("update-status", function(window, pane)
 
 	while #cells > 0 do
 		local cell = table.remove(cells, 1)
-		push(cell, #cells == 0)
+		push(cell)
 	end
-
 	window:set_right_status(wezterm.format(elements))
+
+	local session_name = window:active_workspace()
+	local session_formatting = {
+		"ResetAttributes", -- Reset attributes affect to next element
+		{ Background = { Color = palette.dark1 } },
+		{ Foreground = { Color = text_fg } },
+		{ Text = " " .. NIXOS_ICON .. " " .. session_name .. " " }, --  "  default 
+		"ResetAttributes", -- Reset attributes affect to next element
+		{ Background = { Color = tabbar_bg } },
+		{ Foreground = { Color = palette.dark1 } },
+		{ Text = SOLID_RIGHT_ARROW },
+	}
+
+	window:set_left_status(wezterm.format(session_formatting))
 end)
 
 return {
@@ -201,11 +167,10 @@ return {
 	max_fps = 60,
 	front_end = "WebGpu",
 	webgpu_power_preference = "HighPerformance",
+	tab_bar_at_bottom = true,
 
 	-- color scheme
-	-- color_scheme = "Operator Mono Dark",
-	-- color_scheme = "Rosé Pine Moon (base16)",
-	color_scheme = "Rosé Pine Moon (Gogh)",
+	color_scheme = "Gruvbox Dark (Gogh)",
 	-- background
 	-- window_background_opacity = 0.85,
 	-- macos_window_background_blur = 20,
@@ -234,4 +199,3 @@ return {
 		brightness = 0.4,
 	},
 }
-

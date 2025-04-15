@@ -1,6 +1,7 @@
 local base_path = "craftznake."
 local Config = require(base_path .. "config")
 
+require(base_path .. "config.events.trigger-vim-with-emit").setup()
 return Config:init()
 	:append(require(base_path .. "config.appearance"))
 	:append(require(base_path .. "config.bindings"))
