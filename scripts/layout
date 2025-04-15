@@ -1,0 +1,102 @@
+#!/bin/bash
+
+save_layout() {
+    local layout_name=$1
+    local layout_file="$HOME/.local/state/craftznake/displays/$layout_name"
+
+    # Get the current layout command
+    local layout_cmd=$(displayplacer list | grep -A3 "Execute the command below" | tail -n 1)
+
+    # TODO: check this one to use serial id as monitor identify
+    # # Create a temporary file to store the mapping
+    # local temp_file=$(mktemp)
+    #
+    # # Extract display information and create a mapping of persistent IDs to serial IDs
+    # displayplacer list | while IFS= read -r line; do
+    #     if [[ $line =~ "Persistent screen id:" ]]; then
+    #         persistent_id=$(echo "$line" | cut -d':' -f2 | tr -d ' ')
+    #     elif [[ $line =~ "Serial screen id:" ]] && [[ -n "$persistent_id" ]]; then
+    #         serial_id=$(echo "$line" | cut -d':' -f2 | tr -d ' ')
+    #         echo "$persistent_id:$serial_id" >>"$temp_file"
+    #         persistent_id=""
+    #     fi
+    # done
+    # cat $temp_file
+    # echo "$layout_cmd"
+    #
+    # # Replace persistent IDs with serial IDs in the layout command
+    # while IFS=: read -r persistent_id serial_id; do
+    #     # Escape special characters in the IDs for sed
+    #     escaped_persistent_id=$(echo "$persistent_id" | sed 's/[+]/\\+/g')
+    #     escaped_persistent_id=$(echo "$persistent_id" | sed 's/[-]/\\-/g')
+    #     escaped_serial_id=$(echo "$serial_id" | sed 's/[+]/\\+/g')
+    #     escaped_serial_id=$(echo "$serial_id" | sed 's/[-]/\\-/g')
+    #     echo $escaped_persistent_id
+    #     echo $escaped_serial_id
+    #
+    #     # Replace the persistent ID with the serial ID
+    #     layout_cmd=$(echo "$layout_cmd" | sed "s|$escaped_persistent_id|serial:$escaped_serial_id|g")
+    # done < $temp_file
+    #
+    # # Clean up
+    # rm "$temp_file"
+
+    # Save the modified layout command
+    echo "$layout_cmd" >"$layout_file"
+    echo "Layout saved with serial IDs to $layout_file"
+    chmod +x $layout_file
+    echo "Current layout command:"
+    echo "$layout_cmd"
+}
+
+load_layout() {
+    local layout_name=$1
+    local layout_file="$HOME/.local/state/craftznake/displays/$layout_name"
+    if [ -f "$layout_file" ]; then
+        echo "Loading layout '$layout_name'..."
+        "$layout_file"
+    else
+        echo "Error: Layout file not found at $layout_file"
+        exit 1
+    fi
+}
+
+list_layouts() {
+    local layout_dir="$HOME/.local/state/craftznake/displays"
+    echo "Available layouts:"
+    if [ -d "$layout_dir" ]; then
+        ls -1 "$layout_dir" | grep -v "^\.$"
+    else
+        echo "No layouts found"
+    fi
+}
+help_layout() {
+    echo "Usage: $0 {save|load|list} [layout_name]"
+    echo "  save <layout_name>  - Save current display layout"
+    echo "  load <layout_name>  - Load a saved display layout"
+    echo "  list               - List all saved layouts"
+    exit 1
+}
+# Main script
+case "$1" in
+"save")
+    if [ -z "$2" ]; then
+        echo "Usage: $0 save <layout_name>"
+        exit 1
+    fi
+    save_layout "$2"
+    ;;
+"load")
+    if [ -z "$2" ]; then
+        echo "Usage: $0 load <layout_name>"
+        exit 1
+    fi
+    load_layout "$2"
+    ;;
+"list")
+    list_layouts
+    ;;
+*)
+    help_layout
+    ;;
+esac
