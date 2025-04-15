@@ -4,11 +4,14 @@ $hostname\
 $directory\
 $git_branch\
 $git_state\
-$git_status\
+$nix_shell\
 $cmd_duration\
 $line_break\
 $python\
 $character"""
+
+scan_timeout=30
+command_timeout=100
 
 [directory]
 style = "blue"
@@ -21,17 +24,6 @@ vimcmd_symbol = "[❮](green)"
 [git_branch]
 format = "[$branch]($style)"
 style = "bright-black"
-
-[git_status]
-format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
-style = "cyan"
-conflicted = "​"
-untracked = "​"
-modified = "​"
-staged = "​"
-renamed = "​"
-deleted = "​"
-stashed = "≡"
 
 [git_state]
 format = '\([$state( $progress_current/$progress_total)]($style)\) '
