@@ -65,11 +65,8 @@ outer.right =      0
 [mode.main.binding]
 cmd-h       = 'macos-native-minimize'
 cmd-alt-h   = [] # Disable "hide others"
-alt-enter   = 'exec-and-forget open -n ~/Applications/Nix\ Trampolines/WezTerm.app' # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
-alt-equal   = 'balance-sizes'
 alt-shift-9 = 'flatten-workspace-tree' #Flatten the tree of the focused workspace
 alt-f       = 'fullscreen' # Toggle fullscreen
-
 alt-s       = 'layout v_accordion' # 'layout stacking' in i3
 alt-w       = 'layout h_accordion' # 'layout tabbed' in i3
 alt-e       = 'layout tiles' # 'layout toggle split' in i3
@@ -109,7 +106,6 @@ alt-6 = 'workspace 6'
 alt-7 = 'workspace 7'
 alt-8 = 'workspace 8'
 alt-9 = 'workspace 9'
-alt-p = 'workspace p'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 alt-ctrl-1 = [ 'move-node-to-workspace 1', 'workspace 1' ]
@@ -121,24 +117,16 @@ alt-ctrl-6 = [ 'move-node-to-workspace 6', 'workspace 6' ]
 alt-ctrl-7 = [ 'move-node-to-workspace 7', 'workspace 7' ]
 alt-ctrl-8 = [ 'move-node-to-workspace 8', 'workspace 8' ]
 alt-ctrl-9 = [ 'move-node-to-workspace 9', 'workspace 9' ]
-alt-ctrl-p = [ 'move-node-to-workspace p', 'workspace p' ]
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-tab = 'workspace-back-and-forth'
+alt-equal   = 'balance-sizes'
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#mode
-alt-shift-semicolon = 'mode service'
 
-# 'service' binding mode declaration.
-# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
-[mode.service.binding]
-backspace = ['close-all-windows-but-current', 'mode main']
-
-down       = 'volume down'
-up         = 'volume up'
-shift-down = ['volume set 0', 'mode main']
-enter      = 'mode main'
-esc        = 'mode main'
+# Application related configurations
+alt-enter   = 'exec-and-forget open -n ~/Applications/Nix\ Trampolines/WezTerm.app' # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
+# start write some fast md.obsidian note
+alt-o   = 'exec-and-forget open -n obsidian://daily' # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
 
 [mode.resize.binding]      # 2. Declare 'resize' binding mode
 h     = 'resize width -50'
@@ -185,7 +173,6 @@ esc   = 'mode main'
     if.app-id = 'com.spotify.client'
     run = 'move-node-to-workspace 5' # mnemonics 6 - Multimedia stuffs
 
-
 [[on-window-detected]]
     if.app-id = 'com.apple.systempreferences'
     run = 'move-node-to-workspace 7' # mnemonics 7 - Utilities stuffs
@@ -204,4 +191,8 @@ esc   = 'mode main'
 
 [[on-window-detected]]
     if.app-id = 'com.cisco.secureclient.gui'
+    run = 'move-node-to-workspace 7' # mnemonics 7 - Utilities stuffs
+
+[[on-window-detected]]
+    if.app-id = 'org.pqrs.Karabiner-Elements.Settings'
     run = 'move-node-to-workspace 7' # mnemonics 7 - Utilities stuffs
