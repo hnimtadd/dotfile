@@ -46,7 +46,7 @@ return {
             {
               "filename",
               file_status = true,
-              path = 0,
+              path = 1, -- relative path to the project root dir
               symbols = {
                 modified = "+",
                 readonly = "-",

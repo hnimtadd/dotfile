@@ -4,4 +4,6 @@ return {
   { "windwp/nvim-ts-autotag", enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false }, -- indent line
   { "echasnovski/mini.surround", enabled = false }, -- we use nvim-surround
+  -- disable trouble
+  { "folke/trouble.nvim", enabled = false },
 }

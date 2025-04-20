@@ -35,10 +35,6 @@ return {
         { "<C-j>", smart_splits.move_cursor_down, desc = "move cursor down", noremap = true, silent = true },
         { "<C-k>", smart_splits.move_cursor_up, desc = "move cursor up", noremap = true, silent = true },
         { "<C-l>", smart_splits.move_cursor_right, desc = "move cursor right", noremap = true, silent = true },
-        -- { "<C-H>", smart_splits.resize_left, desc = "move cursor left", noremap = true, silent = true },
-        -- { "<C-J>", smart_splits.resize_down, desc = "move cursor down", noremap = true, silent = true },
-        -- { "<C-K>", smart_splits.resize_up, desc = "move cursor up", noremap = true, silent = true },
-        -- { "<C-L>", smart_splits.resize_right, desc = "move cursor right", noremap = true, silent = true },
       },
     })
   end,
