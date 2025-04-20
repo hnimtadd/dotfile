@@ -54,10 +54,9 @@ vim.opt.updatetime = 50
 -- Undercurl
 vim.cmd([[let &t_Cs = "\e[4:3m]"]])
 vim.cmd([[let &t_Ce = "\e[4:0m]"]])
-
 vim.opt.listchars = {
   -- eol = "↲",
-  tab = ">~",
+  tab = "  ",
   trail = "_",
   extends = ">",
   precedes = "<",
@@ -71,3 +70,4 @@ vim.opt.formatoptions:remove({ "a" })
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
+vim.g.lazyvim_check_order = false
