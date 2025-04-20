@@ -36,6 +36,3 @@ keymap.set("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = tr
 keymap.set("n", "<leader><tab>o", "<cmd>tabonly<cr>", { desc = "Close Other Tabs" })
 -- tab
 keymap.set("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
-
--- Terminal Mappings
-keymap.set("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })

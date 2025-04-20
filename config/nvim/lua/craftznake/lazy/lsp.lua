@@ -1,96 +1,120 @@
 return {
-    "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
-        "j-hui/fidget.nvim",
-        "hrsh7th/nvim-cmp",
-        "hrsh7th/cmp-nvim-lsp",
+  "neovim/nvim-lspconfig",
+  event = { "BufReadPre", "BufNewFile" },
+  dependencies = {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "j-hui/fidget.nvim",
+    "saghen/blink.cmp",
+  },
+  opts = {
+    servers = {
+      lua_ls = {},
+      gopls = {
+        root_dir = require("lspconfig").util.root_pattern("go.mod", ".git"),
+        settings = {
+          gopls = {
+            analyses = {
+              unusedparams = true,
+            },
+            staticcheck = true,
+            gofumpt = true,
+          },
+        },
+        filetypes = { "go", "gomod", "gowork", "gotmpl" },
+      },
     },
-    after = { "cmp.lua" },
-    config = function()
-        local cmp_lsp = require("cmp_nvim_lsp")
-        local capabilities =
-            vim.tbl_deep_extend("force", {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
+  },
+  config = function(_, opts)
+    local function on_attach(client, bufnr)
+      -- Enable completion triggered by <c-x><c-o>
+      vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-        require("fidget").setup({})
-        require("mason").setup({})
-        local lspconfig = require("lspconfig")
-        ---@diagnostic disable-next-line: missing-fields
-        require("mason-lspconfig").setup({
-            ensure_installed = { "lua_ls", "vimls" },
-            handlers = {
-                function(server_name)
-                    lspconfig[server_name].setup({ capabilities = capabilities })
-                end,
-                ["gopls"] = function()
-                    lspconfig.gopls.setup({
-                        capabilities = capabilities,
-                        root_dir = lspconfig.util.root_pattern("go.mod", ".git"),
-                        -- settings = {
-                        --     gopls = {
-                        --         -- gofumpt = true,
-                        --         -- semanticTokens = true,
-                        --         -- staticcheck = true,
-                        --     },
-                        -- },
-                    })
-                end,
+      local map = function(mode, lhs, rhs, desc)
+        vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
+      end
 
-                ["lua_ls"] = function()
-                    lspconfig.lua_ls.setup({
-                        capabilities = capabilities,
-                        settings = {
-                            Lua = {
-                                runtime = { version = "Lua 5.1" },
-                                diagnostics = {
-                                    globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
-                                },
-                            },
-                        },
-                    })
-                end,
-                ["pylsp"] = function()
-                    lspconfig.pylsp.setup({
-                        capabilities = capabilities,
-                        settings = {
-                            pylsp = {
-                                plugins = {
-                                    ruff = { enabled = true },
-                                    flake8 = { enabled = false },
-                                    pyflakes = { enabled = false },
-                                    pycodestyle = { enabled = false },
-                                    mccabe = { enabled = false },
-                                },
-                            },
-                        },
-                    })
-                end,
-            },
-        })
+      map("n", "gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
+      map("n", "gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+      map("n", "gr", vim.lsp.buf.references, "[G]oto [R]eferences")
+      map("n", "gi", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
+      map("n", "K", vim.lsp.buf.hover, "Hover Documentation")
+      map("n", "<C-k>", vim.lsp.buf.signature_help, "Signature Help")
 
-        vim.lsp.handlers["textDocument/diagnostic"] = vim.lsp.with(vim.lsp.diagnostic.on_diagnostic, {
-            -- Enable underline, use default values
-            underline = true,
-            -- Enable virtual text, override spacing to 4
-            virtual_text = {
-                spacing = 4,
-            },
-            -- Use a function to dynamically turn signs off
-            -- and on, using buffer local variables
-            signs = function(_, bufnr)
-                return vim.b[bufnr].show_signs == true
-            end,
-            -- Disable a feature
-            update_in_insert = false,
-        })
+      map("n", "<leader>vrn", vim.lsp.buf.rename, "[R]e[n]ame")
+      map("n", "<leader>vca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+      map("n", "<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
 
-        local lsp_utils = require("craftznake.lazy.utils.lsp_utils")
-        lsp_utils.setup()
-        require("craftznake.lazy.langs.go").setup()
+      -- Diagnostic keymaps
+      map("n", "[d", vim.diagnostic.goto_prev, "Previous Diagnostic")
+      map("n", "]d", vim.diagnostic.goto_next, "Next Diagnostic")
+      map("n", "<leader>xe", vim.diagnostic.open_float, "Show Diagnostic")
+      map("n", "<leader>xq", vim.diagnostic.setloclist, "Set Location List")
+    end
+    local servers = opts.servers
+    local has_blink, blink = pcall(require, "blink.cmp")
+    local capabilities = vim.tbl_deep_extend(
+      "force",
+      {},
+      vim.lsp.protocol.make_client_capabilities(),
+      has_blink and blink.get_lsp_capabilities() or {},
+      opts.capabilities or {}
+    )
 
-        -- Set key mapping to toggle LSP on or off with <leader>tl
-        vim.keymap.set("n", "<leader>tl", lsp_utils.toggle_lsp, { desc = "[T]oggle [L]sps" })
-    end,
+    local function setup(server)
+      local server_opts = vim.tbl_deep_extend("force", {
+        capabilities = capabilities,
+        on_attach = on_attach,
+      }, servers[server] or {})
+      if server_opts.enabled == false then
+        return
+      end
+
+      if opts.setup[server] then
+        if opts.setup[server](server, server_opts) then
+          return
+        end
+      elseif opts.setup["*"] then
+        if opts.setup["*"](server, server_opts) then
+          return
+        end
+      end
+      require("lspconfig")[server].setup(server_opts)
+    end
+
+    -- get all the servers that are available through mason-lspconfig
+    local have_mason, mlsp = pcall(require, "mason-lspconfig")
+    local all_mslp_servers = {}
+    if have_mason then
+      all_mslp_servers = vim.tbl_keys(require("mason-lspconfig.mappings.server").lspconfig_to_package)
+    end
+
+    local ensure_installed = {} ---@type string[]
+    for server, server_opts in pairs(servers) do
+      if server_opts then
+        server_opts = server_opts == true and {} or server_opts
+        if server_opts.enabled ~= false then
+          -- run manual setup if mason=false or if this is a server that cannot be installed with mason-lspconfig
+          if server_opts.mason == false or not vim.tbl_contains(all_mslp_servers, server) then
+            setup(server)
+          else
+            ensure_installed[#ensure_installed + 1] = server
+          end
+        end
+      end
+    end
+
+    if have_mason then
+      mlsp.setup({
+        ensure_installed = ensure_installed,
+        handlers = { setup },
+      })
+    end
+
+    local lsp_utils = require("craftznake.lazy.utils.lsp_utils")
+    lsp_utils.setup()
+    require("craftznake.lazy.langs.go").setup()
+    -- Set key mapping to toggle LSP on or off with <leader>tl
+    vim.keymap.set("n", "<leader>tl", lsp_utils.toggle_lsp, { desc = "[T]oggle [L]sps" })
+  end,
 }
