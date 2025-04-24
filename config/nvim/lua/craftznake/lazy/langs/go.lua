@@ -3,10 +3,8 @@ local M = {}
 -- Function to create a window in new tab
 local function create_new_tab()
   local buf = vim.api.nvim_create_buf(false, true)
-
   -- Open a new window at new tab
   vim.cmd("tabnew")
-
   -- Get the new window in new tab
   local new_win = vim.api.nvim_get_current_win()
   -- Set the buffer in the new window

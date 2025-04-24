@@ -30,6 +30,12 @@ keymap.set("n", "<leader>Y", [["+Y]], opts)
 
 keymap.set("n", "Q", "<nop>")
 
+-- Quickfix navigation
+keymap.set("n", "[q", ":cprevious<CR>", { desc = "Previous Quickfix Entry" })
+keymap.set("n", "]q", ":cnext<CR>", { desc = "Next Quickfix Entry" })
+keymap.set("n", "[Q", ":cfirst<CR>", { desc = "First Quickfix Entry" })
+keymap.set("n", "]Q", ":clast<CR>", { desc = "Last Quickfix Entry" })
+
 keymap.set("n", "<leader>w", "<c-w>", { desc = "Windows", remap = true })
 keymap.set("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
 keymap.set("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
