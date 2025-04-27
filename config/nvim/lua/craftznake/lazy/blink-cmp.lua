@@ -9,16 +9,26 @@ return {
             keymap = {
                 preset = "none",
                 -- manually trigger the blink completion
-                ["<C-y>"] = { "show", "show_documentation", "hide_documentation" },
-                ["<C-e>"] = { "hide", "fallback" },
-                ["<CR>"] = { "select_and_accept", "fallback" },
-                ["<C-p>"] = { "select_prev", "fallback_to_mappings" },
-                ["<C-n>"] = { "select_next", "fallback_to_mappings" },
+                ["<C-y>"] = {
+                    function(cmp)
+                        if cmp.is_visible() == false then
+                            return cmp.show()
+                        end
+                    end,
+                    "accept", "fallback" },
+                ["<C-e>"] = { "cancel", "fallback" },
+                ["<CR>"] = { "accept", "fallback" },
+
+                ["<C-p>"] = { "show", "select_prev", "fallback_to_mappings" },
+                ["<C-n>"] = { "show", "select_next", "fallback_to_mappings" },
+                ['<Up>'] = { 'select_prev', 'fallback' },
+                ['<Down>'] = { 'select_next', 'fallback' },
+
                 ["<C-u>"] = { "scroll_documentation_up", "fallback" },
                 ["<C-d>"] = { "scroll_documentation_down", "fallback" },
+
                 ["<Tab>"] = { "snippet_forward", "fallback" },
                 ["<S-Tab>"] = { "snippet_backward", "fallback" },
-                -- ["<C-i>"] = { "show_signature", "hide_signature", "fallback" },
             },
             appearance = {
                 -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
@@ -37,7 +47,7 @@ return {
                     },
                 },
                 list = {
-                    selection = { preselect = false, auto_insert = false },
+                    selection = { preselect = true, auto_insert = false },
                     cycle = { from_top = false },
                 },
                 documentation = {
@@ -47,11 +57,15 @@ return {
                 },
                 trigger = {
                     prefetch_on_insert = true,
-                    show_on_keyword = false,
+                    show_on_keyword = true,
                     show_on_trigger_character = true,
+                    show_on_blocked_trigger_characters = { ' ', '\n', "\t" },
+                    show_on_insert_on_trigger_character = true,
                 },
                 ghost_text = {
                     enabled = true,
+                    show_with_selection = true,
+                    show_with_menu = false,
                 },
             },
             signature = {
