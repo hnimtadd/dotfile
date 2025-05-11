@@ -45,8 +45,8 @@ vim.opt.breakindent = true
 vim.opt.backspace = { "start", "eol", "indent" }
 vim.opt.path:append({ "**" }) -- Finding files - Search down into subfolders
 vim.opt.wildignore:append({ "*/node_modules/*" })
-vim.opt.splitbelow = true -- Put new windows below current
-vim.opt.splitright = true -- Put new windows right of current
+vim.opt.splitbelow = true     -- Put new windows below current
+vim.opt.splitright = true     -- Put new windows right of current
 vim.opt.splitkeep = "cursor"
 
 vim.opt.updatetime = 50
@@ -55,12 +55,12 @@ vim.opt.updatetime = 50
 vim.cmd([[let &t_Cs = "\e[4:3m]"]])
 vim.cmd([[let &t_Ce = "\e[4:0m]"]])
 vim.opt.listchars = {
-  -- eol = "↲",
-  tab = "  ",
-  trail = "_",
-  extends = ">",
-  precedes = "<",
-  nbsp = "~",
+    -- eol = "↲",
+    tab = "  ",
+    trail = "_",
+    extends = ">",
+    precedes = "<",
+    nbsp = "~",
 }
 
 -- Add asterisks in block comments
