@@ -8,6 +8,8 @@ zinit light z-shell/zsh-eza
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light olets/zsh-abbr
+zinit lucid wait for zsh-users/zsh-history-substring-search
+
 
 import plugins.after/zshvimode-abbr.zsh
 import plugins.after/zsh-fzf.zsh
@@ -15,3 +17,4 @@ import plugins.after/zsh-starship.zsh
 import plugins.after/zsh-z.zsh
 import plugins.after/wt.zsh
 import plugins.after/p.zsh
+import plugins.after/zsh-history-substring-search.zsh
