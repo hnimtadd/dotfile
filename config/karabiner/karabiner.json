@@ -278,54 +278,12 @@
                                 "type": "basic"
                             },
                             {
-                                "description": "command + u = shift + page_up",
+                                "description": " i = home",
                                 "from": {
-                                    "key_code": "u",
-                                    "modifiers": { "mandatory": ["left_command", "right_command", "right_control", "right_shift", "right_option"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "page_up",
-                                        "modifiers": ["left_shift"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "description": "option + command + u = shift + page_up",
-                                "from": {
-                                    "key_code": "u",
-                                    "modifiers": { "mandatory": ["left_option", "left_command", "right_command", "right_control", "right_shift", "right_option"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "page_up",
-                                        "modifiers": ["left_shift"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "description": "shift + u = option + command + hyphen (zoom out)",
-                                "from": {
-                                    "key_code": "u",
-                                    "modifiers": { "mandatory": ["left_shift", "right_command", "right_control", "right_shift", "right_option"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "hyphen",
-                                        "modifiers": ["left_command", "left_option"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "description": " u = page_up",
-                                "from": {
-                                    "key_code": "u",
+                                    "key_code": "i",
                                     "modifiers": { "mandatory": ["right_command", "right_control", "right_shift", "right_option"] }
                                 },
-                                "to": [{ "key_code": "page_up" }],
+                                "to": [{ "key_code": "home" }],
                                 "type": "basic"
                             },
                             {
@@ -357,21 +315,6 @@
                                 "type": "basic"
                             },
                             {
-                                "description": "option + command + o = select whole",
-                                "from": {
-                                    "key_code": "o",
-                                    "modifiers": { "mandatory": ["left_option", "left_command", "right_command", "right_control", "right_shift", "right_option"] }
-                                },
-                                "to": [
-                                    { "key_code": "home" },
-                                    {
-                                        "key_code": "end",
-                                        "modifiers": ["left_shift"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
                                 "description": " o = end",
                                 "from": {
                                     "key_code": "o",
@@ -379,63 +322,12 @@
                                 },
                                 "to": [{ "key_code": "end" }],
                                 "type": "basic"
-                            },
-                            {
-                                "description": "command + p = shift + page_down",
-                                "from": {
-                                    "key_code": "p",
-                                    "modifiers": { "mandatory": ["left_command", "right_command", "right_control", "right_shift", "right_option"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "page_down",
-                                        "modifiers": ["left_shift"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "description": "option + command + p = shift + page_down",
-                                "from": {
-                                    "key_code": "p",
-                                    "modifiers": { "mandatory": ["left_option", "left_command", "right_command", "right_control", "right_shift", "right_option"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "page_down",
-                                        "modifiers": ["left_shift"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "description": " p = page_down",
-                                "from": {
-                                    "key_code": "p",
-                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_shift", "right_option"] }
-                                },
-                                "to": [{ "key_code": "page_down" }],
-                                "type": "basic"
                             }
                         ]
                     },
                     {
                         "description": "Hyper Deletion",
                         "manipulators": [
-                            {
-                                "description": "option + n = delete whole line",
-                                "from": {
-                                    "key_code": "n",
-                                    "modifiers": { "mandatory": ["left_option", "right_command", "right_control", "right_shift", "right_option"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "delete_or_backspace",
-                                        "modifiers": ["left_command"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
                             {
                                 "description": "option + m = move line down",
                                 "from": {
@@ -460,20 +352,6 @@
                                     {
                                         "key_code": "up_arrow",
                                         "modifiers": ["left_option", "left_shift"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "description": "option + . = delete whole line",
-                                "from": {
-                                    "key_code": "period",
-                                    "modifiers": { "mandatory": ["left_option", "right_command", "right_control", "right_shift", "right_option"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "delete_or_backspace",
-                                        "modifiers": ["left_command"]
                                     }
                                 ],
                                 "type": "basic"
@@ -578,115 +456,6 @@
                                     {
                                         "key_code": "delete_forward",
                                         "modifiers": ["left_option"]
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Hyper Window",
-                        "manipulators": [
-                            {
-                                "description": "command + q = force close app",
-                                "from": {
-                                    "key_code": "q",
-                                    "modifiers": { "mandatory": ["left_command", "right_command", "right_control", "right_shift", "right_option"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "q",
-                                        "modifiers": ["left_command"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "description": "q = close app",
-                                "from": {
-                                    "key_code": "q",
-                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_shift", "right_option"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "q",
-                                        "modifiers": ["left_command"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "description": "w = close tab",
-                                "from": {
-                                    "key_code": "w",
-                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_shift", "right_option"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "w",
-                                        "modifiers": ["left_command"]
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Hyper Shifter",
-                        "enabled": false,
-                        "manipulators": [
-                            {
-                                "description": "command + hyphen = scale down",
-                                "from": {
-                                    "key_code": "hyphen",
-                                    "modifiers": { "mandatory": ["left_command", "right_command", "right_control", "right_shift", "right_option"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "hyphen",
-                                        "modifiers": ["left_command"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "description": "hyphen = _",
-                                "from": {
-                                    "key_code": "hyphen",
-                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_shift", "right_option"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "hyphen",
-                                        "modifiers": ["left_shift"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "description": "command + equal_sign = scale up",
-                                "from": {
-                                    "key_code": "equal_sign",
-                                    "modifiers": { "mandatory": ["left_command", "right_command", "right_control", "right_shift", "right_option"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "equal_sign",
-                                        "modifiers": ["left_command"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "description": "equal_sign = +",
-                                "from": {
-                                    "key_code": "equal_sign",
-                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_shift", "right_option"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "equal_sign",
-                                        "modifiers": ["left_shift"]
                                     }
                                 ],
                                 "type": "basic"
