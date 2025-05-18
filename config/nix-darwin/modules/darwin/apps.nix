@@ -2,9 +2,7 @@
 {
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
-    obsidian
     mkalias
-    wezterm
   ];
   homebrew = {
     enable = true;
@@ -56,6 +54,8 @@
       "karabiner-elements"
       "homerow"
       "keycastr"
+      "wezterm"
+      "obsidian"
       "aerospace"
     ];
   };
