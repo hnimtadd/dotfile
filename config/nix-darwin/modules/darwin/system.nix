@@ -14,9 +14,9 @@
     # activationScripts are executed every time you boot the system or run `nixos-rebuild` / `darwin-rebuild`.
     activationScripts.homebrew.text = ''
         # Install homebrew if it isn't there
-        if [[ ! -d "/opt/homebrew/bin" ]]; then
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        fi
+      if [[ ! -d "/opt/homebrew/bin" ]]; then
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      fi
       apps_source="${config.system.build.applications}/Applications"
       moniker="Nix Trampolines"
       app_target_base="$HOME/Applications"
