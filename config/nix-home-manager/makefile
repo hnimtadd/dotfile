@@ -39,7 +39,7 @@ check: config
 # Switch to configuration
 switch:
 	@echo "${GREEN}Switching to new configuration...${NC}"
-	@home-manager switch --flake .#default --impure
+	@USER=$(USERNAME) home-manager switch --flake .#default --impure
 	@echo "${GREEN}Cleaning up...${NC}"
 	@rm -rf ./result
 
