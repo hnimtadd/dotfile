@@ -1,5 +1,5 @@
 # Variables
-HOSTNAME := $(shell scutil --get ComputerName)
+HOSTNAME := $(shell scutil --get ComputerName || echo $(shell hostname))
 USERNAME := $(shell whoami)
 ARCH := $(shell uname -m)
 SYSTEM := $(if $(filter arm64,$(ARCH)),aarch64-darwin,$(if $(filter x86_64,$(ARCH)),x86_64-darwin,$(error Unsupported architecture: $(ARCH))))
@@ -43,14 +43,14 @@ check: config
 	@nix flake check
 
 # Build configuration
-build: show
+build: config
 	@echo "${GREEN}Building configuration...${NC}"
-	@nix build .#darwinConfigurations.$(HOSTNAME).system --impure
+	@HOST=$(HOSTNAME) USER=$(USERNAME) nix build .#darwinConfigurations.$(HOSTNAME).system --impure
 
 # Switch to configuration
 switch: build
 	@echo "${GREEN}Switching to new configuration...${NC}"
-	@./result/sw/bin/darwin-rebuild switch --flake .#$(HOSTNAME) --impure
+	@HOST=$(HOSTNAME) USER=$(USERNAME) ./result/sw/bin/darwin-rebuild switch --flake .#$(HOSTNAME) --impure
 	@echo "${GREEN}Cleaning up...${NC}"
 	@rm -rf ./result
 
