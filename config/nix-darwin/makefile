@@ -15,6 +15,14 @@ NC := \033[0m # No Color
 # Default target
 all: check build switch
 
+config:
+	@echo "${GREEN}Current configuration:${NC}"
+	@echo "Hostname: ${YELLOW}$(HOSTNAME)${NC}"
+	@echo "Username: ${YELLOW}$(USERNAME)${NC}"
+	@echo "System: ${YELLOW}$(SYSTEM)${NC}"
+	@echo "Architecture: ${YELLOW}$(ARCH)${NC}"
+	@echo ""
+
 # Show help
 help:
 	@echo "Available targets:"
@@ -25,25 +33,24 @@ help:
 	@echo "  ${GREEN}clean${NC}   - Clean build artifacts"
 	@echo "  ${GREEN}update${NC}  - Update flake inputs"
 	@echo ""
-	@echo "Current configuration:"
-	@echo "  Hostname: ${YELLOW}$(HOSTNAME)${NC}"
-	@echo "  Username: ${YELLOW}$(USERNAME)${NC}"
-	@echo "  System: ${YELLOW}$(SYSTEM)${NC}"
+	@make config
 
 # Check configuration
-check:
+check: config
+	@echo "${GREEN}Checking for required tools...${NC}"
+	@./scripts/check_and_install.sh
 	@echo "${GREEN}Checking configuration...${NC}"
 	@nix flake check
 
 # Build configuration
-build:
+build: show
 	@echo "${GREEN}Building configuration...${NC}"
-	@nix build .#darwinConfigurations.$(HOSTNAME).system
+	@nix build .#darwinConfigurations.$(HOSTNAME).system --impure
 
 # Switch to configuration
 switch: build
 	@echo "${GREEN}Switching to new configuration...${NC}"
-	@./result/sw/bin/darwin-rebuild switch --flake .#$(HOSTNAME)
+	@./result/sw/bin/darwin-rebuild switch --flake .#$(HOSTNAME) --impure
 	@echo "${GREEN}Cleaning up...${NC}"
 	@rm -rf ./result
 
@@ -62,11 +69,3 @@ update:
 fmt:
 	@echo "${GREEN}Formatting nix files...${NC}"
 	@nix fmt
-
-# Show current configuration
-config:
-	@echo "${GREEN}Current configuration:${NC}"
-	@echo "Hostname: ${YELLOW}$(HOSTNAME)${NC}"
-	@echo "Username: ${YELLOW}$(USERNAME)${NC}"
-	@echo "System: ${YELLOW}$(SYSTEM)${NC}"
-	@echo "Architecture: ${YELLOW}$(ARCH)${NC}"
