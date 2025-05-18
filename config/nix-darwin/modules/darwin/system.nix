@@ -12,7 +12,7 @@
   system = {
     stateVersion = 5;
     # activationScripts are executed every time you boot the system or run `nixos-rebuild` / `darwin-rebuild`.
-    activationScripts.postUserActivation.text = ''
+    activationScripts.homebrew.text = ''
         # Install homebrew if it isn't there
         if [[ ! -d "/opt/homebrew/bin" ]]; then
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
