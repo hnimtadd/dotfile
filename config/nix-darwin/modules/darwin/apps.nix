@@ -59,21 +59,5 @@
       "aerospace"
     ];
   };
-  services = {
-    # Disable it for now since we don't use yabai
-    # yabai = {
-    #   enable = true;
-    #   enableScriptingAddition = true;
-    #   package = pkgs.yabai;
-    #   extraConfig = ''
-    #     yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
-    #     sudo yabai --load-sa
-    #   '';
-    # };
-    # skhd = {
-    #   enable = true;
-    #   package = pkgs.skhd;
-    # };
-  };
   programs.zsh.enable = true;
 }
