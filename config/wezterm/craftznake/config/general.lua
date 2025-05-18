@@ -44,5 +44,5 @@ return {
 			format = "mailto:$0",
 		},
 	},
-	default_prog = { "/bin/zsh" },
+	default_prog = { "/bin/zsh", "-l" },
 }
