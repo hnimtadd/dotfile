@@ -13,6 +13,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Add flakes registry for better reproducibility
+    flake-registry = {
+      url = "github:nixos/flake-registry";
+      flake = false;
+    };
   };
 
   # The `outputs` function will return all the build results of the flake.
@@ -71,6 +76,7 @@
           ];
         };
       };
+      # Add formatter for the entire flake
       formatter."${system}" = nixpkgs.legacyPackages."${system}".nixpkgs-fmt;
     };
 }

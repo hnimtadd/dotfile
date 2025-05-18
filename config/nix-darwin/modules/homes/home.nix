@@ -41,6 +41,11 @@ in
       tree
       ripgrep
       direnv
+      awscli2
+      ascii-image-converter
+      krabby
+      wdiff
+      uutils-coreutils-noprefix
     ];
     username = "${username}";
     homeDirectory = "/Users/${username}";
@@ -56,6 +61,10 @@ in
       mkdir -p "$app_target"
       ${pkgs.rsync}/bin/rsync $rsyncArgs "$apps_source/" "$app_target"
     '';
+  };
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
   };
 
   # TODO: setup eza with this
