@@ -29,6 +29,6 @@ local function get_contrast_color(bg_hex)
 end
 
 return {
-	string_to_hex = string_to_hex,
-	get_contrast_color = get_contrast_color,
+    string_to_hex = string_to_hex,
+    get_contrast_color = get_contrast_color,
 }
