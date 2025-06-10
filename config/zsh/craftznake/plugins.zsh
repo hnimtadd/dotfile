@@ -1,17 +1,27 @@
+# Import custom configurations
 import plugins.before/zsh-eza.zsh
 import plugins.before/zsh-vi-mode.zsh
 import plugins.before/zsh-mise.zsh
+import plugins.before/zsh-abbr.zsh
 
-zinit ice depth=1
-zinit light jeffreytse/zsh-vi-mode
-zinit light z-shell/zsh-eza
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-autosuggestions
-zinit light olets/zsh-abbr
-zinit lucid wait for zsh-users/zsh-history-substring-search
+# Initialize antidote
+# Set the root name of the plugins files (.txt and .zsh) antidote will use.
+zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
 
+# Ensure the .zsh_plugins.txt file exists so you can add plugins.
+[[ -f ${zsh_plugins}.txt ]] || touch ${zsh_plugins}.txt
 
-import plugins.after/zshvimode-abbr.zsh
+fpath=($(brew --prefix)/opt/antidote/share/antidote/functions $fpath)
+autoload -Uz antidote
+
+# Generate a new static file whenever .zsh_plugins.txt is updated.
+if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
+  antidote bundle <${zsh_plugins}.txt >|${zsh_plugins}.zsh
+fi
+
+# Source the static plugins file.
+source ${zsh_plugins}.zsh
+
 import plugins.after/zsh-fzf.zsh
 import plugins.after/zsh-starship.zsh
 import plugins.after/zsh-z.zsh

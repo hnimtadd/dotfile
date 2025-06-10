@@ -14,6 +14,7 @@ NC := \033[0m # No Color
 # Default target
 all: check switch
 
+
 config:
 	@echo "${GREEN}Current configuration:${NC}"
 	@echo "Username: ${YELLOW}$(USERNAME)${NC}"
@@ -28,6 +29,8 @@ help:
 	@echo "  ${GREEN}switch${NC}  - Build and switch to the configuration"
 	@echo "  ${GREEN}check${NC}   - Check the configuration"
 	@echo "  ${GREEN}fmt${NC}     - Format nix files"
+	@echo "  ${GREEN}sha${NC}     - Generate sha256 hash for a given URL"
+	@echo "  ${GREEN}update${NC}  - Update flake"
 	@echo ""
 	@make config
 
@@ -47,3 +50,15 @@ switch:
 fmt:
 	@echo "${GREEN}Formatting nix files...${NC}"
 	@nix fmt
+
+update:
+	@echo "${GREEN}Updating flake...${NC}"
+	@nix flake update
+
+sha:
+ifndef url
+	@echo "Error: url parameter is required. Usage: make fetch url=<URL>"
+	@exit 1
+else
+	@hash=$$(nix-prefetch-url --unpack $(url)) && nix hash convert --to sri --hash-algo sha256 $$hash
+endif

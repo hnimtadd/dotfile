@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# Function for work mode
+work() {
+    local duration=${1:-25m} # Default to 5 minutes if no argument is provided
+    macos-focus-mode enable --silent
+    # Trap to disable focus mode when script exits
+    timer "$duration"
+    if [ $? -ne 0 ]; then
+        macos-focus-mode disable --silent
+        exit 1
+    fi
+    macos-focus-mode disable && terminal-notifier -message 'Pomodoro' \
+        -title 'Work Timer is up! Take a Break ☕' \
+        -sound Crystal
+}
+
+rest() {
+    local duration=${1:-5m} # Default to 10 minutes if no argument is provided
+    timer "$duration"
+    terminal-notifier -message 'Pomodoro' \
+        -title 'Break is over! Get back to work ☕' \
+        -sound Crystal
+}
+
+# Function to run a pomodoro session
+start() {
+    local loop_times="${1:-4}"  # Default to 4 pomodoros if no argument is provided
+    local work_time="${2:-25m}" # Default to 25 minutes if no argument is provided
+    local rest_time="${3:-5m}"  # Default to 5 minutes if no argument is provided
+
+    for ((i = 1; i <= loop_times; i++)); do
+        work "$work_time"
+        rest "$rest_time"
+    done
+}
+
+# Main script logic
+case "$1" in
+work)
+    work "$2"
+    ;;
+rest)
+    rest "$2"
+    ;;
+start)
+    # Start pomodoro session loop times
+    start "$2" "$3" "$4"
+    ;;
+*)
+    echo "Usage: $0 {work|rest} [time]"
+    echo "       $0 start [loop_times] [work_time] [rest_time]"
+    exit 1
+    ;;
+esac

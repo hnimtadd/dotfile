@@ -41,11 +41,13 @@
       "test-cli"
       "displayplacer"
       "watch"
+      "socat"
+      "terminal-notifier"
+      "antidote"
     ];
 
     # `brew install --cask`
     casks = [
-      "brave-browser"
       "jordanbaird-ice"
       "raycast"
       "stats"
@@ -57,6 +59,8 @@
       "wezterm"
       "obsidian"
       "aerospace"
+      "firefox"
+      "zen"
     ];
   };
   programs.zsh.enable = true;
