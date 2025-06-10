@@ -53,11 +53,11 @@ preset = 'qwerty'
 #                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
 inner.horizontal = 4
-inner.vertical =   4
-outer.left =       0
-outer.bottom =     0
-outer.top =        0
-outer.right =      0
+inner.vertical   = 4
+outer.left       = 0
+outer.bottom     = 0
+outer.top        = 0
+outer.right      = 0
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -66,7 +66,7 @@ outer.right =      0
 cmd-h       = 'macos-native-minimize'
 cmd-alt-h   = [] # Disable "hide others"
 alt-shift-9 = 'flatten-workspace-tree' #Flatten the tree of the focused workspace
-alt-f       = 'fullscreen' # Toggle fullscreen
+alt-shift-f = 'fullscreen' # Toggle fullscreen Disable alt-f as is is word backward in emacs
 alt-s       = 'layout v_accordion' # 'layout stacking' in i3
 alt-w       = 'layout h_accordion' # 'layout tabbed' in i3
 alt-e       = 'layout tiles' # 'layout toggle split' in i3
@@ -97,15 +97,15 @@ alt-ctrl-up    = 'move-node-to-monitor --focus-follows-window up'
 alt-ctrl-right = 'move-node-to-monitor --focus-follows-window right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-alt-1 = 'workspace 1'
-alt-2 = 'workspace 2'
-alt-3 = 'workspace 3'
-alt-4 = 'workspace 4'
-alt-5 = 'workspace 5'
-alt-6 = 'workspace 6'
-alt-7 = 'workspace 7'
-alt-8 = 'workspace 8'
-alt-9 = 'workspace 9'
+alt-1 = 'workspace 1 --auto-back-and-forth'
+alt-2 = 'workspace 2 --auto-back-and-forth'
+alt-3 = 'workspace 3 --auto-back-and-forth'
+alt-4 = 'workspace 4 --auto-back-and-forth'
+alt-5 = 'workspace 5 --auto-back-and-forth'
+alt-6 = 'workspace 6 --auto-back-and-forth'
+alt-7 = 'workspace 7 --auto-back-and-forth'
+alt-8 = 'workspace 8 --auto-back-and-forth'
+alt-9 = 'workspace 9 --auto-back-and-forth'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 alt-ctrl-1 = [ 'move-node-to-workspace 1', 'workspace 1' ]
@@ -124,7 +124,7 @@ alt-equal   = 'balance-sizes'
 
 
 # Application related configurations
-alt-enter   = 'exec-and-forget open -n ~/Applications/Nix\ Trampolines/WezTerm.app' # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
+alt-enter   = 'exec-and-forget open -n /Applications/WezTerm.app' # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
 # start write some fast md.obsidian note
 alt-o   = 'exec-and-forget open -n obsidian://daily' # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
 
@@ -167,7 +167,7 @@ esc   = 'mode main'
 
 [[on-window-detected]]
     if.app-id = 'app.zen-browser.zen'
-    run = 'move-node-to-workspace 4' # mnemonics 5 - Personal stuffs
+    run = 'move-node-to-workspace 5' # mnemonics 5 - Personal stuffs
 
 [[on-window-detected]]
     if.app-id = 'com.spotify.client'

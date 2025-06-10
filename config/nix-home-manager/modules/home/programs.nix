@@ -12,5 +12,4 @@
     };
     home-manager.enable = true;
   };
-
 }

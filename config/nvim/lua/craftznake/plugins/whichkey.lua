@@ -7,7 +7,6 @@ return {
             spec = {
                 {
                     mode = { "n", "v" },
-                    { "<leader>h", group = "harpoon" },
                     { "<leader>m", group = "make" },
                     { "<leader>r", group = "restart" },
                     { "<leader>v", group = "view" },

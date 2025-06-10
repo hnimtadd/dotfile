@@ -6,12 +6,12 @@
 ################################
 let
   dotconfigs = "/Users/${username}/dotfile";
-  zinitFolder = "/Users/${username}/.local/state/zinit/zinit.git";
-  zinit = pkgs.fetchFromGitHub {
-    owner = "zdharma-continuum";
-    repo = "zinit";
-    rev = "v3.14.0";
-    hash = "sha256-cBMGmFrveBes30aCSLMBO8WrtoPZeMNjcEQoQEzBNvM=";
+  antidoteFolder = "/Users/${username}/.antidote";
+  antidote = pkgs.fetchFromGitHub {
+    owner = "mattmc3";
+    repo = "antidote";
+    rev = "v1.9.10";
+    hash = "sha256-+hp8L1Pcqx/Jly1H6F23U4WD6MkVAAZZpPrbc/VSurM=";
   };
 in
 {
@@ -22,16 +22,13 @@ in
       CLICOLOR = 1;
     };
     initContent = ''
-      # FROM https://github.com/zdharma-continuum/zinit?tab=readme-ov-file#manual
-      source "${zinitFolder}/zinit.zsh"
-      autoload -Uz _zinit
+      # FROM https://antidote.sh/
+      source "${antidoteFolder}/antidote.zsh"
 
-      (( ''${+_comps} )) && _comps[zinit]=_zinit
       source ~/.config/zsh/index.zsh
       if [[ $(uname -m) == 'arm64' ]]; then
           eval "$(/opt/homebrew/bin/brew shellenv)"
       fi
-      eval "$(direnv hook zsh)"
     '';
   };
   home.file = {
@@ -75,9 +72,9 @@ in
       target = ".scripts";
       recursive = true;
     };
-    "zinit" = {
-      source = zinit;
-      target = zinitFolder;
+    "antidote" = {
+      source = antidote;
+      target = antidoteFolder;
       recursive = true;
     };
     # NOTE: not used stuffs

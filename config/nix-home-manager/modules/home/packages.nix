@@ -23,7 +23,6 @@
       neovim
       lazygit
       bazel_7
-      neovide
       kubectl
       docker
       docker-compose

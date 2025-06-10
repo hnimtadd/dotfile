@@ -27,9 +27,9 @@ return {
                 ["q"] = { "actions.close", mode = "n" },
                 ["<CR>"] = "actions.select",
                 -- Splits (following Vim's window commands)
-                ["<C-w>v"] = { "actions.select", opts = { vertical = true } }, -- Vertical split
+                ["<C-w>v"] = { "actions.select", opts = { vertical = true } },   -- Vertical split
                 ["<C-w>s"] = { "actions.select", opts = { horizontal = true } }, -- Horizontal split
-                ["<C-w>t"] = { "actions.select", opts = { tab = true } }, -- New tab
+                ["<C-w>t"] = { "actions.select", opts = { tab = true } },        -- New tab
                 ["<C-p>"] = "actions.preview",
                 ["R"] = "actions.refresh",
                 ["P"] = "actions.preview", -- Toggle preview
@@ -40,6 +40,12 @@ return {
                 ["gs"] = { "actions.change_sort", mode = "n" },
                 ["gx"] = "actions.open_external",
                 ["g."] = { "actions.toggle_hidden", mode = "n" },
+                ['yp'] = {
+                    desc = 'Copy filepath to system clipboard',
+                    callback = function()
+                        require('oil.actions').copy_entry_path.callback()
+                    end,
+                },
             },
             view_options = {
                 -- Show files and directories that start with "."

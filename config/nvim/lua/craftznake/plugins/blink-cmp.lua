@@ -84,7 +84,10 @@ return {
                     copilot = {
                         name = "copilot",
                         module = "blink-cmp-copilot",
-                        enabled = true,
+                        enabled = function()
+                            local cmp = require("blink-cmp-copilot")
+                            return cmp:enabled()
+                        end,
                         async = true,
                         kind = "Copilot",
                         score_offset = 100,

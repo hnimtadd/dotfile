@@ -1,0 +1,1 @@
+- [ ] check zsh-abbr:init issues with job_queue
