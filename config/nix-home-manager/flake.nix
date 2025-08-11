@@ -18,7 +18,12 @@
       system = builtins.currentSystem;
       username = builtins.getEnv "USER";
       homeDirectory = builtins.getEnv "HOME";
-      pkgs = import nixpkgs { inherit system; };
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [
+          (import ./overlays)
+        ];
+      };
     in
     {
       homeConfigurations = {
@@ -33,7 +38,6 @@
         };
       };
 
-      formatter.${system} = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
+      formatter.aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixpkgs-fmt;
     };
 }
-

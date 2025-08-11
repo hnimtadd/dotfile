@@ -14,39 +14,46 @@
 
   home = {
     packages = with pkgs; [
-      mise
-      git
-      starship
-      eza
-      fd
-      ripgrep
-      neovim
-      lazygit
+      amp-cli
+      ascii-image-converter
+      atuin
+      awscli2
+      bat
+      bazel-buildtools
       bazel_7
-      kubectl
+      bazelisk
+      buf
+      claude-code
+      colima
+      direnv
       docker
       docker-compose
+      eza
+      fd
+      fzf
+      git
+      go
+      krabby
+      kubectl
+      lazygit
+      minikube
+      mise
+      neofetch
+      neovim
+      nodejs_24
+      protobuf
+      python3
+      ripgrep
+      starship
       terraform
       terraformer
-      colima
-      minikube
-      wget
-      bazelisk
-      bazel-buildtools
-      zoxide
-      neofetch
-      buf
-      protobuf
-      bat
-      fzf
       tree
-      ripgrep
-      direnv
-      awscli2
-      ascii-image-converter
-      krabby
-      wdiff
       uutils-coreutils-noprefix
+      wdiff
+      wget
+      write-good
+      zoxide
+      zsh-abbr
     ];
   };
 }

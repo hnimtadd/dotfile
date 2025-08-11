@@ -9,7 +9,7 @@ GREEN := \033[0;32m
 YELLOW := \033[0;33m
 NC := \033[0m # No Color
 
-.PHONY: all switch check clean update help
+.PHONY: all switch check clean update help fetch-claude-hashes
 
 # Default target
 all: check switch
@@ -31,6 +31,8 @@ help:
 	@echo "  ${GREEN}fmt${NC}     - Format nix files"
 	@echo "  ${GREEN}sha${NC}     - Generate sha256 hash for a given URL"
 	@echo "  ${GREEN}update${NC}  - Update flake"
+	@echo "  ${GREEN}update-claude-code${NC} - Update claude-code to latest version"
+	@echo "  ${GREEN}fetch-claude-hashes${NC} - Fetch latest claude-code hashes for manual update"
 	@echo ""
 	@make config
 
@@ -62,3 +64,10 @@ ifndef url
 else
 	@hash=$$(nix-prefetch-url --unpack $(url)) && nix hash convert --to sri --hash-algo sha256 $$hash
 endif
+
+
+# Fetch latest claude-code hashes for manual update
+fetch-claude-hashes:
+	@echo "${GREEN}Fetching latest claude-code hashes...${NC}"
+	@./overlays/claude-code/fetch-hashes.sh
+	@echo "${YELLOW}Copy the values above to update overlays/claude-code/default.nix${NC}"
