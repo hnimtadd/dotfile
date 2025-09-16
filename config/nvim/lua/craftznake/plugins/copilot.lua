@@ -3,14 +3,13 @@ return {
         "zbirenbaum/copilot.lua",
         cmd = "Copilot",
         build = ":Copilot auth",
-        event = "BufReadPost",
         opts = {
             panel = { enabled = false },
             suggestion = { enabled = false },
         },
         config = function()
             require("copilot").setup({
-                enable = true,
+                enabled = false,
                 filetypes = {
                     lua = true,
                     go = true,
@@ -27,5 +26,8 @@ return {
             })
         end,
     },
-    { "giuxtaposition/blink-cmp-copilot" },
+    {
+        "giuxtaposition/blink-cmp-copilot",
+        after = { "copilot.lua" },
+    },
 }

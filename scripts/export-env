@@ -7,7 +7,6 @@
 ## This script exports the environment variables from the <file> file
 ## It supports Linux and FreeBSD/Darwin
 
-#!/bin/sh
 
 if [ ! -f $1 ]; then
     echo "Error: $1 file not found"

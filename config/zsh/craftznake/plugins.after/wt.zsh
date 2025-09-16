@@ -17,6 +17,10 @@ wt() {
             shift
             wt_jump "$@"
             ;;
+        destroy)
+            shift
+            wt_destroy "$@"
+            ;;
         prune)
             wt_prune
             ;;
@@ -98,11 +102,12 @@ wt_new() {
 wt_help() {
     echo "Usage: wt <command> [options]"
     echo "Commands:"
-    echo "  new <branch> <base> - Create a new worktree from a branch"
-    echo "  jump <worktree> - Jump to a worktree"
-    echo "  rm <worktree>   - Remove a worktree"
-    echo "  prune           - Prune prunable worktree"
-    echo "  list            - list worktrees"
+    echo "  new <branch> <base>     - Create a new worktree from a branch"
+    echo "  jump <worktree>         - Jump to a worktree"
+    echo "  rm <worktree>           - Remove a worktree"
+    echo "  destroy <branch_name>   - Destroy branch name"
+    echo "  prune                   - Prune prunable worktree"
+    echo "  list                    - List worktrees"
 }
 
 wt_jump() {
@@ -180,6 +185,71 @@ wt_jump() {
 
 wt_prune() {
     git worktree prune
+}
+
+wt_destroy() {
+    wt_destroy_help() {
+        echo "Usage: wt destroy <branch-name>"
+        echo "Destroys a git worktree by:"
+        echo "  1. Finding the worktree associated with the branch"
+        echo "  2. Getting the absolute path of the worktree"
+        echo "  3. Removing the worktree directory"
+        echo "  4. Pruning the worktree from git"
+        echo "  5. Deleting the branch"
+    }
+
+    if [[ $1 == "help" ]]; then
+        wt_destroy_help
+        return 1
+    fi
+
+    if [[ -z $1 ]]; then
+        echo "Error: branch name is required"
+        wt_destroy_help
+        return 1
+    fi
+
+    worktree_name=$1
+
+    # Find the worktree associated with this branch (handles both short and full ref names)
+    worktree_info=$(git worktree list --porcelain | grep -A2 "worktree.*$worktree_name$" | head -3)
+
+    if [[ -z $worktree_info ]]; then
+        echo "Error: no worktree found for branch '$branch_name'"
+        return 1
+    fi
+
+    # Extract worktree path and name
+    worktree_path=$(echo "$worktree_info" | grep "worktree" | cut -d' ' -f2)
+    branch_name=$(basename $(echo "$worktree_info"| grep "branch" | cut -d' ' -f2))
+    worktree_name=$(basename "$worktree_path")
+
+    echo "Destroying worktree"
+    echo "Worktree: $worktree_name"
+    echo "Path: $worktree_path"
+
+    # Remove the worktree directory
+    if [[ -d $worktree_path ]]; then
+        echo "Removing worktree directory..."
+        rm -rf "$worktree_path"
+    else
+        echo "Warning: worktree directory not found at $worktree_path"
+    fi
+
+    # Prune the worktree from git
+    echo "Pruning worktree from git..."
+    git worktree prune
+
+    # Delete the branch
+    current_branch=$(git branch --show-current)
+    if [[ $branch_name != $current_branch ]]; then
+        echo "Deleting branch: $branch_name"
+        git branch -D $branch_name
+    else
+        echo "Warning: Cannot delete current branch '$branch_name'"
+    fi
+
+    echo "Worktree for branch '$branch_name' destroyed successfully"
 }
 
 wt_list() {

@@ -77,6 +77,18 @@ return {
             complete = "dir",
             desc = "Oil file explorer",
         })
+
+        vim.api.nvim_create_user_command("CpAbsPath", function()
+            local path = vim.fn.expand("%:p")
+            vim.fn.setreg("+", path)
+            vim.notify('Copied "' .. path .. '" to the clipboard!')
+        end, {})
+
+        vim.api.nvim_create_user_command("CpRelPath", function()
+            local path = vim.fn.expand("%")
+            vim.fn.setreg("+", path)
+            vim.notify('Copied "' .. path .. '" to the clipboard!')
+        end, {})
         -- Declare a global function to retrieve the current directory
         function _G.get_oil_winbar()
             local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)

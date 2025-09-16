@@ -14,9 +14,6 @@ return {
             markdown = { "markdownlint-cli2" },
             text = {},
             json = { "jsonlint", },
-            rst = { "rstlint", "write-good" },
-            dockerfile = { "hadolint", },
-            terraform = { "tflint" },
             zsh = { "zsh" },
         }
         local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })

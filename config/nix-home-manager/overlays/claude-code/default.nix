@@ -2,14 +2,13 @@
 , buildNpmPackage
 , fetchzip
 , nodejs_20
-, writeShellScript
 }:
 
 let
   # Manual version and hashes - update these when you want a new version
   version = "1.0.72";
-  srcHash = "sha256-PogxJBc/YnEb52qSDJNw11k1rdEDrK8KLmhh/hvVB7o=";
-  depsHash = "sha256-470elvq5UqxAbERAsisOiB6rUHHFl0yfXKGNsWFCrNg=";
+  srcHash = "sha256-1vIElqZ5sk62o1amdfOqhmSG4B5wzKWDLcCgvQO4a5o=";
+  depsHash = "sha256-7CWgDWyfZphTdFrZiBQBQAHVkboA0dDDdwX9/kiREi0=";
 
   # Fetch the source tarball
   src = fetchzip {

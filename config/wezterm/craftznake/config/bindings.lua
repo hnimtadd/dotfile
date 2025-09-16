@@ -102,6 +102,6 @@ local keys = {
 
 return {
     disable_default_key_bindings = false,
-    leader = { key = "Space", mods = mods.CSAD, timeout_milliseconds = 1000 },
+    leader = { key = "Space", mods = mods.CAD, timeout_milliseconds = 1000 },
     keys = mytable.flatten_list(keys),
 }

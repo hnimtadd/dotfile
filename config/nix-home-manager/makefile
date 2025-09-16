@@ -71,3 +71,9 @@ fetch-claude-hashes:
 	@echo "${GREEN}Fetching latest claude-code hashes...${NC}"
 	@./overlays/claude-code/fetch-hashes.sh
 	@echo "${YELLOW}Copy the values above to update overlays/claude-code/default.nix${NC}"
+
+# Fetch latest opencode-ai hashes for manual update
+fetch-opencode:
+	@echo "${GREEN}Fetching latest opencode hashes...${NC}"
+	@./overlays/opencode/fetch-hashes.sh
+	@echo "${YELLOW}Copy the values above to update overlays/opencode/default.nix${NC}"

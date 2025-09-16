@@ -10,6 +10,10 @@ $line_break\
 $python\
 $character"""
 
+right_format="""
+$time
+"""
+
 scan_timeout=30
 command_timeout=100
 
@@ -36,3 +40,6 @@ style = "yellow"
 [python]
 format = "[$virtualenv]($style) "
 style = "bright-black"
+
+[time]
+disabled = false

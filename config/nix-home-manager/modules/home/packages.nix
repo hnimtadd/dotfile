@@ -33,6 +33,7 @@
       fzf
       git
       go
+        gopls
       krabby
       kubectl
       lazygit
@@ -41,6 +42,7 @@
       neofetch
       neovim
       nodejs_24
+      opencode
       protobuf
       python3
       ripgrep
@@ -54,6 +56,7 @@
       write-good
       zoxide
       zsh-abbr
+        zig
     ];
   };
 }
