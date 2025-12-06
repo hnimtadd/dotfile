@@ -1,13 +1,13 @@
 return {
-    {
-        "echasnovski/mini.animate",
-        version = "*",
-        config = function()
-            require("mini.animate").setup({
-                scroll = {
-                    enable = false,
-                },
-            })
-        end,
-    },
+  {
+    "nvim-mini/mini.animate",
+    version = "*",
+    config = function()
+      require("mini.animate").setup({
+        scroll = {
+          enable = false,
+        },
+      })
+    end,
+  },
 }

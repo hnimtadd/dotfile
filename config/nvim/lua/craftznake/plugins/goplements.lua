@@ -1,5 +1,5 @@
 return {
-    "maxandron/goplements.nvim",
-    ft = "go",
-    opts = {},
+  "maxandron/goplements.nvim",
+  ft = "go",
+  opts = {},
 }
