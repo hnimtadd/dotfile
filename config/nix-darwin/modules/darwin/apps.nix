@@ -12,7 +12,6 @@
     };
 
     taps = [
-      "homebrew/services"
       "nikitabobko/tap"
       "FelixKratz/formulae"
       # Custom tag used inside Grab
@@ -32,16 +31,12 @@
       "cmake"
       "coreutils"
       "displayplacer"
-      "displayplacer"
       "docker-buildx"
-      "firefoxpwa"
       "git-crypt"
       "libtool"
       "ninja"
-      "openjdk@11"
       "slides"
       "socat"
-      "terminal-notifier"
       "test-cli"
       "tlrc"
       "watch"
@@ -49,19 +44,20 @@
 
     # `brew install --cask`
     casks = [
+    "alacritty"
       "aerospace"
       "aldente"
       "firefox"
       "homerow"
       "jordanbaird-ice"
       "karabiner-elements"
-      "keycastr"
       "middleclick"
       "obsidian"
       "raycast"
       "stats"
+      "evkey"
+        "zen"
       "wezterm"
-      "zen"
     ];
   };
   programs.zsh.enable = true;

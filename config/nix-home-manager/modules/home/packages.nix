@@ -33,7 +33,8 @@
       fzf
       git
       go
-        gopls
+      gopls
+      rustup
       krabby
       kubectl
       lazygit
@@ -51,12 +52,17 @@
       terraformer
       tree
       uutils-coreutils-noprefix
+      lua-language-server
       wdiff
       wget
       write-good
       zoxide
       zsh-abbr
-        zig
+      zig
+      gotools
+      protoc-gen-go-grpc
+      protoc-gen-go
+      protobuf
     ];
   };
 }

@@ -3,7 +3,7 @@ local wezterm = require("wezterm")
 return {
     font = wezterm.font_with_fallback({
         {
-            family = "JetBrainsMono Nerd Font Mono",
+            family = "ComicShannsMono Nerd Font Mono",
         },
     }),
     font_size = 15,

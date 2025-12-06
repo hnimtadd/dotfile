@@ -11,7 +11,7 @@ zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
 # Ensure the .zsh_plugins.txt file exists so you can add plugins.
 [[ -f ${zsh_plugins}.txt ]] || touch ${zsh_plugins}.txt
 
-fpath=($(brew --prefix)/opt/antidote/share/antidote/functions $fpath)
+fpath=($("/opt/homebrew/bin/brew" --prefix)/opt/antidote/share/antidote/functions $fpath)
 autoload -Uz antidote
 
 # Generate a new static file whenever .zsh_plugins.txt is updated.
@@ -22,9 +22,14 @@ fi
 # Source the static plugins file.
 source ${zsh_plugins}.zsh
 
+# configure wordchars regonized by the shell
+autoload -U select-word-style
+select-word-style bash
+
 import plugins.after/zsh-fzf.zsh
 import plugins.after/zsh-starship.zsh
 import plugins.after/zsh-z.zsh
 import plugins.after/wt.zsh
 import plugins.after/p.zsh
 import plugins.after/zsh-history-substring-search.zsh
+

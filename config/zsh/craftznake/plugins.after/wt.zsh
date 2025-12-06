@@ -35,8 +35,8 @@ wt() {
 
 wt_new() {
     wt_new_help() {
-        echo "Usage: wt new <branch> <base> <path>"
-        echo "  new <branch> <base> <path> - Create a new worktree from a branch"
+        echo "Usage: wt new <branch> <base>"
+        echo "  new <branch> <base> - Create a new worktree from a branch"
     }
 
     update_upstream() {
@@ -67,14 +67,15 @@ wt_new() {
         return 1
     fi
 
-    if [[ $# -lt 3 ]]; then
+    if [[ $# -lt 2 ]]; then
         wt_new_help
         return 1
     fi
+    root=$(git rev-parse --show-toplevel)
 
     branch=$1
     base=$2
-    new_path=$3
+    new_path=$(readlink -f "$root/../$branch")
     setup_colors
 
     # check if branch already exists
