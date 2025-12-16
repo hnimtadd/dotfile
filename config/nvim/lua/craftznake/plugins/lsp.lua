@@ -24,24 +24,56 @@ return {
                         },
                     },
                 },
-            },
+                gopls = {
+                    mason = false,
+                    settings = {
+                        gofumpt = true,
+                        codelenses = {
+                            gc_details = false,
+                            generate = true,
+                            regenerate_cgo = true,
+                            run_govulncheck = true,
+                            test = true,
+                            tidy = true,
+                            upgrade_dependency = true,
+                            vendor = true,
+                        },
+                        hints = {
+                            assignVariableTypes = true,
+                            compositeLiteralFields = true,
+                            compositeLiteralTypes = true,
+                            constantValues = true,
+                            functionTypeParameters = true,
+                            parameterNames = true,
+                            rangeVariableTypes = true,
+                        },
+                        analyses = {
+                            nilness = true,
+                            unusedparams = true,
+                            unusedwrite = true,
+                            useany = true,
+                        },
+                        usePlaceholders = true,
+                        completeUnimported = true,
+                        staticcheck = true,
+                        directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+                        semanticTokens = true,
+                    },
+                },
+            }
         },
         config = function(_, opts)
             require("mason").setup()
             local blink = require("blink.cmp")
-            local capabilities =
-                vim.tbl_deep_extend("force", {}, vim.lsp.protocol.make_client_capabilities(),
-                    blink.get_lsp_capabilities())
             local servers = opts.servers or {}
             local setups = opts.setup or {}
 
             local function handler(server)
-                local server_opts = vim.tbl_deep_extend("force", {
-                    capabilities = capabilities,
-                }, servers[server] or {})
+                local server_opts = servers[server] or {}
                 if server_opts.enabled == false then
                     return
                 end
+                server_opts.capabilities = blink.get_lsp_capabilities(server_opts.capabilities or {})
 
                 if setups[server] then
                     if setups[server](server, server_opts) then
@@ -124,8 +156,19 @@ return {
                         auto_show = false,
                         border = "none",
                         draw = {
-                            treesitter = { "lsp" },
-                            columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } },
+                            snippet_indicator = "~",
+                            treesitter = {},
+                            columns = { { "label", "label_description", gap = 1, "kind" } },
+                            components = {
+                                label_description = {
+                                    width = { max = 50 },
+                                },
+                                source_name = {
+                                    text = function(ctx)
+                                        return "[" .. ctx.source_name .. "]"
+                                    end,
+                                },
+                            }
                         },
                     },
                     list = {
@@ -133,7 +176,7 @@ return {
                         cycle = { from_top = false },
                     },
                     documentation = {
-                        auto_show = false,
+                        auto_show = true,
                         auto_show_delay_ms = 200,
                         window = { border = "single" },
                     },
