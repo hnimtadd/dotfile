@@ -56,7 +56,7 @@
       "raycast"
       "stats"
       "evkey"
-        "zen"
+    "zen"
       "wezterm"
     ];
   };

@@ -34,6 +34,7 @@
       git
       go
       gopls
+      golangci-lint
       rustup
       krabby
       kubectl

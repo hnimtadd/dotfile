@@ -48,6 +48,12 @@
       # disable show the desktop if focus on the wallpaper
       WindowManager.EnableStandardClickToShowDesktop = false;
 
+        # disable hot-corner shortcut.
+        dock.wvous-bl-corner = 1;
+        dock.wvous-br-corner = 1;
+        dock.wvous-tl-corner = 1;
+        dock.wvous-tr-corner = 1;
+
       # keymap
       # setting repeat key on hold
       NSGlobalDomain.KeyRepeat = 3;

@@ -62,6 +62,11 @@ in
       target = ".config/zsh";
       recursive = true;
     };
+    "zsh_plugins" = {
+      source = "${dotconfigs}/config/antidote-plugin.txt";
+      target = ".zsh_plugins.txt";
+      recursive = true;
+    };
     "starship" = {
       source = "${dotconfigs}/config/starship.toml";
       target = ".config/starship.toml";
