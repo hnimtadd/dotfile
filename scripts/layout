@@ -42,6 +42,9 @@ save_layout() {
     # rm "$temp_file"
 
     # Save the modified layout command
+    if [[ ! -e "$layout_file" ]]; then
+        mkdir -p "$(dirname $layout_file)"
+    fi
     echo "$layout_cmd" >"$layout_file"
     echo "Layout saved with serial IDs to $layout_file"
     chmod +x $layout_file
