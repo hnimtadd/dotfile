@@ -6,8 +6,8 @@ after-login-command = []
 # commands that run after AeroSpace startup.
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
-    # JankyBorders has a built-in detection of already running process,
-    # so it won't be run twice on AeroSpace restart
+# JankyBorders has a built-in detection of already running process,
+# so it won't be run twice on AeroSpace restart
 after-startup-command = [
     'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0'
 ]
@@ -147,31 +147,27 @@ esc   = 'mode main'
 
 [[on-window-detected]]
     if.app-id = 'com.github.wez.wezterm'
-    run = 'move-node-to-workspace 1' # mnemonics 1 - Dev stuffs
+    run = 'move-node-to-workspace 1' # mnemonics 1 - Development stuffs
+
+[[on-window-detected]]
+    if.app-id = 'org.mozilla.firefox'
+    run = 'move-node-to-workspace 2' # mnemonics 2 - Browser and web stuffs
 
 [[on-window-detected]]
     if.app-id = 'com.brave.Browser'
     run = 'move-node-to-workspace 2' # mnemonics 2 - Web stuffs for work
 
 [[on-window-detected]]
-    if.app-id = 'md.obsidian'
-    run = 'move-node-to-workspace 3' # mnemonics 3 - Obsidians stuffs
-
-[[on-window-detected]]
-    if.app-id = 'com.openai.chat'
-    run = 'move-node-to-workspace 3' # mnemonics 3 - Obsidians stuffs
-
-[[on-window-detected]]
     if.app-id = 'com.tinyspeck.slackmacgap'
-    run = 'move-node-to-workspace 4' # mnemonics 4 - Communication stuffs
+    run = 'move-node-to-workspace 3' # mnemonics 3 - Communication stuffs
 
 [[on-window-detected]]
     if.app-id = 'app.zen-browser.zen'
-    run = 'move-node-to-workspace 5' # mnemonics 5 - Personal stuffs
+    run = 'move-node-to-workspace 4' # mnemonics 4 - Personal stuffs
 
 [[on-window-detected]]
-    if.app-id = 'com.spotify.client'
-    run = 'move-node-to-workspace 5' # mnemonics 6 - Multimedia stuffs
+    if.app-id = 'md.obsidian'
+    run = 'move-node-to-workspace 5' # mnemonics 5 - Note stuffs
 
 [[on-window-detected]]
     if.app-id = 'com.apple.systempreferences'
@@ -187,10 +183,6 @@ esc   = 'mode main'
 
 [[on-window-detected]]
     if.app-id = 'com.apple.finder'
-    run = 'move-node-to-workspace 7' # mnemonics 7 - Utilities stuffs
-
-[[on-window-detected]]
-    if.app-id = 'com.cisco.secureclient.gui'
     run = 'move-node-to-workspace 7' # mnemonics 7 - Utilities stuffs
 
 [[on-window-detected]]
