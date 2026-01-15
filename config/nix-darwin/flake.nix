@@ -15,27 +15,24 @@
 
   outputs = { nixpkgs, darwin, ... }:
     let
-        # Determine system architecture
-        # On Apple Silicon this is "aarch64-darwin", on Intel "x86_64-darwin"
-          system = if builtins.pathExists "/usr/bin/arch" then
-                 (if builtins.match ".*arm64.*" (builtins.readFile (builtins.toPath "/dev/null")) != null
-                 then "aarch64-darwin" else "x86_64-darwin")
-               else "unknown";
+      supportedSystems = [ "aarch64-darwin" ];
+      forAllSystems = f: nixpkgs.lib.genAttrs supportedSystems (system: f system);
       username = builtins.getEnv "USER";
       hostname = builtins.getEnv "HOST";
-      specialArgs = {
-        inherit username hostname;
-      };
     in
     {
-      formatter."${system}" = nixpkgs.legacyPackages."${system}".nixpkgs-fmt;
-      darwinConfigurations = {
-        "${hostname}" = darwin.lib.darwinSystem {
-          inherit system specialArgs;
-          modules = [
-            ./modules/darwin/index.nix
-          ];
-        };
-      };
+      formatter = forAllSystems (system:
+        nixpkgs.legacyPackages.${system}.nixpkgs-fmt
+      );
+      darwinConfigurations =
+        if hostname != "" then {
+          "${hostname}" = darwin.lib.darwinSystem {
+            system = builtins.currentSystem;
+            specialArgs = { inherit username hostname; };
+            modules = [
+              ./modules/darwin/index.nix
+            ];
+          };
+        } else { };
     };
 }
