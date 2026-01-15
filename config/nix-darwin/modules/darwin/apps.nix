@@ -44,20 +44,21 @@
 
     # `brew install --cask`
     casks = [
-    "alacritty"
-      "aerospace"
-      "aldente"
-      "firefox"
-      "homerow"
-      "jordanbaird-ice"
-      "karabiner-elements"
-      "middleclick"
-      "obsidian"
-      "raycast"
-      "stats"
-      "evkey"
-    "zen"
-      "wezterm"
+"aerospace"
+"alacritty"
+"aldente"
+"evkey"
+"firefox"
+"homerow"
+"jordanbaird-ice"
+"karabiner-elements"
+"middleclick"
+"obsidian"
+"raycast"
+"stats"
+"wezterm"
+"zed"
+"zen"
     ];
   };
   programs.zsh.enable = true;
