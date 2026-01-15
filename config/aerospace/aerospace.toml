@@ -158,6 +158,10 @@ esc   = 'mode main'
     run = 'move-node-to-workspace 2' # mnemonics 2 - Web stuffs for work
 
 [[on-window-detected]]
+    if.app-id = 'us.zoom.xos'
+    run = 'move-node-to-workspace 2' # mnemonics 2 - Web stuffs for work
+
+[[on-window-detected]]
     if.app-id = 'com.tinyspeck.slackmacgap'
     run = 'move-node-to-workspace 3' # mnemonics 3 - Communication stuffs
 
