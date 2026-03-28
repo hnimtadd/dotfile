@@ -40,6 +40,7 @@
       "test-cli"
       "tlrc"
       "watch"
+    "firefoxpwa"
     ];
 
     # `brew install --cask`
@@ -56,9 +57,11 @@
       "obsidian"
       "raycast"
       "stats"
+      "cursor"
       "wezterm"
       "zed"
       "zen"
+            "finicky"
     ];
   };
   programs.zsh.enable = true;

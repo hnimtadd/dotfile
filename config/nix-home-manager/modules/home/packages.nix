@@ -23,7 +23,6 @@
       bazel_7
       bazelisk
       buf
-      claude-code
       colima
       direnv
       docker
