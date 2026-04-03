@@ -43,7 +43,6 @@
       neofetch
       neovim
       nodejs_24
-      opencode
       protobuf
       python3
       ripgrep
@@ -63,6 +62,7 @@
       protoc-gen-go-grpc
       protoc-gen-go
       protobuf
+    yq
     ];
   };
 }
