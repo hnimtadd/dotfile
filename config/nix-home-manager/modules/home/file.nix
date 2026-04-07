@@ -43,8 +43,8 @@ in
       recursive = true;
     };
     "karabiner" = {
-      source = "${dotconfigs}/config/karabiner";
-      target = ".config/karabiner";
+      source = "${dotconfigs}/config/karabiner/karabiner.json";
+      target = ".config/karabiner/karabiner.json";
       recursive = true;
     };
     "nvim" = {
