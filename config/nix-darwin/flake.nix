@@ -18,14 +18,14 @@
       supportedSystems = [ "aarch64-darwin" ];
       forAllSystems = f: nixpkgs.lib.genAttrs supportedSystems (system: f system);
       username = builtins.getEnv "USER";
-      hostname = builtins.getEnv "HOST";
+      envHost = builtins.getEnv "HOST";
+hostname = if envHost == "" then "athena" else envHost;
     in
     {
       formatter = forAllSystems (system:
         nixpkgs.legacyPackages.${system}.nixpkgs-fmt
       );
-      darwinConfigurations =
-        if hostname != "" then {
+      darwinConfigurations ={
           "${hostname}" = darwin.lib.darwinSystem {
             system = builtins.currentSystem;
             specialArgs = { inherit username hostname; };
@@ -33,6 +33,6 @@
               ./modules/darwin/index.nix
             ];
           };
-        } else { };
     };
+};
 }

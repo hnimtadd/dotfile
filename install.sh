@@ -60,7 +60,7 @@ install_nix_darwin() {
         cd "$DOTFILE_DIR/config/nix-darwin"
 
         # Build and activate nix-darwin configuration
-        nix run nix-darwin -- switch --flake .
+        make switch
     fi
 }
 
@@ -70,7 +70,7 @@ install_home_manager() {
     cd "$DOTFILE_DIR/config/nix-home-manager"
 
     # Build and activate home-manager configuration
-    nix run home-manager -- switch --flake .#default
+    make switch
 }
 
 # Step 6: Post-installation steps

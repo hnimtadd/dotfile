@@ -1,5 +1,5 @@
 # Variables
-HOSTNAME := $(shell scutil --get ComputerName || echo $(shell hostname))
+HOSTNAME := "athena"
 USERNAME := $(shell whoami)
 ARCH := $(shell uname -m)
 SYSTEM := $(if $(filter arm64,$(ARCH)),aarch64-darwin,$(if $(filter x86_64,$(ARCH)),x86_64-darwin,$(error Unsupported architecture: $(ARCH))))

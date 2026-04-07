@@ -4,6 +4,7 @@
   environment.systemPackages = with pkgs; [
     mkalias
   ];
+
   homebrew = {
     enable = true;
     onActivation = {
@@ -14,11 +15,6 @@
     taps = [
       "nikitabobko/tap"
       "FelixKratz/formulae"
-      # Custom tag used inside Grab
-      {
-        name = "gandalf/homebrew";
-        clone_target = "git@gitlab.myteksi.net:gandalf/homebrew.git";
-      }
     ];
 
     # `brew install`
@@ -26,7 +22,6 @@
       "antidote"
       "aspell"
       "autoconf"
-      "borders"
       "clang-format"
       "cmake"
       "coreutils"
@@ -36,8 +31,6 @@
       "libtool"
       "ninja"
       "slides"
-      "socat"
-      "test-cli"
       "tlrc"
       "watch"
     "firefoxpwa"
