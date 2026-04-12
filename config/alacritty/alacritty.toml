@@ -52,7 +52,7 @@ mods = "Control"
 history = 15000
 
 [shell]
-program = "/opt/homebrew/bin/fish"
+program = "/bin/zsh"
 args = ["--login"]
 
 [window]

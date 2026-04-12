@@ -103,11 +103,11 @@ in
     #   target = ".config/tmux";
     #   recursive = true;
     # };
-    # "alacritty" = {
-    #   source = "${dotconfigs}/config/alacritty";
-    #   target = ".config/alacritty";
-    #   recursive = true;
-    # };
+    "alacritty" = {
+      source = "${dotconfigs}/config/alacritty";
+      target = ".config/alacritty";
+      recursive = true;
+    };
     # "fish" = {
     #   source = "${dotconfigs}/config/fish";
     #   target = ".config/fish";
