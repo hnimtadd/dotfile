@@ -40,7 +40,6 @@
       lazygit
       minikube
       mise
-      neofetch
       neovim
       nodejs_24
       protobuf
@@ -54,6 +53,7 @@
       lua-language-server
       wdiff
       wget
+        jujutsu
       write-good
       zoxide
       zsh-abbr
