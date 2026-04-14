@@ -39,6 +39,8 @@ keymap.set("n", "]q", ":cnext<CR>", { desc = "Next Quickfix Entry" })
 keymap.set("n", "[Q", ":cfirst<CR>", { desc = "First Quickfix Entry" })
 keymap.set("n", "]Q", ":clast<CR>", { desc = "Last Quickfix Entry" })
 
+keymap.set('n', '<C-i>', '<C-i>', { desc = 'Jump Forward' })
+keymap.set('n', '<C-o>', '<C-o>', { desc = 'Jump Backward' })
 keymap.set("n", "<leader>w", "<c-w>", { desc = "Windows", remap = true })
 keymap.set("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
 keymap.set("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
@@ -48,13 +50,13 @@ keymap.set("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
 
 -- Version management commands
 keymap.set("n", "<leader>vv", function()
-  require("craftznake.scripts.version-manager").check_versions()
+    require("craftznake.scripts.version-manager").check_versions()
 end, { desc = "[V]ersion [V]erify" })
 
 keymap.set("n", "<leader>vr", function()
-  require("craftznake.scripts.version-manager").generate_report()
+    require("craftznake.scripts.version-manager").generate_report()
 end, { desc = "[V]ersion [R]eport" })
 
 keymap.set("n", "<leader>vu", function()
-  require("craftznake.scripts.version-manager").update_lockfile()
+    require("craftznake.scripts.version-manager").update_lockfile()
 end, { desc = "[V]ersion [U]pdate" })

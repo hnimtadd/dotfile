@@ -4,10 +4,20 @@ return {
         -- tag = "v0.10.0",
         build = ":TSUpdate",
         config = function()
-            require("nvim-treesitter").setup({
-                install_dir = vim.fn.stdpath('data') .. '/site',
-                -- A list of parser names, or "all"
-                ensure_installed = {
+            -- A list of parser names, or "all"
+            require("nvim-treesitter").install({
+                "vimdoc",
+                "javascript",
+                "typescript",
+                "c",
+                "lua",
+                "rust",
+                "jsdoc",
+                "bash",
+                "go",
+            })
+            vim.api.nvim_create_autocmd('FileType', {
+                pattern = {
                     "vimdoc",
                     "javascript",
                     "typescript",
@@ -18,31 +28,16 @@ return {
                     "bash",
                     "go",
                 },
-                sync_install = false,
-                auto_install = true,
-
-                indent = { enable = true },
-
-                highlight = {
-                    enable = true,
-                    disable = function(lang, buf)
-                        if lang == "html" then
-                            return true
-                        end
-
-                        local max_filesize = 100 * 1024 -- 100 KB
-                        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-                        if ok and stats and stats.size > max_filesize then
-                            vim.notify(
-                                "File larger than 100KB treesitter disabled for performance",
-                                vim.log.levels.WARN,
-                                { title = "Treesitter" }
-                            )
-                            return true
-                        end
-                    end,
-                    additional_vim_regex_highlighting = { "markdown" },
-                },
+                callback = function()
+                    -- syntax highlighting, provided by Neovim
+                    vim.treesitter.start()
+                    -- folds, provided by Neovim
+                    vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+                    vim.wo.foldmethod = 'expr'
+                    vim.wo.foldlevel = 99 -- Keep everything unfolded by default
+                    -- indentation, provided by nvim-treesitter
+                    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                end,
             })
         end,
     },
