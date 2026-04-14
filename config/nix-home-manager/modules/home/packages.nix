@@ -47,6 +47,7 @@
       ripgrep
       starship
       terraform
+        tree-sitter
       terraformer
       tree
       uutils-coreutils-noprefix
