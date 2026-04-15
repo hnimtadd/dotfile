@@ -106,6 +106,8 @@ return {
 
         require("telescope").setup({
             defaults = {
+                -- Ignore known vendor package
+                file_ignore_patterns = { "vendor/", "node_modules/", "target/" },
                 mappings = {
                     i = {
                         ["<C-|>"] = actions.select_horizontal,
