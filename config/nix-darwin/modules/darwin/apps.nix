@@ -41,7 +41,7 @@
       "aerospace"
       "alacritty"
       "aldente"
-      "evkey"
+      "openkey"
       "firefox"
       "homerow"
       "jordanbaird-ice"
