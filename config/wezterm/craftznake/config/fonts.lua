@@ -5,6 +5,9 @@ return {
         {
             family = "ComicShannsMono Nerd Font Mono",
         },
+        {
+            family = "Symbols Nerd Font Mono",
+        },
     }),
     font_size = 15,
 

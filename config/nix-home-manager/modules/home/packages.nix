@@ -33,38 +33,39 @@
         difftastic
       git
       go
-      gopls
       golangci-lint
-      rustup
+      gopls
+      gotools
+      jujutsu
       krabby
       kubectl
       lazygit
+      lua-language-server
       minikube
       mise
       neovim
       nodejs_24
       protobuf
+      protobuf
+      protoc-gen-go
+      protoc-gen-go-grpc
       python3
       ripgrep
+      rustup
       starship
       terraform
-        tree-sitter
       terraformer
+      tmux
       tree
+      tree-sitter
       uutils-coreutils-noprefix
-      lua-language-server
       wdiff
       wget
-        jujutsu
       write-good
+      yq
+      zig
       zoxide
       zsh-abbr
-      zig
-      gotools
-      protoc-gen-go-grpc
-      protoc-gen-go
-      protobuf
-    yq
     ];
   };
 }

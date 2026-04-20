@@ -33,7 +33,7 @@
       "slides"
       "tlrc"
       "watch"
-    "firefoxpwa"
+      "firefoxpwa"
     ];
 
     # `brew install --cask`
@@ -54,7 +54,8 @@
       "wezterm"
       "zed"
       "zen"
-            "finicky"
+      "finicky"
+      "ghostty"
     ];
   };
   programs.zsh.enable = true;

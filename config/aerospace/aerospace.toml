@@ -191,3 +191,7 @@ esc   = 'mode main'
 [[on-window-detected]]
     if.app-id = 'org.pqrs.Karabiner-Elements.Settings'
     run = 'move-node-to-workspace 7' # mnemonics 7 - Utilities stuffs
+
+[[on-window-detected]]
+    if.app-id="com.mitchellh.ghostty"
+    run= "layout floating"

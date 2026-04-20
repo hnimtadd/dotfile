@@ -98,11 +98,11 @@ in
     #   target = ".config/yabai";
     #   recursive = true;
     # };
-    # "tmux" = {
-    #   source = "${dotconfigs}/config/tmux";
-    #   target = ".config/tmux";
-    #   recursive = true;
-    # };
+    "tmux" = {
+      source = "${dotconfigs}/config/tmux";
+      target = ".config/tmux";
+      recursive = true;
+    };
     "alacritty" = {
       source = "${dotconfigs}/config/alacritty";
       target = ".config/alacritty";
