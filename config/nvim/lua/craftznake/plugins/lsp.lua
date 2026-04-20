@@ -236,7 +236,7 @@ return {
             })
 
             vim.diagnostic.config({
-                virtual_text = true, -- Enable virtual text for diagnostics
+                virtual_text = true,  -- Enable virtual text for diagnostics
                 -- update_in_insert = true,
                 float = {
                     focusable = false,

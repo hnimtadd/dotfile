@@ -1,5 +1,5 @@
 require("craftznake.set")
-require("craftznake.lazy")
+require("craftznake.packages")
 require("craftznake.remap")
 
 local augroup = vim.api.nvim_create_augroup
