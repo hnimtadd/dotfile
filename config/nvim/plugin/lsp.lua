@@ -7,17 +7,19 @@ vim.pack.add({
 })
 
 local servers = {
-    rust_analyzer = { mason = false },
+    rust_analyzer = {},
+    eslint = {},
+    ruff = {},
     lua_ls = {
-        mason = false,
         settings = {
             Lua = {
                 diagnostics = { globals = { "vim" } },
             },
         },
     },
+    pyright = {},
+    buf_ls = {},
     gopls = {
-        mason = false,
         settings = {
             gofumpt = true,
             codelenses = {
@@ -58,8 +60,7 @@ require("mason").setup()
 
 local blink = require("blink.cmp")
 
-local function handler(server)
-    local server_opts = servers[server] or {}
+local function handler(server, server_opts)
     if server_opts.enabled == false then return end
     server_opts.capabilities = blink.get_lsp_capabilities(server_opts.capabilities or {})
     vim.lsp.config(server, server_opts)
@@ -70,7 +71,7 @@ local ensure_installed = {}
 for server, server_opts in pairs(servers) do
     if server_opts and server_opts.enabled ~= false then
         if server_opts.mason == false then
-            handler(server)
+            handler(server, server_opts)
         else
             ensure_installed[#ensure_installed + 1] = server
         end
@@ -80,7 +81,10 @@ end
 require("mason-lspconfig").setup({
     automatic_installation = true,
     ensure_installed = ensure_installed,
-    handlers = { handler },
+    handlers = { function(server)
+        local server_opts = servers[server] or {}
+        handler(server, server_opts)
+    end },
 })
 
 local lsp_utils = require("craftznake.plugins.utils.lsp_utils")

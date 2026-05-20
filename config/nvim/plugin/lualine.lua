@@ -16,9 +16,12 @@ require("lualine").setup({
         component_separators = "",
         theme = themes.nil_theme,
         always_divide_middle = true,
-        disabled_filetypes = { statusline = {}, winbar = {} },
-        ignore_focus = {},
-        globalstatus = false,
+        disabled_filetypes = {
+            statusline = { "TelescopePrompt", "TelescopeResults", "TelescopePreview" },
+            winbar = {},
+        },
+        ignore_focus = { "TelescopePrompt", "TelescopeResults", "TelescopePreview" },
+        globalstatus = true,
         refresh = { statusline = 1000, tabline = 1000, winbar = 1000 },
     },
     sections = {
