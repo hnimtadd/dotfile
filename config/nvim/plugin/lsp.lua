@@ -9,6 +9,7 @@ vim.pack.add({
 local servers = {
     rust_analyzer = {},
     eslint = {},
+    -- python,
     ruff = {},
     lua_ls = {
         settings = {
@@ -17,7 +18,6 @@ local servers = {
             },
         },
     },
-    pyright = {},
     buf_ls = {},
     gopls = {
         settings = {

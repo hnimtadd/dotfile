@@ -74,6 +74,7 @@ alt-shift-e = 'layout horizontal vertical' # rotate
 alt-shift-c = 'reload-config'
 alt-t       = 'layout floating tiling' # 'floating toggle' in i3
 alt-r       = 'mode resize'
+alt-p       = 'exec-and-forget aerospace list-windows --workspace focused --interactive --fzf | aerospace focus --window-id -'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
 # See: https://nikitabobko.github.io/AeroSpace/commands#move
@@ -83,6 +84,7 @@ alt-h          = 'focus left --boundaries all-monitors-outer-frame --boundaries-
 alt-j          = 'focus down --boundaries all-monitors-outer-frame --boundaries-action wrap-around-the-workspace'
 alt-k          = 'focus up --boundaries all-monitors-outer-frame --boundaries-action wrap-around-the-workspace'
 alt-l          = 'focus right --boundaries all-monitors-outer-frame --boundaries-action wrap-around-the-workspace'
+alt-o          = 'focus-back-and-forth'
 alt-ctrl-h     = 'move left'
 alt-ctrl-j     = 'move down'
 alt-ctrl-k     = 'move up'
@@ -125,8 +127,6 @@ alt-equal   = 'balance-sizes'
 
 # Application related configurations
 alt-enter   = 'exec-and-forget open -n /Applications/WezTerm.app' # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
-# start write some fast md.obsidian note
-alt-o   = 'exec-and-forget open -n obsidian://daily' # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
 
 [mode.resize.binding]      # 2. Declare 'resize' binding mode
 h     = 'resize width -50'
@@ -147,6 +147,13 @@ esc   = 'mode main'
 [[on-window-detected]]
     if.app-id = 'com.github.wez.wezterm'
     run = 'move-node-to-workspace 1' # mnemonics 1 - Development stuffs
+
+[[on-window-detected]]
+    if.app-id="com.mitchellh.ghostty"
+    run=[
+        'move-node-to-workspace 1', # mnemonics 1 - Development stuffs
+        'layout tiling',
+    ]
 
 [[on-window-detected]]
     if.app-id = 'org.mozilla.firefox'
@@ -191,7 +198,3 @@ esc   = 'mode main'
 [[on-window-detected]]
     if.app-id = 'org.pqrs.Karabiner-Elements.Settings'
     run = 'move-node-to-workspace 7' # mnemonics 7 - Utilities stuffs
-
-[[on-window-detected]]
-    if.app-id="com.mitchellh.ghostty"
-    run= "layout floating"

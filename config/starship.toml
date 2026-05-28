@@ -1,45 +1,203 @@
+"$schema" = "https://starship.rs/config-schema.json"
+
+add_newline = true
+
+palette = "gruvbox"
+
+# [╭─](bold green_bright)\
 format = """
 $username\
 $hostname\
+$localip\
+$shlvl\
 $directory\
-$git_branch\
-$git_state \
-$nix_shell\
+$direnv\
+$env_var\
+$custom\
 $cmd_duration\
+$jobs\
+$os\
+$container\
+$shell\
+$status\
+$fill\
+$all\
 $line_break\
-$python\
 $character"""
+# [╰─](bold green_bright)\
 
-right_format="""
-$time
-"""
+[fill]
+symbol = " "
 
-scan_timeout=30
-command_timeout=100
+[direnv]
+disabled = true
 
-[directory]
-style = "blue"
+[package]
+disabled = true
+
+# left
+# ------------------------------------------
 
 [character]
-success_symbol = "[❯](purple)"
-error_symbol = "[❯](red)"
-vimcmd_symbol = "[❮](green)"
+# success_symbol = "[](bold green_bright)"
+# error_symbol = "[](bold red_bright)"
+format = "$symbol "
+success_symbol = "[\\$](bold green_bright)"
+error_symbol = "[\\$](bold red_bright)"
+vimcmd_symbol = "[:](bold yellow_bright)"
+vimcmd_replace_one_symbol = "[R](bold purple)"
+vimcmd_replace_symbol = "[R](bold purple)"
+vimcmd_visual_symbol = "[V](bold blue)"
+
+[directory]
+truncation_symbol = "…/"
+truncation_length = 4
+read_only = " [RO]"
+style = "bold cyan_bright dimmed"
 
 [git_branch]
-format = "[$branch]($style)"
-style = "bright-black"
+disabled = true
+
+[git_status]
+disabled = true
+
+[git_commit]
+disabled = true
 
 [git_state]
-format = '\([$state( $progress_current/$progress_total)]($style)\) '
-style = "bright-black"
+disabled = true
 
-[cmd_duration]
-format = "[$duration]($style) "
-style = "yellow"
+[git_metrics]
+disabled = true
+
+[status]
+disabled = false
+format = "[$status](bold red_base) "
+
+[sudo]
+disabled = true
+
+# right
+# ------------------------------------------
+
+[docker_context]
+format = " [ $context](bold blue1) "
+
+[golang]
+format = "[ $version](bold cyan_bright) "
+version_format = "v${major}.${minor}"
+
+[lua]
+format = "[ $version](bold yellow_bright) "
+version_format = "v${major}.${minor}"
+
+[nodejs]
+format = " [ ($version)](bold green_bright) "
+version_format = "v${major}.${minor}"
+
+[pulumi]
+format = " [󰆦 ($username@)$stack](bold yellow_bright) "
+version_format = "v${major}.${minor}"
 
 [python]
-format = "[$virtualenv]($style) "
-style = "bright-black"
+format = ' [ ${pyenv_prefix}(${version} )(\($virtualenv\) )](bold green_bright) '
+version_format = "v${major}.${minor}"
 
-[time]
-disabled = false
+[rust]
+format = " [󱘗 $version](bold orange_bright) "
+version_format = "v${major}.${minor}"
+
+[terraform]
+format = " [󰆩 $workspace](bold magenta_bright) "
+version_format = "v${major}.${minor}"
+
+[aws]
+format = "[⛈ $profile]($style)"
+symbol = ""
+force_display = false
+
+[nix_shell]
+# symbol="""
+format = "[ ${name}](bold white0_reduce_blue) "
+heuristic = true
+
+[jobs]
+number_threshold = 1
+format = "[$number job(s)](bold orange_bright) "
+
+[custom.jj]
+when = "jj-starship detect"
+shell = [
+  "jj-starship",
+  "--no-jj-status",
+  "--no-git-status",
+  "--jj-symbol",
+  "󱗆 "
+]
+symbol = ""
+format = "$output "
+
+# Palette
+# ------------------------------------------
+[palettes.gruvbox]
+# Blacks - Extra dark backgrounds
+black0 = "#1d2021"
+black1 = "#282828"
+
+# Slightly darker than bg. Very useful for certain popups
+black2 = "#32302f"
+
+# Grays - Background variants
+# Soft background
+gray0 = "#32302f"
+# Standard background
+gray1 = "#3c3836"
+gray2 = "#504945"
+gray3 = "#665c54"
+gray4 = "#7c6f64"
+
+# Medium gray
+# From gruvbox gray
+gray5 = "#928374"
+
+# Dim white
+# default fg, warm tint
+white0_normal = "#d5c4a1"
+# brighter variant
+white0_reduce_blue = "#ebdbb2"
+
+# Foreground variants
+white1 = "#ebdbb2"
+white2 = "#f2e5bc"
+white3 = "#fbf1c7"
+
+# Blues - Gruvbox blue variants
+blue0 = "#458588"
+blue1 = "#83a598"
+blue2 = "#83a598"
+
+cyan_base = "#689d6a"
+cyan_bright = "#8ec07c"
+cyan_dim = "#427b58"
+
+# Aurora
+# Red variants
+red_base = "#cc241d"
+red_bright = "#fb4934"
+red_dim = "#9d0006"
+
+orange_base = "#d65d0e"
+orange_bright = "#fe8019"
+orange_dim = "#af3a03"
+
+yellow_base = "#d79921"
+yellow_bright = "#fabd2f"
+yellow_dim = "#b57614"
+
+green_base = "#98971a"
+green_bright = "#b8bb26"
+green_dim = "#79740e"
+
+magenta_base = "#b16286"
+magenta_bright = "#d3869b"
+magenta_dim = "#8f3f71"

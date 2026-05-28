@@ -153,7 +153,7 @@ wezterm.on("update-status", function(window, _)
         { Background = { Color = palette.dark1 } },
         { Foreground = { Color = text_fg } },
         { Text = " " .. NIXOS_ICON .. " " .. session_name .. " " }, --  "  default 
-        "ResetAttributes",                                    -- Reset attributes affect to next element
+        "ResetAttributes",                                          -- Reset attributes affect to next element
         { Background = { Color = tabbar_bg } },
         { Foreground = { Color = palette.dark1 } },
         { Text = SOLID_RIGHT_ARROW },

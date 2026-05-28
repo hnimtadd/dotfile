@@ -31,12 +31,6 @@ oil.setup({
         ["gs"]     = { "actions.change_sort", mode = "n" },
         ["gx"]     = "actions.open_external",
         ["g."]     = { "actions.toggle_hidden", mode = "n" },
-        ["yp"]     = {
-            desc = "Copy filepath to system clipboard",
-            callback = function()
-                require("oil.actions").copy_entry_path.callback()
-            end,
-        },
     },
     view_options = { show_hidden = false },
     win_options = { winbar = "%!v:lua.get_oil_winbar()" },
@@ -47,7 +41,7 @@ oil.setup({
 })
 
 vim.keymap.set("n", "_", function() oil.open(".") end, { desc = "Open root directory" })
-vim.keymap.set("n", "-", function() oil.open() end,    { desc = "Open parent directory" })
+vim.keymap.set("n", "-", function() oil.open() end, { desc = "Open parent directory" })
 
 vim.api.nvim_create_user_command("Ex", function(opts)
     vim.cmd("Oil " .. (opts.args or ""))

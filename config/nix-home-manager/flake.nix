@@ -7,13 +7,17 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-registry = {
       url = "github:nixos/flake-registry";
       flake = false;
     };
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = { nixpkgs, home-manager, rust-overlay, ... }:
     let
       system = builtins.currentSystem;
       username = builtins.getEnv "USER";
@@ -21,6 +25,7 @@
       pkgs = import nixpkgs {
         inherit system;
         overlays = [
+          rust-overlay.overlays.default
           (import ./overlays)
         ];
       };

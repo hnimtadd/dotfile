@@ -5,6 +5,7 @@ return {
     exit_behavior_messaging = "Verbose",
     status_update_interval = 1000,
     enable_csi_u_key_encoding = true,
+    use_ime = false,
 
     scrollback_lines = 5000,
 

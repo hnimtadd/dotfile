@@ -27,13 +27,14 @@
       "coreutils"
       "displayplacer"
       "docker-buildx"
+      "firefoxpwa"
+      "gemini-cli"
       "git-crypt"
       "libtool"
       "ninja"
       "slides"
       "tlrc"
       "watch"
-      "firefoxpwa"
     ];
 
     # `brew install --cask`

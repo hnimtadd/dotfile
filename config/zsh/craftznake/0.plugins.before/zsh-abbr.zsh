@@ -30,3 +30,7 @@ expand-alias-and-accept-line() {
     zle .accept-line
 }
 zle -N accept-line expand-alias-and-accept-line
+
+# zsh-abbr related stuffs
+ABBR_USER_ABBREVIATIONS_FILE="$ZSH_ROOT/abbrs.zsh"
+ABBR_SET_EXPANSION_CURSOR=1

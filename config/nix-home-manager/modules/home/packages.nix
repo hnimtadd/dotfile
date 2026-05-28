@@ -14,6 +14,9 @@
 
   home = {
     packages = with pkgs; [
+      (rust-bin.stable.latest.default.override {
+        extensions = [ "rust-src" "rust-analyzer" "clippy" "rustfmt" "llvm-tools-preview" ];
+      })
       amp-cli
       ascii-image-converter
       atuin
@@ -24,6 +27,8 @@
       bazelisk
       buf
       colima
+      curl
+      websocat
       direnv
       docker
       docker-compose
@@ -51,7 +56,6 @@
       protoc-gen-go-grpc
       python3
       ripgrep
-      rustup
       starship
       terraform
       terraformer

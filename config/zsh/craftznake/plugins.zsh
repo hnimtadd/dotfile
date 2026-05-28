@@ -1,8 +1,8 @@
 # Import custom configurations
-import plugins.before/zsh-eza.zsh
-import plugins.before/zsh-vi-mode.zsh
-import plugins.before/zsh-mise.zsh
-import plugins.before/zsh-abbr.zsh
+import 0.plugins.before/zsh-eza.zsh
+import 0.plugins.before/zsh-vi-mode.zsh
+import 0.plugins.before/zsh-mise.zsh
+import 0.plugins.before/zsh-abbr.zsh
 
 # Initialize antidote
 # Set the root name of the plugins files (.txt and .zsh) antidote will use.
@@ -26,10 +26,10 @@ source ${zsh_plugins}.zsh
 autoload -U select-word-style
 select-word-style bash
 
-import plugins.after/zsh-fzf.zsh
-import plugins.after/zsh-starship.zsh
-import plugins.after/zsh-z.zsh
-import plugins.after/wt.zsh
-import plugins.after/p.zsh
-import plugins.after/zsh-history-substring-search.zsh
-
+import 1.plugins.after/zsh-fzf.zsh
+import 1.plugins.after/zsh-starship.zsh
+import 1.plugins.after/zsh-z.zsh
+import 1.plugins.after/wt.zsh
+import 1.plugins.after/p.zsh
+import 1.plugins.after/zsh-history-substring-search.zsh
+import 1.plugins.after/zsh-autosuggestion.zsh

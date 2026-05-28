@@ -1,4 +1,4 @@
-{ pkgs, username, ... }:
+{ pkgs, username, config, ... }:
 ################################
 #
 # User dotfile
@@ -43,9 +43,8 @@ in
       recursive = true;
     };
     "karabiner" = {
-      source = "${dotconfigs}/config/karabiner/karabiner.json";
+      source = config.lib.file.mkOutOfStoreSymlink "${dotconfigs}/config/karabiner/karabiner.json";
       target = ".config/karabiner/karabiner.json";
-      recursive = true;
     };
     "nvim" = {
       source = "${dotconfigs}/config/nvim";
@@ -68,9 +67,8 @@ in
       recursive = true;
     };
     "starship" = {
-      source = "${dotconfigs}/config/starship.toml";
+      source = config.lib.file.mkOutOfStoreSymlink "${dotconfigs}/config/starship.toml";
       target = ".config/starship.toml";
-      recursive = true;
     };
     "scripts" = {
       source = "${dotconfigs}/scripts";
