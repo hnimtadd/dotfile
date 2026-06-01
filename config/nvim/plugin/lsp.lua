@@ -8,6 +8,7 @@ vim.pack.add({
 
 local servers = {
     rust_analyzer = {
+        mason = false,
         settings = {
             ["rust-analyzer"] = {
                 checkOnSave = {
