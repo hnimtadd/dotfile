@@ -29,7 +29,6 @@ select-word-style bash
 import 1.plugins.after/zsh-fzf.zsh
 import 1.plugins.after/zsh-starship.zsh
 import 1.plugins.after/zsh-z.zsh
-import 1.plugins.after/wt.zsh
-import 1.plugins.after/p.zsh
 import 1.plugins.after/zsh-history-substring-search.zsh
 import 1.plugins.after/zsh-autosuggestion.zsh
+import 1.plugins.after/zsh-craftznake.zsh

@@ -65,6 +65,8 @@
       tree-sitter
       uutils-coreutils-noprefix
       wdiff
+ youtube-tui
+ mpv
       wget
       write-good
       yq

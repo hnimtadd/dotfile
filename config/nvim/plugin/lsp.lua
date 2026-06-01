@@ -11,60 +11,62 @@ local servers = {
         mason = false,
         settings = {
             ["rust-analyzer"] = {
-                checkOnSave = {
-                    command = "clippy",
-                    extraArgs = { "--no-deps", "--", "-W", "clippy::all" }, -- --no-deps skips analyzing external crates
+                -- Exclude heavy directories
+                files = {
+                    excludeDirs = { "target", "vendor", ".git" },
                 },
-
-                -- 3. Restrict workspace symbol indexing strictly to files you have open
-                workspace = {
-                    symbol = {
-                        search = {
-                            scope = "open_files",
-                        },
+                -- Make cargo check cheaper: only check current package, not dependencies
+                checkOnSave = {
+                    enable = true,
+                    command = "check", -- Use 'check' instead of 'clippy' (faster)
+                    extraArgs = {
+                        "--no-deps",      -- Don't check dependencies
+                        "--target-dir=/tmp/rust-analyzer-check", -- Separate target dir to avoid conflicts
+                    },
+                    allTargets = false,   -- Don't check tests, benches, examples unless in those files
+                },
+                -- rust-analyzer flycheck settings (new key path).
+                -- Use package label to avoid workspace-wide checks.
+                check = {
+                    command = "check",
+                    workspace = false,
+                    allTargets = false,
+                    extraArgs = {
+                        "--no-deps",
+                        "--target-dir=/tmp/rust-analyzer-check",
+                    },
+                    overrideCommand = {
+                        "cargo",
+                        "check",
+                        "-p",
+                        "{label}",
+                        "--message-format=json",
+                        "--no-deps",
+                        "--target-dir=/tmp/rust-analyzer-check",
                     },
                 },
-
-                -- 4. Strip background file-watching down to the absolute bare minimum
-                files = {
-                    watcher = "client",
-                    excludeDirs = { "target", "vendor" },
+                -- Cargo settings for better performance
+                cargo = {
+                    buildScripts = {
+                        enable = true,     -- Keep for macro support
+                    },
+                    allTargets = false,    -- Only check current target
+                    features = "all",      -- Keep all features enabled for completions
                 },
-
-                -- 5. Diagnostics tuning
+                -- Keep proc macros enabled for IDE features
+                procMacro = {
+                    enable = true,         -- Keep enabled for completions and suggestions
+                    attributes = {
+                        enable = true,     -- Enable attribute macros
+                    },
+                },
+                -- Keep diagnostics enabled
                 diagnostics = {
                     enable = true,
-                    disabled = {},
                     experimental = {
-                        enable = true,
+                        enable = false,    -- Disable experimental diagnostics (can be slow)
                     },
                 },
-
-                -- Keep your preferred inlay hints and hover settings intact below
-                inlayHints = {
-                    enable = true,
-                    chainingHints = { enable = true },
-                    closingBraceHints = { enable = true, minLines = 25 },
-                    lifetimeElisionHints = { enable = true, useParameterNames = true },
-                    renderColons = true,
-                    typeHints = { enable = true, hideClosedLabel = true },
-                    implicitDrops = true,
-                },
-                hover = {
-                    actions = {
-                        enable = true,
-                        implementations = { enable = true },
-                        references = { enable = true },
-                        run = { enable = true },
-                    },
-                },
-                completion = {
-                    privateEditable = { enable = false },
-                    postfix = { enable = true },
-                    autoself = { enable = true },
-                    autoimport = { enable = true },
-                },
-                procMacro = { enable = true },
             },
         },
     },

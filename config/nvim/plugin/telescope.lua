@@ -29,10 +29,22 @@ require("telescope").setup({
             },
         },
         layout_strategy = "flex",
+        vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+        },
     },
     preview = { treesitter = false },
     pickers = {
-        find_files = { path_display = teleFilename },
+        find_files = { 
+            path_display = teleFilename,
+            find_command = { "fd", "--type", "f", "--hidden", "--exclude", ".git" },
+        },
     },
 })
 
@@ -42,15 +54,15 @@ require("telescope").load_extension("file_browser")
 local builtin = require("telescope.builtin")
 
 vim.keymap.set("n", ";f", function()
-    builtin.find_files({ no_ignore = false, hidden = true, file_ignore_patterns = { ".git/" } })
+    builtin.find_files()
 end, { desc = "Open [F]iles list" })
 
-vim.keymap.set("n", ";r", function() builtin.live_grep() end,       { desc = "Open [R]egex" })
-vim.keymap.set("n", ";b", function() builtin.buffers() end,         { desc = "Open [B]uffers list" })
-vim.keymap.set("n", ";t", function() builtin.help_tags() end,       { desc = "Open [T]ags list" })
+vim.keymap.set("n", ";r", function() builtin.live_grep() end, { desc = "Open [R]egex" })
+vim.keymap.set("n", ";b", function() builtin.buffers() end, { desc = "Open [B]uffers list" })
+vim.keymap.set("n", ";t", function() builtin.help_tags() end, { desc = "Open [T]ags list" })
 vim.keymap.set("n", ";d", function() builtin.diagnostics({ bufnr = 0 }) end, { desc = "Open [D]iagnostics (buffer)" })
-vim.keymap.set("n", ";D", function() builtin.diagnostics() end,     { desc = "Open [D]iagnostics (all)" })
-vim.keymap.set("n", ";s", function() builtin.treesitter() end,      { desc = "Open tree[S]itter symbols" })
+vim.keymap.set("n", ";D", function() builtin.diagnostics() end, { desc = "Open [D]iagnostics (all)" })
+vim.keymap.set("n", ";s", function() builtin.treesitter() end, { desc = "Open tree[S]itter symbols" })
 
 vim.keymap.set("n", ";g", function()
     local function telescope_buffer_dir()

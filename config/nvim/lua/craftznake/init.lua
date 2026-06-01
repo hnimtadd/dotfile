@@ -27,7 +27,10 @@ autocmd({ "TextYankPost" }, {
 autocmd({ "BufWritePre" }, {
     group = CraftznakeGroup,
     pattern = "*",
-    command = [[%s/\s\+$//e]],
+    callback = function(args)
+        -- Clear diagnostics before save to ensure fresh diagnostics
+        vim.diagnostic.reset(nil, args.buf)
+    end,
 })
 
 autocmd("LspAttach", {
