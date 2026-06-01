@@ -10,16 +10,21 @@ require("conform").setup({
         lsp_format = "fallback",
     },
     formatters_by_ft = {
-        go = { "golangci-lint" },
-        rust = { "rustfmt" },
-        json = { "jq" },
-        python = { "black" },
-        javascript    = { "prettierd", "prettier", stop_after_first = true },
+        go              = { "golangci-lint" },
+        rust            = { "rustfmt" },
+        json            = { "jq", "jsonlint" },
+        python          = { "black" },
+        javascript      = { "prettierd", "prettier", stop_after_first = true },
         javascriptreact = { "prettierd", "prettier", stop_after_first = true },
-        typescript    = { "prettierd", "prettier", stop_after_first = true },
+        typescript      = { "prettierd", "prettier", stop_after_first = true },
         typescriptreact = { "prettierd", "prettier", stop_after_first = true },
     },
     formatters = {
+        jsonlint = {
+            command = "jsonlint",
+            -- jsonlint outputs the formatted JSON to stdout when using the -p flag
+            args = { "-p", "-" },
+        },
         prettierd = {
             condition = function()
                 if vim.fs.find({ ".pretter", ".prettier.json", ".prettier.js" }, {}) then

@@ -7,7 +7,66 @@ vim.pack.add({
 })
 
 local servers = {
-    rust_analyzer = {},
+    rust_analyzer = {
+        settings = {
+            ["rust-analyzer"] = {
+                checkOnSave = {
+                    command = "clippy",
+                    extraArgs = { "--no-deps", "--", "-W", "clippy::all" }, -- --no-deps skips analyzing external crates
+                },
+
+                -- 3. Restrict workspace symbol indexing strictly to files you have open
+                workspace = {
+                    symbol = {
+                        search = {
+                            scope = "open_files",
+                        },
+                    },
+                },
+
+                -- 4. Strip background file-watching down to the absolute bare minimum
+                files = {
+                    watcher = "client",
+                    excludeDirs = { "target", "vendor" },
+                },
+
+                -- 5. Diagnostics tuning
+                diagnostics = {
+                    enable = true,
+                    disabled = {},
+                    experimental = {
+                        enable = true,
+                    },
+                },
+
+                -- Keep your preferred inlay hints and hover settings intact below
+                inlayHints = {
+                    enable = true,
+                    chainingHints = { enable = true },
+                    closingBraceHints = { enable = true, minLines = 25 },
+                    lifetimeElisionHints = { enable = true, useParameterNames = true },
+                    renderColons = true,
+                    typeHints = { enable = true, hideClosedLabel = true },
+                    implicitDrops = true,
+                },
+                hover = {
+                    actions = {
+                        enable = true,
+                        implementations = { enable = true },
+                        references = { enable = true },
+                        run = { enable = true },
+                    },
+                },
+                completion = {
+                    privateEditable = { enable = false },
+                    postfix = { enable = true },
+                    autoself = { enable = true },
+                    autoimport = { enable = true },
+                },
+                procMacro = { enable = true },
+            },
+        },
+    },
     eslint = {},
     -- python,
     ruff = {},

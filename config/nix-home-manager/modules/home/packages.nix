@@ -17,6 +17,7 @@
       (rust-bin.stable.latest.default.override {
         extensions = [ "rust-src" "rust-analyzer" "clippy" "rustfmt" "llvm-tools-preview" ];
       })
+      jj-starship
       amp-cli
       ascii-image-converter
       atuin

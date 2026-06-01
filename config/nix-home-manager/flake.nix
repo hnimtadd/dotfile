@@ -11,13 +11,16 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    jj-starship-overlay = {
+        url = "github:dmmulroy/jj-starship";
+    };
     flake-registry = {
       url = "github:nixos/flake-registry";
       flake = false;
     };
   };
 
-  outputs = { nixpkgs, home-manager, rust-overlay, ... }:
+  outputs = { nixpkgs, home-manager, rust-overlay, jj-starship-overlay, ... }:
     let
       system = builtins.currentSystem;
       username = builtins.getEnv "USER";
@@ -26,6 +29,7 @@
         inherit system;
         overlays = [
           rust-overlay.overlays.default
+          jj-starship-overlay.overlays.default
           (import ./overlays)
         ];
       };
