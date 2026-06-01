@@ -1,15 +1,7 @@
- return {
+return {
      {
          "rcarriga/nvim-notify",
          opts = { timeout = 5000 },
-     },
-     {
-         -- Extensible UI for Neovim notifications and LSP progress messages.
-         "j-hui/fidget.nvim",
-         tag = "v1.6.1",
-         config = function()
-             require("fidget").setup()
-         end
      },
      {
          "nvim-treesitter/nvim-treesitter-context",
@@ -31,19 +23,6 @@
              })
          end,
      },
-     -- animations
-     {
-         "nvim-mini/mini.animate",
-         event = "VeryLazy",
-         config = function()
-             require("mini.animate").setup({
-                 scroll = {
-                     enable = false,
-                 },
-             })
-         end,
-     },
-
      {
          "s1n7ax/nvim-window-picker",
          event = "VeryLazy",
@@ -84,12 +63,32 @@
              })
          end,
      },
-    {
-        "stevearc/quicker.nvim",
-        ft = "qf",
-        ---@module "quicker"
-        ---@type quicker.SetupOptions
-        opts = {},
+     {
+         "stevearc/quicker.nvim",
+         ft = "qf",
+         ---@module "quicker"
+         ---@type quicker.SetupOptions
+         opts = {},
 
-    }
- }
+     },
+    {
+        -- Extensible UI for Neovim notifications and LSP progress messages.
+        "j-hui/fidget.nvim",
+        tag = "v1.6.1",
+        config = function()
+            require("fidget").setup()
+        end
+    },
+    -- animations
+    {
+        "nvim-mini/mini.animate",
+        event = "VeryLazy",
+        config = function()
+            require("mini.animate").setup({
+                scroll = {
+                    enable = false,
+                },
+            })
+        end,
+    },
+}
