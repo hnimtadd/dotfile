@@ -13,7 +13,38 @@ return {
         },
         opts = {
             servers = {
-                rust_analyzer = { mason = false },
+                rust_analyzer = {
+                    mason = false,
+                    settings = {
+                        -- 1. Use Clippy instead of standard cargo check
+                        check = {
+                            command = "clippy",
+                        },
+                        -- 2. Run checks on save, but optimize the scope
+                        checkOnSave = {
+                            enable = true,
+                            allTargets = false, -- Speeds up check times by ignoring tests/examples
+                        },
+                        -- 3. Enable rich inlay hints in your editor
+                        inlayHints = {
+                            bindingModeHints = { enable = true },
+                            chainingHints = { enable = true },
+                            closingBraceHints = { enable = true },
+                            parameterHints = { enable = true },
+                            typeHints = { enable = true },
+                        },
+                        -- 4. Enable experimental features for faster autocompletion
+                        completion = {
+                            callable = { snippets = "fill_arguments" },
+                            postfix = { enable = true },
+                        },
+                        -- 5. Proc macro support (crucial for frameworks like Tokio, Axum, Serde)
+                        procMacro = {
+                            enable = true,
+                            ignored = {},
+                        },
+                    }
+                },
                 lua_ls = {
                     mason = false,
                     settings = {

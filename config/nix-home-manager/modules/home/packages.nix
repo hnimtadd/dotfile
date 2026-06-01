@@ -30,6 +30,7 @@
       eza
       fd
       fzf
+        difftastic
       git
       go
       gopls
