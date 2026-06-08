@@ -1,8 +1,7 @@
 [general]
 live_config_reload = true
-import = [
-    "~/.config/alacritty/themes/gruvbox.toml"
-]
+import = ["~/.config/alacritty/themes/gruvbox.toml"]
+
 [colors.selection]
 background = "0x3e4452"
 text = "CellForeground"
@@ -22,10 +21,10 @@ y = 0
 family = "ComicShannsMono Nerd Font"
 style = "Regular"
 
-[[keyboard.bindings]]
-chars = "\u0000"
-key = "Space"
-mods = "Control"
+# [[keyboard.bindings]]
+# chars = "\u0000"
+# key = "Space"
+# mods = "Control"
 
 [scrolling]
 history = 15000
@@ -36,9 +35,9 @@ args = ["--login"]
 
 [window]
 opacity = 0.8
-blur=true
-option_as_alt="OnlyLeft"
-decorations="Buttonless"
+blur = true
+option_as_alt = "OnlyLeft"
+decorations = "buttonless"
 
 [window.padding]
 x = 5
@@ -47,4 +46,9 @@ y = 5
 [env]
 TERM = "xterm-256color"
 
-[terminal]
+[keyboard]
+bindings = []
+
+[mouse]
+hide_when_typing = true
+bindings = []

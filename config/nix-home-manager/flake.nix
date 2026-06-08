@@ -22,10 +22,10 @@
 
   outputs = { nixpkgs, home-manager, rust-overlay, jj-starship-overlay, ... }:
     let
-      system = builtins.currentSystem;
-      username = builtins.getEnv "USER";
-      homeDirectory = builtins.getEnv "HOME";
-      pkgs = import nixpkgs {
+      systems = [ "aarch64-darwin" "x86_64-darwin" "x86_64-linux" "aarch64-linux" ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+      
+      pkgsFor = system: import nixpkgs {
         inherit system;
         overlays = [
           rust-overlay.overlays.default
@@ -33,6 +33,12 @@
           (import ./overlays)
         ];
       };
+      
+      # For home-manager configuration
+      system = builtins.currentSystem or "aarch64-darwin";
+      username = builtins.getEnv "USER";
+      homeDirectory = builtins.getEnv "HOME";
+      pkgs = pkgsFor system;
     in
     {
       homeConfigurations = {
@@ -46,6 +52,10 @@
           };
         };
       };
+
+      packages = forAllSystems (system: {
+        inherit (pkgsFor system) tpack;
+      });
 
       formatter.aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixpkgs-fmt;
     };

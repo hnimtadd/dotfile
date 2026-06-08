@@ -17,7 +17,6 @@
       (rust-bin.stable.latest.default.override {
         extensions = [ "rust-src" "rust-analyzer" "clippy" "rustfmt" "llvm-tools-preview" ];
       })
-      jj-starship
       amp-cli
       ascii-image-converter
       atuin
@@ -29,19 +28,19 @@
       buf
       colima
       curl
-      websocat
+      difftastic
       direnv
       docker
       docker-compose
       eza
       fd
       fzf
-        difftastic
       git
       go
       golangci-lint
       gopls
       gotools
+      jj-starship
       jujutsu
       krabby
       kubectl
@@ -49,6 +48,7 @@
       lua-language-server
       minikube
       mise
+      mpv
       neovim
       nodejs_24
       protobuf
@@ -61,14 +61,16 @@
       terraform
       terraformer
       tmux
+      tpack
+      tpack
       tree
       tree-sitter
       uutils-coreutils-noprefix
       wdiff
- youtube-tui
- mpv
+      websocat
       wget
       write-good
+      youtube-tui
       yq
       zig
       zoxide
