@@ -28,7 +28,6 @@ vim.opt.incsearch = true
 
 vim.opt.termguicolors = true
 
--- Disable showmode
 vim.opt.showmode = false
 vim.opt.scrolloff = 10
 vim.opt.signcolumn = "yes"

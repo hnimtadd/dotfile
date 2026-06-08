@@ -40,8 +40,8 @@ option_as_alt = "OnlyLeft"
 decorations = "buttonless"
 
 [window.padding]
-x = 5
-y = 5
+x = 8
+y = 8
 
 [env]
 TERM = "xterm-256color"

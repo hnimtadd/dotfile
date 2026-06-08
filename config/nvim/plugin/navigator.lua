@@ -13,6 +13,8 @@ smart_splits.setup({
     log_level = "debug",
 })
 
+
+-- Nvim-tmux navigation enabled
 require("which-key").add({
     {
         mode = { "n" },
