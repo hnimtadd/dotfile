@@ -45,6 +45,7 @@ in
     "karabiner" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotconfigs}/config/karabiner/karabiner.json";
       target = ".config/karabiner/karabiner.json";
+      force = true;
     };
     "nvim" = {
       source = "${dotconfigs}/config/nvim";

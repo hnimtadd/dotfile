@@ -6,7 +6,6 @@ if [[ -f "$ZSH_ROOT/options.zsh" ]]; then
     source "$ZSH_ROOT/options.zsh"
 fi
 
-
 if [[ -f "$ZSH_ROOT/plugins.zsh" ]]; then
     source "$ZSH_ROOT/plugins.zsh"
 fi

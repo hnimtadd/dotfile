@@ -19,7 +19,9 @@ HIST_STAMPS="mm/dd/yyyy"
 # This option is only applicable if the option SHIN_STDIN is set, i.e. if commands are being read from standard input.
 # The option is designed for interactive use;
 setopt auto_cd
-
+setopt AUTO_PUSHD
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
