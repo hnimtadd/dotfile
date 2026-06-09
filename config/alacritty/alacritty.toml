@@ -46,9 +46,11 @@ y = 8
 [env]
 TERM = "xterm-256color"
 
-[keyboard]
-bindings = []
+[[keyboard.bindings]]
+# Send CSI u sequence for Ctrl+i to distinguish it from Tab
+key = "i"
+mods = "Control"
+chars = "\u001b[105;5u"
 
 [mouse]
 hide_when_typing = true
-bindings = []
