@@ -11,58 +11,44 @@ local servers = {
         mason = false,
         settings = {
             ["rust-analyzer"] = {
-                -- Exclude heavy directories
+                -- Exclude heavy directories to keep indexing snappy
                 files = {
-                    -- Keep vendored crates indexable so hover/type resolution works across deps.
                     excludeDirs = { "target", ".git" },
                 },
-                -- Balanced checks: keep workspace context for better type/hover accuracy.
+
+                -- Balanced background checks (Flycheck)
                 checkOnSave = {
                     enable = true,
-                    command = "check",                           -- Use 'check' instead of 'clippy' (faster)
+                    command = "clippy",                          -- Use clippy for more targeted checks
+                    workspace = false,                           -- CRITICAL: Only checks the current package/crate you are editing
+                    allTargets = false,                          -- Drops tests, benchmarks, and examples from background compile
                     extraArgs = {
-                        "--target-dir=/tmp/rust-analyzer-check", -- Separate target dir to avoid conflicts
+                        "--target-dir=/tmp/rust-analyzer-check", -- Keeps main target/ directory unlocked
+                        "--no-deps",                             -- Don't check dependencies, only current crate
                     },
-                    allTargets = false,                          -- Don't check tests/benches/examples unless needed
                 },
-                -- rust-analyzer flycheck settings (new key path).
-                -- Check only current package on save for speed, while keeping full IDE indexing.
-                check = {
-                    command = "check",
-                    workspace = false,
-                    allTargets = false,
-                    extraArgs = {
-                        "--target-dir=/tmp/rust-analyzer-check",
-                    },
-                    overrideCommand = {
-                        "cargo",
-                        "check",
-                        "-p",
-                        "{label}",
-                        "--message-format=json", -- Required for rust-analyzer to parse errors
-                        "--target-dir=/tmp/rust-analyzer-check", -- Keeps your main target/ directory unlocked
-                    }
-                },
-                -- Cargo settings for better performance
+
+                -- Cargo project loading settings
                 cargo = {
                     buildScripts = {
-                        enable = true,  -- Keep for macro support
+                        enable = true, -- Needed so macros and generated code (like build.rs output) resolve correctly
                     },
-                    allTargets = false, -- Only check current target
-                    features = "all",   -- Keep all features enabled for completions
+                    features = "all",  -- Ensures autocomplete works across all conditional code blocks
                 },
-                -- Keep proc macros enabled for IDE features
+
+                -- Macro expansion performance
                 procMacro = {
-                    enable = true,     -- Keep enabled for completions and suggestions
+                    enable = true, -- Essential for syntax highlighting in crates like Serde/Tokio
                     attributes = {
-                        enable = true, -- Enable attribute macros
+                        enable = true,
                     },
                 },
-                -- Keep diagnostics enabled
+
+                -- Diagnostics performance
                 diagnostics = {
                     enable = true,
                     experimental = {
-                        enable = false, -- Disable experimental diagnostics (can be slow)
+                        enable = false, -- Disables heavy, non-optimized linting algorithms
                     },
                 },
             },

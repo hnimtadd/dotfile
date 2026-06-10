@@ -71,6 +71,8 @@
       wget
       write-good
       youtube-tui
+      yt-dlp
+      watchman
       yq
       zig
       zoxide
