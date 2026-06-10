@@ -43,9 +43,7 @@ check: config
 
 # Switch to configuration
 switch:
-	@echo "${GREEN}Switching to new configuration...${NC}"
 	@USER=$(USERNAME) home-manager switch --flake .#default --impure
-	@echo "${GREEN}Cleaning up...${NC}"
 	@rm -rf ./result
 
 # Format nix files
