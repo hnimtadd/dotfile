@@ -19,42 +19,50 @@ local servers = {
                 -- Balanced checks: keep workspace context for better type/hover accuracy.
                 checkOnSave = {
                     enable = true,
-                    command = "check", -- Use 'check' instead of 'clippy' (faster)
+                    command = "check",                           -- Use 'check' instead of 'clippy' (faster)
                     extraArgs = {
                         "--target-dir=/tmp/rust-analyzer-check", -- Separate target dir to avoid conflicts
                     },
-                    allTargets = false, -- Don't check tests/benches/examples unless needed
+                    allTargets = false,                          -- Don't check tests/benches/examples unless needed
                 },
                 -- rust-analyzer flycheck settings (new key path).
-                -- Keep workspace graph available to improve cross-crate hover/type info.
+                -- Check only current package on save for speed, while keeping full IDE indexing.
                 check = {
                     command = "check",
-                    workspace = true,
+                    workspace = false,
                     allTargets = false,
                     extraArgs = {
                         "--target-dir=/tmp/rust-analyzer-check",
                     },
+                    overrideCommand = {
+                        "cargo",
+                        "check",
+                        "-p",
+                        "{label}",
+                        "--message-format=json", -- Required for rust-analyzer to parse errors
+                        "--target-dir=/tmp/rust-analyzer-check", -- Keeps your main target/ directory unlocked
+                    }
                 },
                 -- Cargo settings for better performance
                 cargo = {
                     buildScripts = {
-                        enable = true,     -- Keep for macro support
+                        enable = true,  -- Keep for macro support
                     },
-                    allTargets = false,    -- Only check current target
-                    features = "all",      -- Keep all features enabled for completions
+                    allTargets = false, -- Only check current target
+                    features = "all",   -- Keep all features enabled for completions
                 },
                 -- Keep proc macros enabled for IDE features
                 procMacro = {
-                    enable = true,         -- Keep enabled for completions and suggestions
+                    enable = true,     -- Keep enabled for completions and suggestions
                     attributes = {
-                        enable = true,     -- Enable attribute macros
+                        enable = true, -- Enable attribute macros
                     },
                 },
                 -- Keep diagnostics enabled
                 diagnostics = {
                     enable = true,
                     experimental = {
-                        enable = false,    -- Disable experimental diagnostics (can be slow)
+                        enable = false, -- Disable experimental diagnostics (can be slow)
                     },
                 },
             },
