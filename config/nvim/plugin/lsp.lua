@@ -13,35 +13,25 @@ local servers = {
             ["rust-analyzer"] = {
                 -- Exclude heavy directories
                 files = {
-                    excludeDirs = { "target", "vendor", ".git" },
+                    -- Keep vendored crates indexable so hover/type resolution works across deps.
+                    excludeDirs = { "target", ".git" },
                 },
-                -- Make cargo check cheaper: only check current package, not dependencies
+                -- Balanced checks: keep workspace context for better type/hover accuracy.
                 checkOnSave = {
                     enable = true,
                     command = "check", -- Use 'check' instead of 'clippy' (faster)
                     extraArgs = {
-                        "--no-deps",      -- Don't check dependencies
                         "--target-dir=/tmp/rust-analyzer-check", -- Separate target dir to avoid conflicts
                     },
-                    allTargets = false,   -- Don't check tests, benches, examples unless in those files
+                    allTargets = false, -- Don't check tests/benches/examples unless needed
                 },
                 -- rust-analyzer flycheck settings (new key path).
-                -- Use package label to avoid workspace-wide checks.
+                -- Keep workspace graph available to improve cross-crate hover/type info.
                 check = {
                     command = "check",
-                    workspace = false,
+                    workspace = true,
                     allTargets = false,
                     extraArgs = {
-                        "--no-deps",
-                        "--target-dir=/tmp/rust-analyzer-check",
-                    },
-                    overrideCommand = {
-                        "cargo",
-                        "check",
-                        "-p",
-                        "{label}",
-                        "--message-format=json",
-                        "--no-deps",
                         "--target-dir=/tmp/rust-analyzer-check",
                     },
                 },
